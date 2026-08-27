@@ -1,0 +1,23 @@
+# Per-phase workflow sync binding configuration.
+# Schema: explore/decisions/260417-phase-workflow-binding-config.md
+
+[phase]
+name = "govern"
+
+# [workflow.stages.01-pending-planning.{profile-id}]
+# stage-map = ""
+
+# [workflow.stages.02-planning.{profile-id}]
+# stage-map = ""
+
+# [workflow.stages.03-pending-implementation.{profile-id}]
+# stage-map = ""
+
+# [workflow.stages.04-implementing.{profile-id}]
+# stage-map = ""
+
+# [workflow.stages.05-pending-completion.{profile-id}]
+# stage-map = ""
+
+# [workflow.stages.06-completed.{profile-id}]
+# stage-map = ""

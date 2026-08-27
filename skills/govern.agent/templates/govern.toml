@@ -1,0 +1,159 @@
+# govern.toml
+# Project-level configuration for the Govern Agent.
+#
+# Copy this file to `.flow/govern.toml` in your warehouse root.
+# The Govern Agent reads this file on session entry (Step 1) and uses
+# it to route knowledge, select workflow skills, and configure validation.
+#
+# This file is the orchestration manifest — it declares WHAT the project
+# uses and WHERE to find deeper knowledge. It does NOT embed domain,
+# architecture, or design knowledge directly. That knowledge lives in
+# skills and source documents.
+#
+# Structure:
+#   [project]     — identity and warehouse references
+#   [stack.*]     — technology listing with skill links
+#   [knowledge.*] — skill index for all project knowledge areas
+#   [workflows]   — task type → govern skill routing
+#   [validation]  — clean-context subagent configuration
+
+# ─────────────────────────────────────────────
+# Project Identity
+# ─────────────────────────────────────────────
+
+[project]
+name = "My Project"                         # Human-readable project name
+scope = "Brief description of the project scope"
+working_warehouse = "my-project-warehouse"  # Name of this warehouse repo
+enterprise_warehouse = ""                   # Name of the enterprise warehouse repo (if any)
+
+[project.id_prefixes]
+task      = "TSK"       # Prefix for task IDs (e.g., TSK-001)
+epic      = "EPC"       # Prefix for epic IDs
+iteration = "ITR"       # Prefix for iteration IDs
+decision  = "DEC"       # Prefix for decision IDs
+
+# ─────────────────────────────────────────────
+# Technology Stack
+#
+# Each technology area declares:
+#   value     — name and version (quick reference)
+#   description — what it is and how it's used
+#   skill     — slug of a guide skill with deeper conventions
+#               (empty string = no skill available yet)
+#   load_when — concern classifications that trigger skill loading
+#
+# Concern classifications:
+#   domain, architecture, api, ui, planning,
+#   implementation, review, check, security
+#
+# The agent loads the SKILL.md index for matched skills.
+# If deeper detail is needed, the agent loads specific
+# guide files from the skill's guides/ folder.
+# ─────────────────────────────────────────────
+
+# Example stack entries — replace with your project's technologies:
+
+# [stack.frontend]
+# value = "Next.js 16.x / React 19.x / TypeScript 5.x"
+# description = "Server-rendered React framework with TypeScript"
+# skill = ""
+# load_when = ["ui", "implementation"]
+
+# [stack.backend]
+# value = "Spring Boot 4.x / Java 21 LTS"
+# description = "Backend framework and language for API servers"
+# skill = ""
+# load_when = ["implementation", "architecture"]
+
+# [stack.database]
+# value = "PostgreSQL 16"
+# description = "Primary relational database"
+# skill = ""
+# load_when = ["implementation", "architecture"]
+
+# [stack.constraints]
+# hard = [
+#   "Build artifacts are environment-agnostic",
+# ]
+
+# ─────────────────────────────────────────────
+# Knowledge Index
+#
+# All project knowledge is accessed via two mechanisms:
+#   - skill   — a distributable Flow Skill (installed via dft skills add)
+#   - sources — direct links to documents (local or enterprise warehouse)
+#
+# Both are first-class. They can coexist on the same entry:
+#   skill provides structured, progressive-disclosure conventions
+#   sources provide project-specific content and reference material
+#
+# Fields:
+#   description — what this knowledge area covers
+#   skill       — skill slug (empty = no skill available)
+#   sources     — array of document paths (empty = no direct sources)
+#   load_when   — concern classifications that trigger loading
+#
+# The agent loads BOTH skill and sources when an entry matches.
+# ─────────────────────────────────────────────
+
+# Example knowledge entries — uncomment and customise for your project:
+
+# [knowledge.architecture]
+# description = "System architecture, deployment topology, integration patterns"
+# skill = ""
+# sources = [
+#   "explore/architecture/target-architecture.md",
+# ]
+# load_when = ["architecture", "implementation", "planning", "review"]
+
+# [knowledge.design-system]
+# description = "Component library conventions, UX patterns, accessibility"
+# skill = ""
+# sources = [
+#   "explore/design/design-system.md",
+# ]
+# load_when = ["ui", "implementation", "review"]
+
+# [knowledge.quality]
+# description = "Validation checklists and quality criteria for gate checks"
+# skill = ""
+# sources = [
+#   "explore/quality/validation-checklists.md",
+# ]
+# load_when = ["check", "review", "planning", "implementation"]
+
+# ─────────────────────────────────────────────
+# Workflow Routing
+#
+# Maps task types to the govern skill that executes them.
+# The govern.agent uses this to delegate after the user
+# selects a task from `dft task next`.
+# ─────────────────────────────────────────────
+
+[workflows]
+planning        = "govern.proc.task-planning"
+implementation  = "govern.proc.task-implementation"
+review          = "govern.proc.task-review"
+check           = "govern.proc.task-check"
+pickup          = "govern.proc.pickup"
+iteration       = "govern.proc.iteration-management"
+
+# ─────────────────────────────────────────────
+# Validation Subagent
+#
+# After workflow completion, govern.agent spawns a
+# clean-context subagent to validate outputs.
+# The subagent sees only: this config + output artifacts.
+# ─────────────────────────────────────────────
+
+[validation]
+default_agent = "devin"
+mode = "terminal"               # terminal | api
+fallback_agent = "codex"        # used if default_agent unavailable
+
+# Validation always loads these knowledge areas regardless of task type.
+# Reference the [knowledge.*] keys you defined above.
+always_load = [
+  # "knowledge.quality",
+]

@@ -1,0 +1,18 @@
+[skill]
+name = "Document Ingestion"
+slug = "explore.util.document-ingestion"
+version = "0.1.2"
+description = "Convert PDF, DOCX, and PPTX files into Markdown for use in context warehouse processes"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "utility"
+
+[skill.roles]
+targets = ["analyst", "lead", "developer"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

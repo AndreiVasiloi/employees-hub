@@ -1,0 +1,80 @@
+# .flow/skills.toml
+# Managed by Turbine — manual edits to [skills.lock] will be overwritten
+
+[skills]
+install_path = 'skills'
+
+[skills.registry]
+source = 'git'
+url = 'https://gitlab.endava.com/dava.flow/dava.flow-skills.git'
+branch = 'main'
+
+[[skills.dependencies]]
+slug = 'flow.agent'
+
+[[skills.dependencies]]
+slug = 'flow.proc.setup'
+
+[[skills.dependencies]]
+slug = 'signal.agent'
+
+[[skills.dependencies]]
+slug = 'explore.agent'
+
+[[skills.dependencies]]
+slug = 'govern.agent'
+
+[skills.lock]
+[[skills.lock.resolved]]
+slug = 'explore.agent'
+version = '0.2.3'
+source = 'explore.agent@0.2.3'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.util.document-ingestion'
+version = '0.1.2'
+source = 'explore.util.document-ingestion@0.1.2'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'flow.agent'
+version = '0.2.0'
+source = 'flow.agent@0.2.0'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'flow.guide.dft'
+version = '0.2.1'
+source = 'flow.guide.dft@0.2.1'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'flow.guide.git'
+version = '0.1.1'
+source = 'flow.guide.git@0.1.1'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'flow.proc.setup'
+version = '0.1.4'
+source = 'flow.proc.setup@0.1.4'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'flow.util.output-decoration'
+version = '0.1.2'
+source = 'flow.util.output-decoration@0.1.2'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'govern.agent'
+version = '0.2.2'
+source = 'govern.agent@0.2.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'signal.agent'
+version = '0.3.0'
+source = 'signal.agent@0.3.0'
+explicit = true

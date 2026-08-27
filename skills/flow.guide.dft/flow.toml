@@ -1,0 +1,18 @@
+[skill]
+name = "Dava.Flow Turbine CLI Guide"
+slug = "flow.guide.dft"
+version = "0.2.1"
+description = "Progressive-disclosure reference for the dft CLI. Provides an index of all command families with brief descriptions and pointers to --llm docs for deeper detail. Prefer dft over manual file operations whenever a deterministic command exists."
+license = "Proprietary. See LICENSE.md"
+phase = "flow"
+kind = "guideline"
+
+[skill.roles]
+targets = ["developer", "lead", "architect", "analyst"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

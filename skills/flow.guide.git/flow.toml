@@ -1,0 +1,18 @@
+[skill]
+name = "Git Conventions Guide"
+slug = "flow.guide.git"
+version = "0.1.1"
+description = "Constrained git instructions for LLM and human use in Context Warehouses. Covers allowed/disallowed commands, branch naming, commit message format, and safe operational patterns. Load this to know what you can and cannot do with git."
+license = "Proprietary. See LICENSE.md"
+phase = "flow"
+kind = "guideline"
+
+[skill.roles]
+targets = ["developer", "lead", "architect", "analyst"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

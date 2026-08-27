@@ -1,0 +1,89 @@
+[skill]
+name = "Explore Agent"
+slug = "explore.agent"
+version = "0.2.3"
+description = "6-step Explore Agent process: Explore Bundle, Discovery, Ideation, Solution Design, Specification & Backlog, and Refinement with Explore Type adaptation and Human-First steering team pattern"
+license = """
+© 2026 Endava (UK) Limited. All rights reserved.
+Endava Confidential and Proprietary. May include Endava trade secrets.
+Internal reference / reusable material.
+Use is restricted to authorised persons on a need-to-know basis for approved Endava or project purposes.
+Do not disclose outside authorised recipients except under applicable confidentiality obligations. See the LICENSE.md file in this repository.
+"""
+phase = "explore"
+kind = "agent"
+
+[skill.roles]
+targets = ["analyst", "architect", "lead", "developer", "designer"]
+
+[skill.dependencies]
+# Core guides for CLI and git operations
+requires = [
+  "flow.guide.dft",
+  "flow.guide.git",
+]
+
+# Explore skills are downloaded on-demand at runtime via `dft skills add`.
+# Every slug referenced by SKILL.md or any steps/*.md file MUST appear here;
+# otherwise the agent will silently fall back to model priors when a step says
+# "Load skill: explore.proc.<slug>". Grouped by the step that first introduces
+# the skill — a skill reused in later steps is listed once under its earliest
+# appearance. Alphabetical within each group for diffability.
+on_demand = [
+  # Step 1 — Explore Bundle
+  "explore.proc.discovery-planning",
+  "explore.util.document-ingestion",
+
+  # Step 2 — Discovery
+  "explore.proc.architecture-context",
+  "explore.proc.context-documentation",
+  "explore.proc.domain-analysis",
+  "explore.proc.domain-onboarding",
+  "explore.proc.hypothesis-documentation",
+  "explore.proc.journey-mapping",
+  "explore.proc.market-research",
+  "explore.proc.persona",
+  "explore.proc.regulatory-compliance",
+  "explore.proc.technical-feasibility",
+
+  # Step 3 — Ideation
+  "explore.guide.brainstorm-methods",
+  "explore.guide.cognitive-primitives",
+  "explore.util.problem-classification",
+
+  # Step 4 — PRD & Experience Design (incl. Design Pipeline B4–B8)
+  "explore.proc.accessibility-specifications",
+  "explore.proc.component-library",
+  "explore.proc.design-language",
+  "explore.proc.design-system-setup",
+  "explore.proc.hifi-handoff",
+  "explore.proc.information-architecture",
+  "explore.proc.ooux-analysis",
+  "explore.proc.ooux-mapping",
+  "explore.proc.prd-generation",
+  "explore.proc.risk-documentation",
+  "explore.proc.usability-testing",
+  "explore.proc.user-flow-creation",
+  "explore.proc.wireframing",
+
+  # Step 5 — Architecture, Strategy & Backlog
+  "explore.proc.architecture-solutioning",
+  "explore.proc.boundary-mapping",
+  "explore.proc.define-devops-strategy",
+  "explore.proc.design-sketch",
+  "explore.proc.extract-path-to-production",
+  "explore.proc.feedback-integration",
+  "explore.proc.hld-drafting",
+  "explore.proc.socialization-handoff",
+  "explore.proc.test-strategy",
+  "explore.util.blocker-register",
+  "explore.util.cross-domain-alignment",
+  "explore.util.decision-log",
+]
+
+[skill.certifications]
+tested = [
+    "evals/trigger-queries.md",
+    "evals/output-evals.md",
+]
+

@@ -1,0 +1,26 @@
+[skill]
+name = "Warehouse Setup"
+slug = "flow.proc.setup"
+version = "0.1.4"
+description = "Guided first-run setup process for a newly initialised Dava.Flow warehouse. Walks the user through project identity, skills verification, integration configuration, and workspace finalisation. Triggered automatically by flow.agent when pending_setup = true."
+license = """
+© 2026 Endava (UK) Limited. All rights reserved.
+Endava Confidential and Proprietary. May include Endava trade secrets.
+Internal reference / reusable material.
+Use is restricted to authorised persons on a need-to-know basis for approved Endava or project purposes.
+Do not disclose outside authorised recipients except under applicable confidentiality obligations. See the LICENSE.md file in this repository.
+"""
+phase = "flow"
+kind = "process"
+
+[skill.roles]
+targets = ["developer", "lead", "analyst"]
+
+[skill.dependencies]
+requires = [
+    "flow.util.output-decoration",
+]
+
+[skill.certifications]
+tested = []
+

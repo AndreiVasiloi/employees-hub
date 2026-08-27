@@ -1,0 +1,24 @@
+[skill]
+name = "Output Decoration"
+slug = "flow.util.output-decoration"
+version = "0.1.2"
+description = "Canonical output decoration conventions for all Dava.Flow skills and agents — heading hierarchy, emoji palette, banner formats, progress indicators, and handoff lines."
+license = """
+© 2026 Endava (UK) Limited. All rights reserved.
+Endava Confidential and Proprietary. May include Endava trade secrets.
+Internal reference / reusable material.
+Use is restricted to authorised persons on a need-to-know basis for approved Endava or project purposes.
+Do not disclose outside authorised recipients except under applicable confidentiality obligations. See the LICENSE.md file in this repository.
+"""
+phase = "flow"
+kind = "utility"
+
+[skill.roles]
+targets = ["developer", "lead", "architect", "analyst"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

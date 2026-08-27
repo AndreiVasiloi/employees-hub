@@ -1,0 +1,33 @@
+[skill]
+name = "Flow Agent"
+slug = "flow.agent"
+version = "0.2.0"
+description = "Cross-cutting entry point for all Dava.Flow work. Presents a phase selection menu and routes to the appropriate phase agent: Signal, Explore, Govern, or Evolve."
+license = """
+© 2026 Endava (UK) Limited. All rights reserved.
+Endava Confidential and Proprietary. May include Endava trade secrets.
+Internal reference / reusable material.
+Use is restricted to authorised persons on a need-to-know basis for approved Endava or project purposes.
+Do not disclose outside authorised recipients except under applicable confidentiality obligations. See the LICENSE.md file in this repository.
+"""
+phase = "flow"
+kind = "agent"
+
+[skill.roles]
+targets = ["developer", "lead", "architect", "analyst", "designer"]
+
+[skill.dependencies]
+requires = []
+
+# Conditional skill loads: phase agents on user selection; flow.proc.setup when pending_setup = true
+on_demand = [
+  "signal.agent",
+  "explore.agent",
+  "govern.agent",
+  "evolve.agent",
+  "flow.proc.setup",
+]
+
+[skill.certifications]
+tested = []
+

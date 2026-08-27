@@ -1,0 +1,8 @@
+[project]
+name = "Employee Hub"
+task_id_prefix = "EH"
+task_id_format = "0000"
+
+[tools]
+[tools.turbine]
+enabled = true

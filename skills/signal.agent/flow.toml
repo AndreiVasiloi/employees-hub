@@ -1,0 +1,35 @@
+[skill]
+name = "Signal Agent"
+slug = "signal.agent"
+version = "0.3.0"
+description = "Use this skill when a user reports a new observation, problem, opportunity, or risk that needs capturing -- transforms raw observations into validated Signal Seeds with 7 completion criteria and explicit routing decisions, the entry point for all new observations entering DavaFlow"
+license = """
+© 2026 Endava (UK) Limited. All rights reserved.
+Endava Confidential and Proprietary. May include Endava trade secrets.
+Internal reference / reusable material.
+Use is restricted to authorised persons on a need-to-know basis for approved Endava or project purposes.
+Do not disclose outside authorised recipients except under applicable confidentiality obligations. See the LICENSE.md file in this repository.
+"""
+phase = "signal"
+kind = "agent"
+
+[skill.roles]
+targets = ["analyst", "lead", "developer"]
+
+[skill.dependencies]
+requires = [
+  "flow.guide.dft",
+  "flow.guide.git",
+  "explore.util.document-ingestion",
+]
+
+optional = []
+
+[skill.certifications]
+tested = [
+    "windsurf:cascade:claude-sonnet-4-5",
+]
+
+# Note: Skill names use dot-separated segments (e.g. pm.agent, pm.util.cost-reporting)
+# as the project convention. The formal spec allows only lowercase/numbers/hyphens,
+# but dots are used consistently across all DavaFlow skills for namespace hierarchy.

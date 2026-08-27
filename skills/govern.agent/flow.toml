@@ -1,0 +1,44 @@
+[skill]
+name = "Govern Agent"
+slug = "govern.agent"
+version = "0.2.2"
+description = "Phase-level orchestrator for Govern work. Determines available tasks via `dft task next`, loads project context from .flow/govern.toml, delegates to the appropriate govern skill, and validates outputs via a clean-context subagent before acceptance."
+license = """
+© 2026 Endava (UK) Limited. All rights reserved.
+Endava Confidential and Proprietary. May include Endava trade secrets.
+Internal reference / reusable material.
+Use is restricted to authorised persons on a need-to-know basis for approved Endava or project purposes.
+Do not disclose outside authorised recipients except under applicable confidentiality obligations. See the LICENSE.md file in this repository.
+"""
+phase = "govern"
+kind = "agent"
+
+[skill.roles]
+targets = ["developer", "lead", "architect"]
+
+[skill.dependencies]
+# flow.guide.dft provides deterministic CLI reference for warehouse interaction
+# flow.guide.git provides constrained git conventions, naming, and allowed commands
+requires = [
+  "flow.guide.dft",
+  "flow.guide.git",
+]
+
+# Workflow skills are installed on-demand via `dft skills add` when the user
+# selects a task. They are NOT loaded eagerly.
+on_demand = [
+  "govern.proc.task-planning",
+  "govern.proc.task-implementation",
+  "govern.proc.task-review",
+  "govern.proc.task-check",
+  "govern.proc.pickup",
+  "govern.proc.iteration-management",
+  "flow.util.task-definition",
+  "govern.util.task-planning",
+  "govern.util.task-sizing",
+  "govern.util.task-tagging",
+]
+
+[skill.certifications]
+tested = []
+
