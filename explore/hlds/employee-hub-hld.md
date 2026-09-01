@@ -15,8 +15,10 @@ architecture_context_source: explore/explore-employee-hub/architecture-context.m
 
 **Slug**: `employee-hub`  
 **Version**: 0.1  
-**Status**: SOCIALIZATION-READY  
+**Status**: LOCKED FOR GOVERN HANDOFF
 **Date**: 2026-09-01
+
+**Approval**: Sponsor confirmed the Govern handoff on 2026-09-01. The detailed future-state journey, identity contract, runtime contract, and API/event schemas remain explicit task-gated deferrals.
 
 | Version | Date | Author | Changes | Reviewed By |
 | --- | --- | --- | --- | --- |

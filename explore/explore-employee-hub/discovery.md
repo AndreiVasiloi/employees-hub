@@ -2,9 +2,9 @@
 
 **Signal:** [Employee Hub leave-management Signal](../../signal/signals/20260827-employee-hub-leave-management.md)  
 **Explore Bundle:** [Employee Hub Explore Bundle](explore-bundle.md)  
-**Status:** In Progress  
+**Status:** PRD-READY
 **Explore Type:** Diverge-Converge  
-**Last updated:** 2026-08-28
+**Last updated:** 2026-09-01
 
 ## Artifact Index
 
@@ -17,7 +17,7 @@
 | Domain Analysis | [domain-analysis.md](domain-analysis.md) | ✓ Complete |
 | Glossary | [../glossary.md](../glossary.md) | ✓ Complete |
 | Personas | [../domain/personas-employee-hub.md](../domain/personas-employee-hub.md) | ✓ Complete |
-| Journeys | [../domain/journey-employee-hub.md](../domain/journey-employee-hub.md) | ✓ Current state complete; future state deferred to solution design |
+| Journeys | [../domain/journey-employee-hub.md](../domain/journey-employee-hub.md) | ✓ Current state complete; detailed future-state journey is an accepted, task-gated deferral |
 | User Flows | [../domain/flows-employee-hub.md](../domain/flows-employee-hub.md) | ✓ Complete |
 | Hypothesis | [hypothesis.md](hypothesis.md) | ✓ Stakeholder-validated learning hypothesis |
 | Ideation | [ideation/employee-hub-refined-concepts.md](ideation/employee-hub-refined-concepts.md) | ✓ Three concepts approved |
@@ -26,12 +26,12 @@
 | Design Pipeline | [../design/](../design/) | ✓ Complete |
 | Risk Register | [PRD Risks & Mitigation](../prds/employee-hub-prd.md#risks--mitigation) | ✓ Complete |
 | PRD | [../prds/employee-hub-prd.md](../prds/employee-hub-prd.md) | ✓ Approved |
-| HLD | [../hlds/employee-hub-hld.md](../hlds/employee-hub-hld.md) | ✓ Complete |
+| HLD | [../hlds/employee-hub-hld.md](../hlds/employee-hub-hld.md) | ✓ Locked for Govern handoff |
 | Architecture Decisions | [../decisions/](../decisions/) | ✓ Complete |
 | Test Strategy | [test-strategy.md](test-strategy.md) | ✓ Complete |
 | DevOps Strategy | [devops-strategy.md](devops-strategy.md) | ✓ Complete |
 | Epic Roadmap | [../epics/](../epics/) | ✓ Ready for Govern breakdown |
-| Govern Readiness | Planned artifact; not yet created | ⏳ Pending |
+| Govern Readiness | [Govern Readiness](#govern-readiness) | ✓ PASS with explicit deferrals |
 
 ## Open Questions
 
@@ -56,6 +56,21 @@
 ## Active Assumptions
 
 The authoritative assumption catalogue is maintained in [Explore Bundle — Active Assumptions](explore-bundle.md#active-assumptions). Discovery updates must record evidence, disposition, and affected artifacts before closing an assumption.
+
+## Govern Readiness
+
+**Outcome:** PASS — approved for Govern task breakdown on 2026-09-01. The Signal, Explore Bundle, selected discovery and ideation activities, PRD, HLD, six accepted ADRs, test and DevOps strategies, consistency check, glossary, and E1–E6 epic roadmap are present and linked. `git diff --check` passed at the handoff review.
+
+The Sponsor accepted the following as explicit, owned deferrals; they must appear in relevant task Definition of Ready criteria and must not be represented as validated or delivered capabilities:
+
+| Deferred item | Owner | Governing point |
+|---|---|---|
+| Detailed future-state journey | Andrei — Product Manager | Before an affected frontend epic is marked ready for implementation; current flows, IA, wireframes, and accessibility specifications remain the approved implementation direction. |
+| Identity provider, claims, session model, and account linking | Andrei — Architect and Lead Engineer | Before non-stub authentication implementation (BLK-001 / PRD Q11). |
+| Rancher runtime, registry, ingress, secrets, storage, and operational ownership | Sponsor / runtime owner | Before shared deployment or production-like delivery work (BLK-002 / PRD Q15–Q17). |
+| API and event schemas | Lead Engineer | Before the owning module or integration contract is implemented (BLK-003). |
+
+Govern can begin with E1 planning without another discovery meeting. Product-policy, validation, and platform deferrals remain task-specific gates as recorded in the [PRD open questions](../prds/employee-hub-prd.md#open-questions), [HLD blocker register](../hlds/employee-hub-blocker-register.md), and epic prerequisites.
 
 ## Enrichment Log
 
