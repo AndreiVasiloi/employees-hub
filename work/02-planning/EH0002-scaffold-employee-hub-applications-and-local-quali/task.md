@@ -5,13 +5,23 @@ title   = "Scaffold Employee Hub applications and local quality baseline"
 status  = "01-pending-planning"
 
 [sources]
-epic      = ""
-documents = []
+epic      = "../../../explore/epics/EH-E1-secure-workforce-foundation.md#L21"
+documents = [
+  "../../../explore/tooling.md#L3",
+  "../../../explore/hlds/employee-hub-hld.md#L39",
+  "../../../explore/decisions/employee-hub-adr-001-typeorm-postgresql-migrations.md#L9",
+  "../../../explore/decisions/employee-hub-adr-003-provider-neutral-identity-adapter.md#L9",
+  "../../../explore/explore-employee-hub/test-strategy.md#L28",
+  "../../../explore/explore-employee-hub/devops-strategy.md#L46"
+]
 
 [links]
 blocks  = []
-related = []
-parent  = []
+related = [
+  "../../../work/05-pending-completion/EH-0001-explore-consistency-check/task.md",
+  "../../../work/05-pending-completion/EH0001-form-employee-hub-epics/task.md"
+]
+parent  = ["../../../explore/epics/EH-E1-secure-workforce-foundation.md"]
 child   = []
 
 [workflow]
