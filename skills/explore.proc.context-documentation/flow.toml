@@ -1,0 +1,18 @@
+[skill]
+name = "Context Documentation"
+slug = "explore.proc.context-documentation"
+version = "0.1.2"
+description = "Build complete context baseline with problem reframe, domain model, system map, and assumptions catalogue"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["analyst", "lead", "developer"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

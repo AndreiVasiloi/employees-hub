@@ -1,0 +1,20 @@
+[skill]
+name = "Market Research"
+slug = "explore.proc.market-research"
+version = "0.1.2"
+description = "Conduct market research to validate market size, competitive landscape, and opportunity gaps for product concepts"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["analyst", "lead", "developer", "designer"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.context-documentation",
+]
+
+[skill.certifications]
+tested = []
+

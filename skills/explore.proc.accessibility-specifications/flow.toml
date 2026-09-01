@@ -1,0 +1,18 @@
+[skill]
+name = "Accessibility Specifications"
+slug = "explore.proc.accessibility-specifications"
+version = "0.1.2"
+description = "Create accessibility specifications that define requirements and acceptance criteria for flows, screens, and components to ensure WCAG compliance"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["designer", "developer", "lead"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

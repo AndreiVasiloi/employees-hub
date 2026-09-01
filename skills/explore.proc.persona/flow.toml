@@ -1,0 +1,23 @@
+[skill]
+name = "Persona"
+slug = "explore.proc.persona"
+version = "0.1.2"
+description = "Create evidence-based user personas with validation status tracking using [VALIDATED] and [ASSUMPTION] tags"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["designer", "analyst", "lead", "developer"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.context-documentation",
+]
+
+[skill.certifications]
+tested = [
+    "evals/trigger-queries.md",
+    "evals/output-evals.md",
+]
+

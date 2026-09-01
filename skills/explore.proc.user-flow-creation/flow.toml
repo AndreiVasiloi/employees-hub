@@ -1,0 +1,22 @@
+[skill]
+name = "User Flow Creation"
+slug = "explore.proc.user-flow-creation"
+version = "0.2.1"
+description = "Create task-specific user flows with UX validation, decision points, and agent-ready structure for wireframing and prototyping"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["lead", "analyst", "designer", "developer"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.persona",
+  "explore.proc.journey-mapping",
+  "explore.proc.hld-drafting",
+]
+
+[skill.certifications]
+tested = []
+

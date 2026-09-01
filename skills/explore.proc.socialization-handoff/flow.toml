@@ -1,0 +1,21 @@
+[skill]
+name = "Socialization & Handoff"
+slug = "explore.proc.socialization-handoff"
+version = "0.1.2"
+description = "Simplification audit, apply and polish with boundary definitions and template compliance, and final handoff package generation for preparing an HLD for wider review and delivery"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["architect", "lead"]
+
+[skill.dependencies]
+requires = [
+    "explore.util.decision-log",
+    "explore.util.blocker-register",
+]
+
+[skill.certifications]
+tested = []
+

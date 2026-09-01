@@ -1,0 +1,18 @@
+[skill]
+name = "HLD Template"
+slug = "explore.util.hld-template"
+version = "0.1.2"
+description = "Get a High-Level Design template for any architecture skill. Provides the single authoritative 13-section HLD structure, evidence-labeling rules, and Mermaid diagram conventions."
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "utility"
+
+[skill.roles]
+targets = ["architect", "lead"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

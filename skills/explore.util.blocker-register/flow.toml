@@ -1,0 +1,18 @@
+[skill]
+name = "Blocker Register"
+slug = "explore.util.blocker-register"
+version = "0.1.2"
+description = "Track missing upstream contracts, unresolved dependencies, and implementation blockers with severity classification throughout an HLD engagement"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "utility"
+
+[skill.roles]
+targets = ["architect", "lead"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

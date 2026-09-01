@@ -1,0 +1,18 @@
+[skill]
+name = "ADR Lifecycle"
+slug = "explore.util.adr-lifecycle"
+version = "0.1.1"
+description = "Reusable utility for creating, updating, and managing Architecture Decision Records (ADRs) with full lifecycle support — status transitions, numbering, supersession chains, bidirectional HLD cross-referencing, and validation."
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "utility"
+
+[skill.roles]
+targets = ["architect", "lead"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

@@ -1,0 +1,23 @@
+[skill]
+name = "Wireframing"
+slug = "explore.proc.wireframing"
+version = "0.1.2"
+description = "Produce low-fidelity wireframes that translate discovery context into clear screen structure, key flows, and interaction intent"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["lead", "analyst", "designer", "developer"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.context-documentation",
+  "explore.proc.persona",
+  "explore.proc.journey-mapping",
+  "explore.proc.user-flow-creation",
+]
+
+[skill.certifications]
+tested = []
+

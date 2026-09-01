@@ -24,6 +24,102 @@ slug = 'explore.agent'
 [[skills.dependencies]]
 slug = 'govern.agent'
 
+[[skills.dependencies]]
+slug = 'explore.proc.discovery-planning'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.context-documentation'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.technical-feasibility'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.architecture-context'
+version = '1.0.1'
+
+[[skills.dependencies]]
+slug = 'explore.proc.market-research'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.persona'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.journey-mapping'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.hypothesis-documentation'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.util.problem-classification'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.guide.cognitive-primitives'
+version = '0.1.1'
+
+[[skills.dependencies]]
+slug = 'explore.guide.brainstorm-methods'
+version = '0.1.1'
+
+[[skills.dependencies]]
+slug = 'explore.proc.prd-generation'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.regulatory-compliance'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.information-architecture'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.user-flow-creation'
+version = '0.2.1'
+
+[[skills.dependencies]]
+slug = 'explore.proc.wireframing'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.usability-testing'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.accessibility-specifications'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.architecture-solutioning'
+version = '1.0.1'
+
+[[skills.dependencies]]
+slug = 'explore.proc.domain-onboarding'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.test-strategy'
+version = '0.2.1'
+
+[[skills.dependencies]]
+slug = 'explore.proc.define-devops-strategy'
+version = '0.1.3'
+
+[[skills.dependencies]]
+slug = 'flow.proc.workflow-check-consistency'
+version = '0.1.2'
+
+[[skills.dependencies]]
+slug = 'explore.proc.epic-forming'
+version = '0.1.3'
+
 [skills.lock]
 [[skills.lock.resolved]]
 slug = 'explore.agent'
@@ -32,10 +128,208 @@ source = 'explore.agent@0.2.3'
 explicit = true
 
 [[skills.lock.resolved]]
+slug = 'explore.guide.brainstorm-methods'
+version = '0.1.1'
+source = 'explore.guide.brainstorm-methods@0.1.1'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.guide.cognitive-primitives'
+version = '0.1.1'
+source = 'explore.guide.cognitive-primitives@0.1.1'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.accessibility-specifications'
+version = '0.1.2'
+source = 'explore.proc.accessibility-specifications@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.architecture-context'
+version = '1.0.1'
+source = 'explore.proc.architecture-context@1.0.1'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.architecture-solutioning'
+version = '1.0.1'
+source = 'explore.proc.architecture-solutioning@1.0.1'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.boundary-mapping'
+version = '0.1.2'
+source = 'explore.proc.boundary-mapping@0.1.2'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.context-documentation'
+version = '0.1.2'
+source = 'explore.proc.context-documentation@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.define-devops-strategy'
+version = '0.1.3'
+source = 'explore.proc.define-devops-strategy@0.1.3'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.design-sketch'
+version = '0.1.2'
+source = 'explore.proc.design-sketch@0.1.2'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.discovery-planning'
+version = '0.1.2'
+source = 'explore.proc.discovery-planning@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.domain-analysis'
+version = '0.1.2'
+source = 'explore.proc.domain-analysis@0.1.2'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.domain-onboarding'
+version = '0.1.2'
+source = 'explore.proc.domain-onboarding@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.epic-forming'
+version = '0.1.3'
+source = 'explore.proc.epic-forming@0.1.3'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.feedback-integration'
+version = '0.1.2'
+source = 'explore.proc.feedback-integration@0.1.2'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.hld-drafting'
+version = '0.2.1'
+source = 'explore.proc.hld-drafting@0.2.1'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.hypothesis-documentation'
+version = '0.1.2'
+source = 'explore.proc.hypothesis-documentation@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.information-architecture'
+version = '0.1.2'
+source = 'explore.proc.information-architecture@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.journey-mapping'
+version = '0.1.2'
+source = 'explore.proc.journey-mapping@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.market-research'
+version = '0.1.2'
+source = 'explore.proc.market-research@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.persona'
+version = '0.1.2'
+source = 'explore.proc.persona@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.prd-generation'
+version = '0.1.2'
+source = 'explore.proc.prd-generation@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.regulatory-compliance'
+version = '0.1.2'
+source = 'explore.proc.regulatory-compliance@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.socialization-handoff'
+version = '0.1.2'
+source = 'explore.proc.socialization-handoff@0.1.2'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.technical-feasibility'
+version = '0.1.2'
+source = 'explore.proc.technical-feasibility@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.test-strategy'
+version = '0.2.1'
+source = 'explore.proc.test-strategy@0.2.1'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.usability-testing'
+version = '0.1.2'
+source = 'explore.proc.usability-testing@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.user-flow-creation'
+version = '0.2.1'
+source = 'explore.proc.user-flow-creation@0.2.1'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.proc.wireframing'
+version = '0.1.2'
+source = 'explore.proc.wireframing@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
+slug = 'explore.util.adr-lifecycle'
+version = '0.1.1'
+source = 'explore.util.adr-lifecycle@0.1.1'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'explore.util.blocker-register'
+version = '0.1.2'
+source = 'explore.util.blocker-register@0.1.2'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'explore.util.decision-log'
+version = '0.1.2'
+source = 'explore.util.decision-log@0.1.2'
+explicit = false
+
+[[skills.lock.resolved]]
 slug = 'explore.util.document-ingestion'
 version = '0.1.2'
 source = 'explore.util.document-ingestion@0.1.2'
 explicit = false
+
+[[skills.lock.resolved]]
+slug = 'explore.util.hld-template'
+version = '0.1.2'
+source = 'explore.util.hld-template@0.1.2'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'explore.util.problem-classification'
+version = '0.1.2'
+source = 'explore.util.problem-classification@0.1.2'
+explicit = true
 
 [[skills.lock.resolved]]
 slug = 'flow.agent'
@@ -62,9 +356,21 @@ source = 'flow.proc.setup@0.1.4'
 explicit = true
 
 [[skills.lock.resolved]]
+slug = 'flow.proc.workflow-check-consistency'
+version = '0.1.2'
+source = 'flow.proc.workflow-check-consistency@0.1.2'
+explicit = true
+
+[[skills.lock.resolved]]
 slug = 'flow.util.output-decoration'
 version = '0.1.2'
 source = 'flow.util.output-decoration@0.1.2'
+explicit = false
+
+[[skills.lock.resolved]]
+slug = 'flow.util.task-definition'
+version = '0.1.1'
+source = 'flow.util.task-definition@0.1.1'
 explicit = false
 
 [[skills.lock.resolved]]
@@ -72,6 +378,12 @@ slug = 'govern.agent'
 version = '0.2.2'
 source = 'govern.agent@0.2.2'
 explicit = true
+
+[[skills.lock.resolved]]
+slug = 'govern.util.task-sizing'
+version = '0.1.1'
+source = 'govern.util.task-sizing@0.1.1'
+explicit = false
 
 [[skills.lock.resolved]]
 slug = 'signal.agent'

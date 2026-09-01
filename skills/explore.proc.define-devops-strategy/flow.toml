@@ -1,0 +1,34 @@
+[skill]
+name = "Define DevOps Strategy"
+slug = "explore.proc.define-devops-strategy"
+version = "0.1.3"
+description = "Design a comprehensive, context-aware DevOps strategy grounded in PRD, HLD, and architecture decisions. Produces a full DevOps strategy document covering CI/CD pipeline design, environment model, IaC, observability, DevSecOps, governance, release strategy, and DORA metrics."
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["architect", "lead", "developer", "devops-engineer", "platform-engineer"]
+
+[skill.dependencies]
+requires = [
+    # Optional: consume existing deployment facts if available
+    # "explore.proc.define-path-to-production",
+]
+
+[skill.integrations]
+# Skills that produce inputs consumed by this skill
+reads_from = [
+    "explore.proc.prd-generation",
+    "explore.proc.hld-drafting",
+    "explore.proc.test-strategy",
+]
+# Skills that consume outputs from this skill
+feeds_into = [
+    "explore.proc.architecture-solutioning",
+    "flow.util.task-definition",
+]
+
+[skill.certifications]
+tested = []
+

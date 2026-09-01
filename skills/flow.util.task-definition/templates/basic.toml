@@ -1,0 +1,86 @@
+[template]
+name        = "basic"
+description = "Default task definition template — produces a task.md with TOML frontmatter. Used by dft task create when no --template flag is specified."
+
+[[create]]
+kind    = "file"
+path    = "task.md"
+content = """+++
+[metadata]
+task_id = "{{task_id}}"
+title   = "{{title}}"
+status  = "{{stage}}"
+
+[sources]
+epic      = ""
+documents = []
+
+[links]
+blocks  = []
+related = []
+parent  = []
+child   = []
+
+[workflow]
+defined = "{{date}}"
+planned = ""
+implemented = ""
+
+[assignments]
+definition     = ""
+planning       = ""
+implementation = ""
++++
+
+# Task: {{title}}
+
+**Task ID**: {{task_id}}
+**Status**: {{stage}}
+**Phase**: {{phase}}
+**Date**: {{date}}
+**Branch**: {{branch}}
+
+## Problem Statement
+
+<Brief description of what problem this task solves and why it matters.>
+
+## Goals & Acceptance Criteria
+
+### Goals
+
+<Clear, high-level objectives this task aims to achieve.>
+
+### Acceptance Criteria
+
+- [ ] <Acceptance criterion 1>
+- [ ] <Acceptance criterion 2>
+
+## Non-Goals
+
+- <Non-goal 1>
+
+## Context & References
+
+### Source Material
+
+- <Source document> — <Relevance>
+
+### Related Tasks
+
+- **Blocks**: <tasks this blocks>
+- **Related**: <related tasks>
+
+## Constraints & Dependencies
+
+- <Constraint or dependency>
+
+## Success Metrics
+
+- <How success will be measured>
+
+## Notes
+
+---
+
+**Implementation Note**: This task definition captures requirements and acceptance criteria only. Technical implementation details belong in `plan.md`, created during the planning phase.
+"""

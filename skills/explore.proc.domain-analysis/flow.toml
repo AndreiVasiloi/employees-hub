@@ -1,0 +1,20 @@
+[skill]
+name = "Domain Analysis"
+slug = "explore.proc.domain-analysis"
+version = "0.1.2"
+description = "Analyze the domain to understand entities, relationships, rules, and constraints that support product decisions"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["analyst", "architect", "lead", "developer"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.context-documentation",
+]
+
+[skill.certifications]
+tested = []
+

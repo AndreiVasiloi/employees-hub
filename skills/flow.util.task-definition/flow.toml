@@ -1,0 +1,23 @@
+[skill]
+name = "Task Definition"
+slug = "flow.util.task-definition"
+version = "0.1.1"
+description = "Deterministic task scaffolding for dft task create — provides the default basic.toml template manifest (ADR 260418) and task.md LLM-process template for single task creation."
+license = """
+© 2026 Endava (UK) Limited. All rights reserved.
+Endava Confidential and Proprietary. May include Endava trade secrets.
+Internal reference / reusable material.
+Use is restricted to authorised persons on a need-to-know basis for approved Endava or project purposes.
+Do not disclose outside authorised recipients except under applicable confidentiality obligations. See the LICENSE.md file in this repository.
+"""
+phase = "flow"
+kind = "utility"
+
+[skill.roles]
+targets = ["lead", "developer"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []

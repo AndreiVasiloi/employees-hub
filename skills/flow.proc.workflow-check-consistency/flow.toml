@@ -1,0 +1,20 @@
+[skill]
+name = "Workflow Check Consistency"
+slug = "flow.proc.workflow-check-consistency"
+version = "0.1.2"
+description = "Perform comprehensive quality and consistency checks across documentation folders, validating content quality, formatting, structural integrity, and generating actionable work plans"
+license = "Proprietary. See LICENSE.md"
+phase = "flow"
+kind = "process"
+
+[skill.roles]
+targets = ["lead", "analyst", "developer"]
+
+[skill.dependencies]
+requires = [
+  "govern.util.task-sizing",
+]
+
+[skill.certifications]
+tested = []
+

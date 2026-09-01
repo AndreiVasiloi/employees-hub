@@ -1,0 +1,30 @@
+[skill]
+name = "Architecture Solutioning"
+slug = "explore.proc.architecture-solutioning"
+version = "1.0.1"
+description = "Single comprehensive architecture solutioning path after PRD. Consumes architecture-context.md and full Explore pipeline artifacts to produce a complete architecture package (HLD, ADRs, boundary map, truth hierarchy, design sketch, decision log, blocker register, backport findings) through a structured B.0-B.4 lifecycle with explicit human gates. Replaces the former architecture-copilot and architect Phase B."
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["architect", "lead"]
+
+[skill.dependencies]
+requires = [
+    "explore.proc.boundary-mapping",
+    "explore.proc.design-sketch",
+    "explore.proc.hld-drafting",
+    "explore.proc.feedback-integration",
+    "explore.proc.socialization-handoff",
+    "explore.util.decision-log",
+    "explore.util.blocker-register",
+]
+optional = [
+    "explore.proc.domain-onboarding",
+    "explore.util.cross-domain-alignment",
+]
+
+[skill.certifications]
+tested = []
+

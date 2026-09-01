@@ -1,0 +1,20 @@
+[skill]
+name = "Information Architecture"
+slug = "explore.proc.information-architecture"
+version = "0.1.2"
+description = "Define information structure, navigation, and labeling that enables users to find content and complete key tasks with minimal friction"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["designer", "analyst", "lead", "developer"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.context-documentation",
+]
+
+[skill.certifications]
+tested = []
+

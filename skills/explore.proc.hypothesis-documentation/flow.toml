@@ -1,0 +1,20 @@
+[skill]
+name = "Hypothesis Documentation"
+slug = "explore.proc.hypothesis-documentation"
+version = "0.1.2"
+description = "Document evidence-based hypotheses with validation tracking and measurable success criteria"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["analyst", "lead", "developer", "designer"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.context-documentation",
+]
+
+[skill.certifications]
+tested = []
+

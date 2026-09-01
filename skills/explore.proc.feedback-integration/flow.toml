@@ -1,0 +1,24 @@
+[skill]
+name = "Feedback Integration"
+slug = "explore.proc.feedback-integration"
+version = "0.1.2"
+description = "Consistency audit, stakeholder feedback disposition with authority-based prioritization, regression check, and multi-level hardening for HLD review cycles"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["architect", "lead"]
+
+[skill.dependencies]
+requires = [
+    "explore.util.decision-log",
+    "explore.util.blocker-register",
+]
+
+[skill.certifications]
+tested = [
+    "evals/trigger-queries.md",
+    "evals/output-evals.md",
+]
+

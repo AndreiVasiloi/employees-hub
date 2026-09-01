@@ -1,0 +1,21 @@
+[skill]
+name = "Technical Feasibility"
+slug = "explore.proc.technical-feasibility"
+version = "0.1.2"
+description = "Identify feasibility constraints and opportunities that affect UX decisions based on technical context"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["lead", "analyst", "developer", "designer"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.context-documentation",
+  "explore.proc.domain-analysis",
+]
+
+[skill.certifications]
+tested = []
+

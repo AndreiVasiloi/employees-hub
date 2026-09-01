@@ -1,0 +1,21 @@
+[skill]
+name = "Problem Classification"
+slug = "explore.util.problem-classification"
+version = "0.1.2"
+description = "Classify brainstorming problems along 4 dimensions and route to appropriate methods and pathways"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "utility"
+
+[skill.roles]
+targets = ["analyst", "lead", "developer"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = [
+    "evals/trigger-queries.md",
+    "evals/output-evals.md",
+]
+

@@ -1,0 +1,21 @@
+[skill]
+name = "Usability Testing"
+slug = "explore.proc.usability-testing"
+version = "0.1.2"
+description = "Plan and execute usability tests to validate design decisions, identify friction points, and inform iteration priorities"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["lead", "analyst", "designer"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.persona",
+  "explore.proc.journey-mapping",
+]
+
+[skill.certifications]
+tested = []
+

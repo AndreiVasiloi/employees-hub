@@ -1,0 +1,21 @@
+[skill]
+name = "Design Sketch"
+slug = "explore.proc.design-sketch"
+version = "0.1.2"
+description = "Generate a breadth-first initial design sketch with explicit assumptions, boundary definitions, quality attribute constraints, decision points as options, pattern library references, and architect feedback calibration"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["architect", "lead"]
+
+[skill.dependencies]
+requires = [
+    "explore.util.decision-log",
+    "explore.util.blocker-register",
+]
+
+[skill.certifications]
+tested = []
+

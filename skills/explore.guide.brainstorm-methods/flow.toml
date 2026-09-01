@@ -1,0 +1,20 @@
+[skill]
+name = "Brainstorm Methods"
+slug = "explore.guide.brainstorm-methods"
+version = "0.1.1"
+description = "Step-by-step protocols for 11 named brainstorming methods: SCAMPER, HMW, Morphological Analysis, Synectics, Six Hats, Crazy 8s, Reverse Brainstorming, TRIZ, Brainwriting, Affinity Mapping, Round-Robin"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "guideline"
+
+[skill.roles]
+targets = ["analyst", "lead", "developer"]
+
+[skill.dependencies]
+requires = [
+    "explore.util.problem-classification",
+]
+
+[skill.certifications]
+tested = []
+

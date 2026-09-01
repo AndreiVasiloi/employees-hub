@@ -1,0 +1,18 @@
+[skill]
+name = "Domain Onboarding"
+slug = "explore.proc.domain-onboarding"
+version = "0.1.2"
+description = "Interview-driven domain profiling to populate persistent knowledge for a new domain — vocabulary, constraints, regulations, patterns, authority guidance, and quality priorities"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["architect", "lead"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

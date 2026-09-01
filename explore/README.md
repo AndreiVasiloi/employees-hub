@@ -11,7 +11,13 @@ requirements, solution options, and an actionable backlog.
 - `domain/` — domain concepts and business rules.
 - `architecture/` — system structure, boundaries, data flow, and deployment topology.
 - `design/` — UX/UI journeys, interaction patterns, wireframes, and accessibility considerations.
+- `explore-employee-hub/` — the Employee Hub discovery index and cross-functional Explore artifacts.
+- `hlds/` — approved high-level designs and their supporting architecture package.
 - `sources/` — external references and evidence used during exploration.
 
-High-level designs (`hlds/`) are deferred until a subsystem requires that level
-of technical detail.
+Use the project discovery index to navigate the current Employee Hub handoff.
+
+- [Employee Hub discovery index](explore-employee-hub/discovery.md)
+- [Employee Hub PRD](prds/employee-hub-prd.md)
+- [Employee Hub HLD](hlds/employee-hub-hld.md)
+- [Employee Hub epics](epics/)

@@ -1,0 +1,20 @@
+[skill]
+name = "Journey Mapping"
+slug = "explore.proc.journey-mapping"
+version = "0.1.2"
+description = "Create current-state and future-state user journey maps with pain points, opportunities, and validation tracking"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["designer", "analyst", "lead", "developer"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.context-documentation",
+]
+
+[skill.certifications]
+tested = []
+

@@ -1,0 +1,23 @@
+[skill]
+name = "Architecture Context"
+slug = "explore.proc.architecture-context"
+version = "1.0.1"
+description = "Read existing client documentation, capture architecture landscape, extract drivers and constraints, perform light domain modeling, and produce a consolidated architecture-context.md. Replaces the former architecture-documentation (baseline mode) and architect Phase A (Steps 01-05) with a single unified discovery skill."
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["architect", "lead", "developer"]
+
+[skill.dependencies]
+requires = []
+optional = [
+    "explore.util.document-ingestion",
+    "explore.util.hld-template",
+    "explore.proc.hld-drafting",
+]
+
+[skill.certifications]
+tested = []
+

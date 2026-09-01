@@ -1,0 +1,18 @@
+[skill]
+name = "Decision Log"
+slug = "explore.util.decision-log"
+version = "0.1.2"
+description = "Maintain a running log of architectural decisions with alternatives considered, rationale, and ownership throughout an HLD engagement"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "utility"
+
+[skill.roles]
+targets = ["architect", "lead"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

@@ -1,0 +1,21 @@
+[skill]
+name = "Test Strategy"
+slug = "explore.proc.test-strategy"
+version = "0.2.1"
+description = "Define a comprehensive test strategy following the testing pyramid with automation at all levels (unit, integration, contract, E2E) grounded in PRD and HLD context"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["lead", "developer", "architect"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.prd-generation",
+  "explore.proc.hld-drafting",
+]
+
+[skill.certifications]
+tested = []
+

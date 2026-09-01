@@ -1,0 +1,18 @@
+[skill]
+name = "Discovery Planning"
+slug = "explore.proc.discovery-planning"
+version = "0.1.2"
+description = "Create Explore Bundle for planning discovery activities with phased approach, assumptions tracking, and risk management"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["analyst", "lead", "developer"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

@@ -1,0 +1,26 @@
+[skill]
+name = "HLD Drafting"
+slug = "explore.proc.hld-drafting"
+version = "0.2.1"
+description = "Generate a consolidated HLD draft following organizational template structure with architecture rules enforcement and abstraction level control"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["architect", "lead"]
+
+[skill.dependencies]
+requires = [
+    "explore.util.hld-template",
+    "explore.util.decision-log",
+    "explore.util.blocker-register",
+    "explore.util.adr-lifecycle",
+]
+
+[skill.certifications]
+tested = [
+    "evals/trigger-queries.md",
+    "evals/output-evals.md",
+]
+

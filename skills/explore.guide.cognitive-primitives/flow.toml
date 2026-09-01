@@ -1,0 +1,18 @@
+[skill]
+name = "Cognitive Primitives"
+slug = "explore.guide.cognitive-primitives"
+version = "0.1.1"
+description = "Atomic cognitive operations for brainstorming: reframe, associate, blend, transform, decompose, generate, evaluate, cluster, select"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "guideline"
+
+[skill.roles]
+targets = ["analyst", "lead", "developer"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+

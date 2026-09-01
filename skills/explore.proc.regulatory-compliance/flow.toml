@@ -1,0 +1,20 @@
+[skill]
+name = "Regulatory Compliance"
+slug = "explore.proc.regulatory-compliance"
+version = "0.1.2"
+description = "Capture regulatory constraints, compliance requirements, and evidence needs that shape the product experience"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["lead", "analyst", "developer", "designer"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.context-documentation",
+]
+
+[skill.certifications]
+tested = []
+

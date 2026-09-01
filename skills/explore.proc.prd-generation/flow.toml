@@ -1,0 +1,23 @@
+[skill]
+name = "PRD Generation"
+slug = "explore.proc.prd-generation"
+version = "0.1.2"
+description = "Generate Product Requirements Documents using Signal-to-PRD bridge with 4-group approval workflow"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["lead", "analyst", "developer", "designer"]
+
+[skill.dependencies]
+requires = [
+  "explore.proc.context-documentation",
+  "explore.proc.hypothesis-documentation",
+  "explore.proc.persona",
+  "explore.proc.journey-mapping",
+]
+
+[skill.certifications]
+tested = []
+

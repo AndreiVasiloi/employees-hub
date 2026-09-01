@@ -1,0 +1,22 @@
+[skill]
+name = "Epic Forming"
+slug = "explore.proc.epic-forming"
+version = "0.1.3"
+description = "Transform arbitrary inputs into well-formed epics that serve as clean interfaces to system capabilities"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["lead", "analyst"]
+
+[skill.dependencies]
+requires = [
+    "flow.util.task-definition",
+    "govern.util.task-sizing",
+    "govern.agent",
+]
+
+[skill.certifications]
+tested = []
+

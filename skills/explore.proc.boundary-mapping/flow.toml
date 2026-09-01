@@ -1,0 +1,21 @@
+[skill]
+name = "Boundary Mapping"
+slug = "explore.proc.boundary-mapping"
+version = "0.1.2"
+description = "Produce a structured boundary map covering truth hierarchy, ownership matrix, upstream dependencies, platform conventions, and open questions for a new HLD engagement"
+license = "Proprietary. See LICENSE.md"
+phase = "explore"
+kind = "process"
+
+[skill.roles]
+targets = ["architect", "lead"]
+
+[skill.dependencies]
+requires = [
+    "explore.util.decision-log",
+    "explore.util.blocker-register",
+]
+
+[skill.certifications]
+tested = []
+
