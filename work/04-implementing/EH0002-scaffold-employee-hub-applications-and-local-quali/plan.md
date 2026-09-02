@@ -14,7 +14,7 @@ Employee Hub has approved requirements and architecture but no runnable codebase
 
 - Root npm workspace with `apps/web` and `apps/api`.
 - Node.js `24.20.0` LTS, Angular 22, NestJS `12.0.1`, PostgreSQL `18.6`, TypeORM `1.1.0`, and committed lockfiles.
-- Angular CLI/Vitest frontend baseline and strict CommonJS NestJS/Jest backend baseline.
+- Angular CLI/Vitest frontend baseline and strict NestJS/Vitest backend baseline.
 - PostgreSQL-only Compose configuration run through Rancher Desktop.
 - Validated API configuration, TypeORM migration infrastructure with `synchronize: false`, and live/readiness endpoints.
 - Root quality commands and a least-privilege GitHub Actions workflow for pull requests and pushes to `master`.
@@ -36,7 +36,7 @@ Employee Hub has approved requirements and architecture but no runnable codebase
 | [ADR-002](../../../explore/decisions/employee-hub-adr-002-idempotency-versioning-locks.md) | Do not add business idempotency, locks, or schema prematurely; preserve compatibility for later work. |
 | [ADR-003](../../../explore/decisions/employee-hub-adr-003-provider-neutral-identity-adapter.md) | Do not choose or integrate a real provider; leave the application ready for a later local identity stub. |
 | [ADR-005](../../../explore/decisions/employee-hub-adr-005-calculation-breakdown-version-references.md) | Do not create calculation or historical-evidence schema in the scaffold. |
-| [Test strategy](../../../explore/explore-employee-hub/test-strategy.md) | Use Vitest plus Angular Testing Library for web and Jest/Supertest/Testcontainers PostgreSQL for API evidence; only fictional/empty data. |
+| [Test strategy](../../../explore/explore-employee-hub/test-strategy.md) | Use Vitest plus Angular Testing Library for web and Vitest/Supertest/Testcontainers PostgreSQL for API evidence; only fictional/empty data. The backend runner is updated during implementation because NestJS 12 is ESM and its generator defaults to Vitest. |
 | [DevOps strategy](../../../explore/explore-employee-hub/devops-strategy.md) | Add GitHub Actions quality evidence without deployment permissions; apply the Sponsor decision that the default branch is `master`. |
 
 ## 4. Target Architecture
@@ -81,7 +81,7 @@ Runtime environment files are ignored. A root or API-local `.env.example` may do
 1. Pin Node `24.20.0` in `.nvmrc`, `package.json` engines, and GitHub Actions.
 2. Create the root npm workspace and root scripts that delegate to the web/API workspaces. Use `npm ci` for deterministic installs.
 3. Generate the Angular 22 web app in `apps/web` using current CLI defaults, retaining the Angular-supported Vitest test setup.
-4. Generate a strict CommonJS NestJS `12.0.1` app in `apps/api`, retaining Jest to match the approved backend strategy.
+4. Generate a strict NestJS `12.0.1` app in `apps/api`, retaining the NestJS 12 Vitest/ESM test setup.
 5. Do not add `packages/shared` or business modules. Add shared code only when a later task has a concrete boundary and owner.
 
 ### 5.3 Database, configuration, and API health
@@ -136,9 +136,9 @@ Angular and NestJS generation may run in parallel after root workspace decisions
 | Layer | Scenario | Evidence |
 |---|---|---|
 | Web unit | Generated Angular baseline tests execute through root command. | Vitest/Angular test result. |
-| API unit | Live/readiness response mapping is stable and contains no sensitive details. | Jest tests. |
-| API integration | Disposable PostgreSQL reachable: API readiness is `200`. | Jest + Testcontainers or CI service container. |
-| API integration | Database unavailable: readiness is `503` and has no host/port/user/password/URL/stack/driver detail. | Jest + controlled unavailable configuration. |
+| API unit | Live/readiness response mapping is stable and contains no sensitive details. | Vitest tests. |
+| API integration | Disposable PostgreSQL reachable: API readiness is `200`. | Vitest + Testcontainers or CI service container. |
+| API integration | Database unavailable: readiness is `503` and has no host/port/user/password/URL/stack/driver detail. | Vitest + controlled unavailable configuration. |
 | Migration/config | TypeORM data source/migration command works with `synchronize: false` and no business schema. | Command/test output. |
 | Workspace verification | Clean checkout installs and runs format, lint, type-check, unit tests, and production builds. | Local and GitHub Actions logs. |
 | Smoke | `GET /health/live` is `200`; `/health/ready` is `200` only when database is available. | API smoke output. |

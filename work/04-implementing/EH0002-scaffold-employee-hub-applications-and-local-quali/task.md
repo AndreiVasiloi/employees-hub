@@ -103,3 +103,7 @@ Technical implementation details, test inventory, risks, sequencing, and exact d
 ---
 
 **Implementation Note**: This task definition captures requirements and acceptance criteria only. Technical implementation details belong in `plan.md`, created during the planning phase.
+
+## Decision Changes During Implementation
+
+- **2026-09-02 — Backend test runner changed from Jest to Vitest.** NestJS 12 generates an ESM application and its current CLI baseline uses Vitest. The initial Jest/CommonJS attempt failed while loading the ESM `@nestjs/testing` package. Vitest preserves the framework-supported setup with less configuration complexity and no product-scope impact.

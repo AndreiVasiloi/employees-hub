@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test:web": "npm --workspace employee-hub-web test -- --watch=false && vitest run scripts",
-    "test:api": "jest --config apps/api/jest.config.cjs",
+    "test:api": "npm --workspace employee-hub-api test -- --run",
     "test": "npm run test:web && npm run test:api"
   },
   "devDependencies": {
