@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0002"
 title   = "Scaffold Employee Hub applications and local quality baseline"
-status  = "01-pending-planning"
+status  = "03-pending-implementation"
 
 [sources]
 epic      = "../../../explore/epics/EH-E1-secure-workforce-foundation.md#L21"
@@ -38,7 +38,7 @@ implementation = ""
 # Task: Scaffold Employee Hub applications and local quality baseline
 
 **Task ID**: EH0002
-**Status**: 01-pending-planning
+**Status**: 03-pending-implementation
 **Phase**: govern
 **Date**: 2026-09-01
 **Branch**: impl/EH0002-scaffold-employee-hub-applications-and-local-quali
