@@ -17,14 +17,42 @@ describe('EH0003 identity adapter', () => {
       expiresAt: new Date('2026-09-02T16:00:00.000Z'),
     };
 
-    expect(new IdentityAdapter().resolve(identity)).toEqual(identity);
+    expect(
+      new IdentityAdapter(() => new Date('2026-09-02T09:00:00.000Z')).resolve(
+        identity,
+      ),
+    ).toEqual(identity);
   });
 
   it('identityAdapter_invalidLifecycle', () => {
     // Given malformed, invalid, or expired identity input
     // When the identity adapter validates it
     // Then it rejects without exposing provider details
-    pendingSkeleton('identityAdapter_invalidLifecycle');
+    const adapter = new IdentityAdapter(
+      () => new Date('2026-09-02T12:00:00.000Z'),
+    );
+    const baseIdentity = {
+      subject: 'fictional-employee-001',
+      issuer: 'local-development',
+      issuedAt: new Date('2026-09-02T08:00:00.000Z'),
+      expiresAt: new Date('2026-09-02T16:00:00.000Z'),
+    };
+
+    expect(() =>
+      adapter.resolve({ ...baseIdentity, subject: '' }),
+    ).toThrow('Invalid identity');
+    expect(() =>
+      adapter.resolve({
+        ...baseIdentity,
+        issuedAt: new Date('invalid'),
+      }),
+    ).toThrow('Invalid identity');
+    expect(() =>
+      adapter.resolve({
+        ...baseIdentity,
+        expiresAt: new Date('2026-09-02T11:59:59.000Z'),
+      }),
+    ).toThrow('Invalid identity');
   });
 
   it('accessResolver_linkedActiveAccount', () => {
