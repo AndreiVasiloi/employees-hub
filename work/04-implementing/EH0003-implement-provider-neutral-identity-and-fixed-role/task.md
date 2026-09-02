@@ -40,7 +40,7 @@ implementation = "andrei_vasiloi@yahoo.com"
 **Status**: 02-planning
 **Phase**: govern
 **Date**: 2026-09-02
-**Branch**: plan/EH0003-implement-provider-neutral-identity-and-fixed-role
+**Branch**: impl/EH0003-identity-authorization
 
 ## Problem Statement
 
