@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { AccessResolver } from './access.resolver.js';
+import type { LinkedAccount } from './access-context.js';
 import { IdentityAdapter } from './identity.adapter.js';
 
 function pendingSkeleton(name: string): never {
@@ -59,7 +61,37 @@ describe('EH0003 identity adapter', () => {
     // Given a subject linked to one active account
     // When access context is resolved
     // Then organization, role, employee, and manager context are authoritative
-    pendingSkeleton('accessResolver_linkedActiveAccount');
+    const identity = new IdentityAdapter(
+      () => new Date('2026-09-02T09:00:00.000Z'),
+    ).resolve({
+      subject: 'fictional-employee-001',
+      issuer: 'local-development',
+      issuedAt: new Date('2026-09-02T08:00:00.000Z'),
+      expiresAt: new Date('2026-09-02T16:00:00.000Z'),
+    });
+    const account: LinkedAccount = {
+      id: 'account-001',
+      identitySubject: identity.subject,
+      organizationId: 'organization-001',
+      role: 'Employee',
+      employeeId: 'employee-001',
+      managerEmployeeId: 'employee-002',
+      active: true,
+    };
+
+    expect(
+      new AccessResolver({
+        findByIdentitySubject: (subject) =>
+          subject === account.identitySubject ? account : undefined,
+      }).resolve(identity),
+    ).toEqual({
+      accountId: account.id,
+      identity,
+      organizationId: account.organizationId,
+      role: account.role,
+      employeeId: account.employeeId,
+      managerEmployeeId: account.managerEmployeeId,
+    });
   });
 
   it('accessResolver_unlinkedOrInactiveAccount', () => {
