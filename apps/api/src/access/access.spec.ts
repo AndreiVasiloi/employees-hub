@@ -98,7 +98,37 @@ describe('EH0003 identity adapter', () => {
     // Given an unlinked or inactive server-owned account
     // When access context is resolved
     // Then access is rejected safely
-    pendingSkeleton('accessResolver_unlinkedOrInactiveAccount');
+    const identity = new IdentityAdapter(
+      () => new Date('2026-09-02T09:00:00.000Z'),
+    ).resolve({
+      subject: 'fictional-employee-001',
+      issuer: 'local-development',
+      issuedAt: new Date('2026-09-02T08:00:00.000Z'),
+      expiresAt: new Date('2026-09-02T16:00:00.000Z'),
+    });
+    const inactiveAccount: LinkedAccount = {
+      id: 'account-001',
+      identitySubject: identity.subject,
+      organizationId: 'organization-001',
+      role: 'Employee',
+      employeeId: 'employee-001',
+      managerEmployeeId: null,
+      active: false,
+    };
+
+    expect(() =>
+      new AccessResolver({
+        findByIdentitySubject: (subject) =>
+          subject === inactiveAccount.identitySubject
+            ? inactiveAccount
+            : undefined,
+      }).resolve(identity),
+    ).toThrow('Invalid identity');
+    expect(() =>
+      new AccessResolver({
+        findByIdentitySubject: () => undefined,
+      }).resolve(identity),
+    ).toThrow('Invalid identity');
   });
 });
 
