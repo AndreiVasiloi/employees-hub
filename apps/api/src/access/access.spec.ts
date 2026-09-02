@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { PostgreSqlContainer } from '@testcontainers/postgresql';
+import { DataSource } from 'typeorm';
 import { AccessResolver } from './access.resolver.js';
 import type { FixedRole, LinkedAccount } from './access-context.js';
 import { IdentityAdapter } from './identity.adapter.js';
@@ -12,6 +14,7 @@ import {
   createAuthorizationAuditEvent,
   createSafeAuthorizationError,
 } from './security-evidence.js';
+import { CreateAccessSchema1710000000000 } from '../database/migrations/1710000000000-CreateAccessSchema.js';
 
 function pendingSkeleton(name: string): never {
   throw new Error(`Test skeleton - not implemented: ${name}`);
@@ -321,8 +324,43 @@ describe('EH0003 persistence integration', () => {
     // Given a clean disposable PostgreSQL database
     // When access migrations are applied
     // Then the minimum schema is created with synchronization disabled
-    pendingSkeleton('migrations_accessSchema');
-  });
+    return new PostgreSqlContainer('postgres:18.6-alpine')
+      .start()
+      .then(async (container) => {
+        const dataSource = new DataSource({
+          type: 'postgres',
+          host: container.getHost(),
+          port: container.getPort(),
+          username: container.getUsername(),
+          password: container.getPassword(),
+          database: container.getDatabase(),
+          synchronize: false,
+          migrations: [CreateAccessSchema1710000000000],
+        });
+
+        try {
+          await dataSource.initialize();
+          await dataSource.runMigrations();
+          const tables: Array<{ table_name: string }> = await dataSource.query(
+            `SELECT table_name
+             FROM information_schema.tables
+             WHERE table_schema = 'public'
+             AND table_name IN ('organizations', 'user_accounts', 'role_assignments', 'employees')
+             ORDER BY table_name`,
+          );
+
+          expect(tables.map(({ table_name }) => table_name)).toEqual([
+            'employees',
+            'organizations',
+            'role_assignments',
+            'user_accounts',
+          ]);
+        } finally {
+          await dataSource.destroy();
+          await container.stop();
+        }
+      });
+  }, 60_000);
 
   it('relationships_sameOrganization', () => {
     // Given valid and cross-organization account/workforce relationships
