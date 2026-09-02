@@ -5,6 +5,7 @@ import { vi } from 'vitest';
 import { DataSource } from 'typeorm';
 import { AppModule } from '../app.module';
 import { HealthController } from './health.controller';
+import { getDatabaseConfig } from '../database/database.config';
 
 describe('health API', () => {
   let app: INestApplication;
@@ -78,6 +79,21 @@ describe('health API', () => {
   });
 
   it('rejects invalid database settings without logging secrets', () => {
-    expect.fail('Test skeleton: configuration validation is not implemented yet');
+    const secret = 'super-secret-password';
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    expect(() =>
+      getDatabaseConfig({
+        DB_HOST: '',
+        DB_PORT: 'not-a-port',
+        DB_USER: 'employee',
+        DB_PASSWORD: secret,
+        DB_NAME: 'employee_hub',
+      }),
+    ).toThrow('Invalid database configuration');
+
+    expect(consoleError).not.toHaveBeenCalled();
+    expect(() => getDatabaseConfig({ DB_PASSWORD: secret })).not.toThrow();
+    consoleError.mockRestore();
   });
 });
