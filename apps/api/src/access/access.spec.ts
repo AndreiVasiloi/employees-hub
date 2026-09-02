@@ -2,7 +2,11 @@ import { describe, expect, it } from 'vitest';
 import { AccessResolver } from './access.resolver.js';
 import type { FixedRole, LinkedAccount } from './access-context.js';
 import { IdentityAdapter } from './identity.adapter.js';
-import { hasPermission, type E1Permission } from './permissions.js';
+import {
+  canAccessOrganization,
+  hasPermission,
+  type E1Permission,
+} from './permissions.js';
 
 function pendingSkeleton(name: string): never {
   throw new Error(`Test skeleton - not implemented: ${name}`);
@@ -171,7 +175,44 @@ describe('EH0003 authorization policies', () => {
     // Given client-supplied organization or role values
     // When a policy evaluates the request
     // Then server-owned scope is used and tampering cannot grant access
-    pendingSkeleton('permissionPolicy_organizationScope');
+    const identity = new IdentityAdapter(
+      () => new Date('2026-09-02T09:00:00.000Z'),
+    ).resolve({
+      subject: 'fictional-employee-001',
+      issuer: 'local-development',
+      issuedAt: new Date('2026-09-02T08:00:00.000Z'),
+      expiresAt: new Date('2026-09-02T16:00:00.000Z'),
+    });
+    const context = {
+      accountId: 'account-001',
+      identity,
+      organizationId: 'organization-001',
+      role: 'Employee' as const,
+      employeeId: 'employee-001',
+      managerEmployeeId: null,
+    };
+
+    expect(
+      canAccessOrganization(
+        context,
+        'organization-001',
+        'profile:read:self',
+      ),
+    ).toBe(true);
+    expect(
+      canAccessOrganization(
+        context,
+        'organization-002',
+        'profile:read:self',
+      ),
+    ).toBe(false);
+    expect(
+      canAccessOrganization(
+        context,
+        'organization-001',
+        'workforce:manage',
+      ),
+    ).toBe(false);
   });
 
   it('permissionPolicy_managerDirectReports', () => {

@@ -1,4 +1,4 @@
-import type { FixedRole } from './access-context.js';
+import type { AccessContext, FixedRole } from './access-context.js';
 
 export type E1Permission =
   | 'profile:read:self'
@@ -29,4 +29,15 @@ export function hasPermission(
   permission: E1Permission,
 ): boolean {
   return permissionsByRole[role].has(permission);
+}
+
+export function canAccessOrganization(
+  context: AccessContext,
+  targetOrganizationId: string,
+  permission: E1Permission,
+): boolean {
+  return (
+    context.organizationId === targetOrganizationId &&
+    hasPermission(context.role, permission)
+  );
 }
