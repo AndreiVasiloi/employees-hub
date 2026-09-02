@@ -1,4 +1,5 @@
-import { describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import { IdentityAdapter } from './identity.adapter.js';
 
 function pendingSkeleton(name: string): never {
   throw new Error(`Test skeleton - not implemented: ${name}`);
@@ -9,7 +10,14 @@ describe('EH0003 identity adapter', () => {
     // Given a valid signed-token-shaped fictional identity
     // When the identity adapter resolves it
     // Then it returns the provider-neutral subject contract
-    pendingSkeleton('identityAdapter_validIdentity');
+    const identity = {
+      subject: 'fictional-employee-001',
+      issuer: 'local-development',
+      issuedAt: new Date('2026-09-02T08:00:00.000Z'),
+      expiresAt: new Date('2026-09-02T16:00:00.000Z'),
+    };
+
+    expect(new IdentityAdapter().resolve(identity)).toEqual(identity);
   });
 
   it('identityAdapter_invalidLifecycle', () => {
