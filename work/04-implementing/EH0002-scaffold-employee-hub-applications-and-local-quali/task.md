@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0002"
 title   = "Scaffold Employee Hub applications and local quality baseline"
-status  = "03-pending-implementation"
+status  = "04-implementing"
 
 [sources]
 epic      = "../../../explore/epics/EH-E1-secure-workforce-foundation.md#L21"
@@ -18,8 +18,8 @@ documents = [
 [links]
 blocks  = []
 related = [
-  "../../../work/05-pending-completion/EH-0001-explore-consistency-check/task.md",
-  "../../../work/05-pending-completion/EH0001-form-employee-hub-epics/task.md"
+  "../../05-pending-completion/EH-0001-explore-consistency-check/task.md",
+  "../../05-pending-completion/EH0001-form-employee-hub-epics/task.md"
 ]
 parent  = ["../../../explore/epics/EH-E1-secure-workforce-foundation.md"]
 child   = []
@@ -27,12 +27,12 @@ child   = []
 [workflow]
 defined = "2026-09-01"
 planned = ""
-implemented = ""
+implemented = "2026-09-02"
 
 [assignments]
 definition     = ""
 planning       = ""
-implementation = ""
+implementation = "andrei_vasiloi@yahoo.com"
 +++
 
 # Task: Scaffold Employee Hub applications and local quality baseline
