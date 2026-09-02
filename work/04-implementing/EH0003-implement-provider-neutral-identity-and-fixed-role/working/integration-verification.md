@@ -32,6 +32,8 @@ integrations belong to later TDD loops.
       function.
 - [x] The policy test exercises all five E1 permissions for all four fixed
       roles; no client or persistence integration is required yet.
+- [x] Organization policy checks use the resolved server-owned organization and
+      reject cross-organization targets and unauthorized role escalation.
 
 ### API Producers
 
@@ -50,14 +52,14 @@ integrations belong to later TDD loops.
 
 ## Real Connections Verified
 
-**3/3 current-test connections verified.** The adapter, resolver, and policy
-boundary are directly exercised by passing Vitest tests. The remaining
-architecture arrows are not claimed as implemented and are tracked by the
-remaining test inventory.
+**4/4 current-test connections verified.** The adapter, resolver, fixed-role,
+and organization-scope boundaries are directly exercised by passing Vitest
+tests. The remaining architecture arrows are not claimed as implemented and
+are tracked by the remaining test inventory.
 
 ## Validation
 
-- Targeted Vitest identity, resolver, and policy tests: passed (5 tests).
+- Targeted Vitest identity, resolver, and policy tests: passed (6 tests).
 - API lint: passed.
 - API TypeScript check: passed.
 - API build: passed.
