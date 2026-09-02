@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0003"
 title   = "Implement provider-neutral identity and fixed-role authorization boundary"
-status  = "01-pending-planning"
+status  = "02-planning"
 
 [sources]
 epic      = "../../explore/epics/EH-E1-secure-workforce-foundation.md#L21"
@@ -20,12 +20,12 @@ child   = []
 
 [workflow]
 defined = "2026-09-02"
-planned = ""
+planned = "2026-09-02"
 implemented = ""
 
 [assignments]
 definition     = ""
-planning       = ""
+planning       = "andrei_vasiloi@yahoo.com"
 implementation = ""
 +++
 
