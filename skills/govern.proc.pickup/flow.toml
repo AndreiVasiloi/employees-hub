@@ -1,0 +1,24 @@
+[skill]
+name = "Pickup"
+slug = "govern.proc.pickup"
+version = "0.1.3"
+description = "Pick up a specific task for planning or implementation work, with atomic assignment via assignments.toml to prevent conflicts"
+license = """
+© 2026 Endava (UK) Limited. All rights reserved.
+Endava Confidential and Proprietary. May include Endava trade secrets.
+Internal reference / reusable material.
+Use is restricted to authorised persons on a need-to-know basis for approved Endava or project purposes.
+Do not disclose outside authorised recipients except under applicable confidentiality obligations. See the LICENSE.md file in this repository.
+"""
+phase = "govern"
+kind = "process"
+
+[skill.roles]
+targets = ["developer"]
+
+[skill.dependencies]
+requires = []
+
+[skill.certifications]
+tested = []
+
