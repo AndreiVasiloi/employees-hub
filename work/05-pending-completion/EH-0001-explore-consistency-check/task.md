@@ -1,3 +1,33 @@
++++
+[metadata]
+task_id = "EH-0001"
+title   = "Explore Consistency Check"
+status  = "05-pending-completion"
+
+[sources]
+documents = [
+  "../../../explore/prds/employee-hub-prd.md",
+  "../../../explore/hlds/employee-hub-hld.md",
+  "../../../explore/explore-employee-hub/README.md"
+]
+
+[links]
+blocks  = []
+related = []
+parent  = []
+child   = []
+
+[workflow]
+defined = "2026-08-27"
+planned = "2026-08-27"
+implemented = "2026-08-27"
+
+[assignments]
+definition     = "andrei_vasiloi@yahoo.com"
+planning       = "andrei_vasiloi@yahoo.com"
+implementation = "andrei_vasiloi@yahoo.com"
++++
+
 # Task: EH-0001 - Explore Consistency Check
 
 **Status:** Pending Completion  
@@ -28,13 +58,13 @@ Accurate, linked Explore artifacts let each future task trace to approved requir
 
 ## Acceptance Criteria
 
-- [ ] Explore artifacts are analyzed file-by-file.
-- [ ] `working_defects.md` records findings and processing status.
-- [ ] Quality score is calculated for the Explore folder.
-- [ ] Cross-file contradictions, gaps, and broken references are identified.
-- [ ] A prioritized work plan is produced.
-- [ ] Any necessary follow-up tasks are created, up to one for the Explore folder.
-- [ ] This session task is completed through the Dava.Flow workflow.
+- [x] Explore artifacts are analyzed file-by-file.
+- [x] `working_defects.md` records findings and processing status.
+- [x] Quality score is calculated for the Explore folder.
+- [x] Cross-file contradictions, gaps, and broken references are identified.
+- [x] A prioritized work plan is produced.
+- [x] Any necessary follow-up tasks are created, up to one for the Explore folder.
+- [x] This session task is completed through the Dava.Flow workflow.
 
 ## Related Work
 
