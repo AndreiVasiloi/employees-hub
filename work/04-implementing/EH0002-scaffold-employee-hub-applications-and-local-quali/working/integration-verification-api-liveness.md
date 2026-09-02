@@ -14,6 +14,7 @@
 | Database independence | PASS | The liveness test starts the Nest application without PostgreSQL or TypeORM. |
 | TypeORM DataSource wiring | PASS | `AppModule` provides a real lazy TypeORM `DataSource`; readiness initializes it before querying. |
 | Readiness failure mapping | PASS | Database query failures are converted to Nest `ServiceUnavailableException` with status 503. |
+| Sensitive error suppression | PASS | A real HTTP request with a sensitive database error returns only Nest's safe 503 response body. |
 | API build | PASS | `npm --workspace employee-hub-api run build` completed successfully. |
 
 ## Deferred Integration Points
