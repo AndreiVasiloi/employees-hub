@@ -9,12 +9,17 @@ epic      = "../../explore/epics/EH-E1-secure-workforce-foundation.md#L21"
 documents = [
   "../../explore/hlds/employee-hub-hld.md#L39",
   "../../explore/decisions/employee-hub-adr-003-provider-neutral-identity-adapter.md#L9",
-  "../../explore/decisions/employee-hub-adr-006-explicit-fixed-role-permission-matrix.md#L9"
+  "../../explore/decisions/employee-hub-adr-006-explicit-fixed-role-permission-matrix.md#L9",
+  "../../explore/decisions/employee-hub-adr-001-typeorm-postgresql-migrations.md#L9",
+  "../../explore/decisions/employee-hub-adr-002-idempotency-versioning-locks.md#L9",
+  "../../explore/prds/employee-hub-prd.md#L139",
+  "../../explore/explore-employee-hub/technical-feasibility.md#L149",
+  "../../explore/explore-employee-hub/test-strategy.md#L36"
 ]
 
 [links]
 blocks  = []
-related = ["../../06-completed/EH0002-scaffold-employee-hub-applications-and-local-quali/task.md"]
+related = ["../../04-implementing/EH0002-scaffold-employee-hub-applications-and-local-quali/task.md"]
 parent  = ["../../explore/epics/EH-E1-secure-workforce-foundation.md"]
 child   = []
 
@@ -32,10 +37,10 @@ implementation = ""
 # Task: Implement provider-neutral identity and fixed-role authorization boundary
 
 **Task ID**: EH0003
-**Status**: 01-pending-planning
+**Status**: 02-planning
 **Phase**: govern
 **Date**: 2026-09-02
-**Branch**: impl/EH0003-implement-provider-neutral-identity-and-fixed-role
+**Branch**: plan/EH0003-implement-provider-neutral-identity-and-fixed-role
 
 ## Problem Statement
 
