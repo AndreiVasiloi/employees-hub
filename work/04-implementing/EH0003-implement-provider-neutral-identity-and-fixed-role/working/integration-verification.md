@@ -23,6 +23,8 @@ integrations belong to later TDD loops.
       repository boundary.
 - [x] The linked-account test exercises subject matching and returns the
       server-owned organization, role, employee, and manager context.
+- [x] Missing and inactive account links fail closed through the resolver and
+      return the same safe identity error.
 
 ### API Producers
 
@@ -42,12 +44,13 @@ integrations belong to later TDD loops.
 ## Real Connections Verified
 
 **2/2 current-test connections verified.** The adapter and resolver are directly
-exercised by passing Vitest tests. The remaining architecture arrows are not
-claimed as implemented and are tracked by the remaining test inventory.
+exercised by passing Vitest tests, including fail-closed account resolution.
+The remaining architecture arrows are not claimed as implemented and are
+tracked by the remaining test inventory.
 
 ## Validation
 
-- Targeted Vitest identity and resolver tests: passed (3 tests).
+- Targeted Vitest identity and resolver tests: passed (4 tests).
 - API lint: passed.
 - API TypeScript check: passed.
 - API build: passed.
