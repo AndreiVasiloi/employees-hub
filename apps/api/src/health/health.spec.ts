@@ -1,7 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
+import { vi } from 'vitest';
+import { DataSource } from 'typeorm';
 import { AppModule } from '../app.module';
+import { HealthController } from './health.controller';
 
 describe('health API', () => {
   let app: INestApplication;
@@ -26,8 +29,12 @@ describe('health API', () => {
       .expect({ status: 'ok' });
   });
 
-  it('returns 200 for ready when the database query succeeds', () => {
-    expect.fail('Test skeleton: ready success is not implemented yet');
+  it('returns 200 for ready when the database query succeeds', async () => {
+    const dataSource = { query: vi.fn().mockResolvedValue([{ '?column?': 1 }]) };
+    const controller = new HealthController(dataSource as unknown as DataSource);
+
+    await expect(controller.getReady()).resolves.toEqual({ status: 'ok' });
+    expect(dataSource.query).toHaveBeenCalledWith('SELECT 1');
   });
 
   it('returns 503 for ready when the database query fails', () => {
