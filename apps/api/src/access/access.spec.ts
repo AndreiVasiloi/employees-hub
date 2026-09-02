@@ -410,7 +410,7 @@ describe('EH0003 persistence integration', () => {
           await container.stop();
         }
       });
-  });
+  }, 60_000);
 
   it('relationships_invalidManager', () => {
     // Given self, cyclic, duplicate, or inactive manager relationships
