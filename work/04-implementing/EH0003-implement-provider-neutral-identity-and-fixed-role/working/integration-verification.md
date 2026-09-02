@@ -1,11 +1,12 @@
-# Integration Verification: EH0003 Identity Adapter Tests
+# Integration Verification: EH0003 Access Boundary Tests
 
 ## Current Test Boundary
 
-The current green tests verify only the provider-neutral identity adapter
-contract and its lifecycle validation. They intentionally do not resolve a
-database account, expose an HTTP route, or emit an audit event; those
-integrations belong to later TDD loops.
+The current green tests verify the provider-neutral identity and authorization
+boundaries plus the first real PostgreSQL persistence integration. The access
+schema migration runs against a disposable PostgreSQL 18.6 container with
+TypeORM synchronization disabled. Repository, HTTP, and audit-port
+integrations remain deferred to later TDD loops.
 
 ## Integration Status
 
@@ -51,8 +52,14 @@ integrations belong to later TDD loops.
 
 ### Data Persistence
 
-- [ ] No repository or database integration is touched by this increment. The
-      adapter has no persistence dependency by design.
+- [x] A real TypeORM migration creates the minimum access schema in disposable
+      PostgreSQL 18.6.
+- [x] The migration test verifies the expected organization, account, role, and
+      employee tables through `information_schema`.
+- [x] Schema synchronization remains disabled; schema changes are migration-
+      driven.
+- [ ] Repository queries and transaction behavior are deferred to later
+      persistence tests.
 
 ### Audit Events
 
@@ -61,18 +68,20 @@ integrations belong to later TDD loops.
 
 ## Real Connections Verified
 
-**6/6 current-test connections verified.** The adapter, resolver, fixed-role,
-organization-scope, Manager reporting, and security-evidence boundaries are
-directly exercised by passing Vitest tests. The remaining architecture arrows
-are not claimed as implemented and are tracked by the remaining test inventory.
+**7/7 current-test connections verified.** The adapter, resolver, fixed-role,
+organization-scope, Manager reporting, security-evidence, and migration
+boundaries are directly exercised by passing Vitest tests. The migration uses a
+real disposable PostgreSQL connection. The remaining architecture arrows are
+not claimed as implemented and are tracked by the remaining test inventory.
 
 ## Validation
 
 - Targeted Vitest identity, resolver, policy, and security-evidence tests:
   passed (8 tests).
+- Targeted PostgreSQL migration test with Rancher Desktop container runtime:
+  passed (1 test).
 - API lint: passed.
 - API TypeScript check: passed.
 - API build: passed.
 - Full suite: intentionally not green because 24 approved skeletons remain;
-  the pre-existing disposable PostgreSQL test also requires a working container
-  runtime in the current shell.
+  full PostgreSQL integration requires the Rancher Desktop container runtime.
