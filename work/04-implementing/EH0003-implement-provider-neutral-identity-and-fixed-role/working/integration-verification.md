@@ -34,6 +34,8 @@ integrations belong to later TDD loops.
       roles; no client or persistence integration is required yet.
 - [x] Organization policy checks use the resolved server-owned organization and
       reject cross-organization targets and unauthorized role escalation.
+- [x] Manager scope requires an active same-organization direct-report relation
+      and rejects self, unrelated, inactive, and cross-organization targets.
 
 ### API Producers
 
@@ -52,14 +54,14 @@ integrations belong to later TDD loops.
 
 ## Real Connections Verified
 
-**4/4 current-test connections verified.** The adapter, resolver, fixed-role,
-and organization-scope boundaries are directly exercised by passing Vitest
-tests. The remaining architecture arrows are not claimed as implemented and
-are tracked by the remaining test inventory.
+**5/5 current-test connections verified.** The adapter, resolver, fixed-role,
+organization-scope, and Manager reporting boundaries are directly exercised by
+passing Vitest tests. The remaining architecture arrows are not claimed as
+implemented and are tracked by the remaining test inventory.
 
 ## Validation
 
-- Targeted Vitest identity, resolver, and policy tests: passed (6 tests).
+- Targeted Vitest identity, resolver, and policy tests: passed (7 tests).
 - API lint: passed.
 - API TypeScript check: passed.
 - API build: passed.
