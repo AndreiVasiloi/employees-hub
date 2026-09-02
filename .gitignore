@@ -17,6 +17,7 @@ test-results/
 
 # Logs and local tooling output
 *.log
+*.tsbuildinfo
 .npm/
 .eslintcache
 
