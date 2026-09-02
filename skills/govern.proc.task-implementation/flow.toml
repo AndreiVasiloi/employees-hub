@@ -1,0 +1,27 @@
+[skill]
+name = "Task Implementation"
+slug = "govern.proc.task-implementation"
+version = "0.2.2"
+description = "Implement features and changes with Human + LLM pair programming, following test-driven development in small, reversible increments"
+license = """
+© 2026 Endava (UK) Limited. All rights reserved.
+Endava Confidential and Proprietary. May include Endava trade secrets.
+Internal reference / reusable material.
+Use is restricted to authorised persons on a need-to-know basis for approved Endava or project purposes.
+Do not disclose outside authorised recipients except under applicable confidentiality obligations. See the LICENSE.md file in this repository.
+"""
+phase = "govern"
+kind = "process"
+
+[skill.roles]
+targets = ["developer"]
+
+[skill.dependencies]
+requires = [
+  "govern.proc.task-planning",
+  "govern.proc.task-check",
+]
+
+[skill.certifications]
+tested = []
+
