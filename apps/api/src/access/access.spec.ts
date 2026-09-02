@@ -3,6 +3,7 @@ import { AccessResolver } from './access.resolver.js';
 import type { FixedRole, LinkedAccount } from './access-context.js';
 import { IdentityAdapter } from './identity.adapter.js';
 import {
+  canAccessDirectReport,
   canAccessOrganization,
   hasPermission,
   type E1Permission,
@@ -219,7 +220,54 @@ describe('EH0003 authorization policies', () => {
     // Given direct-report, self, unrelated, inactive, and cross-org subjects
     // When a Manager policy evaluates access
     // Then only the active direct report is allowed
-    pendingSkeleton('permissionPolicy_managerDirectReports');
+    const managerContext = {
+      accountId: 'account-manager-001',
+      identity: new IdentityAdapter(
+        () => new Date('2026-09-02T09:00:00.000Z'),
+      ).resolve({
+        subject: 'fictional-manager-001',
+        issuer: 'local-development',
+        issuedAt: new Date('2026-09-02T08:00:00.000Z'),
+        expiresAt: new Date('2026-09-02T16:00:00.000Z'),
+      }),
+      organizationId: 'organization-001',
+      role: 'Manager' as const,
+      employeeId: 'employee-manager-001',
+      managerEmployeeId: null,
+    };
+    const directReport = {
+      employeeId: 'employee-report-001',
+      organizationId: 'organization-001',
+      managerEmployeeId: 'employee-manager-001',
+      active: true,
+    };
+
+    expect(canAccessDirectReport(managerContext, directReport)).toBe(true);
+    expect(
+      canAccessDirectReport(managerContext, {
+        ...directReport,
+        employeeId: managerContext.employeeId,
+      }),
+    ).toBe(false);
+    expect(
+      canAccessDirectReport(managerContext, {
+        ...directReport,
+        employeeId: 'employee-unrelated-001',
+        managerEmployeeId: 'employee-other-manager-001',
+      }),
+    ).toBe(false);
+    expect(
+      canAccessDirectReport(managerContext, {
+        ...directReport,
+        organizationId: 'organization-002',
+      }),
+    ).toBe(false);
+    expect(
+      canAccessDirectReport(managerContext, {
+        ...directReport,
+        active: false,
+      }),
+    ).toBe(false);
   });
 
   it('safeErrorAndAuditEvent_sanitized', () => {

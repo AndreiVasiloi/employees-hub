@@ -41,3 +41,23 @@ export function canAccessOrganization(
     hasPermission(context.role, permission)
   );
 }
+
+export interface DirectReportTarget {
+  employeeId: string;
+  organizationId: string;
+  managerEmployeeId: string | null;
+  active: boolean;
+}
+
+export function canAccessDirectReport(
+  context: AccessContext,
+  target: DirectReportTarget,
+): boolean {
+  return (
+    context.role === 'Manager' &&
+    context.organizationId === target.organizationId &&
+    context.employeeId !== target.employeeId &&
+    target.managerEmployeeId === context.employeeId &&
+    target.active
+  );
+}
