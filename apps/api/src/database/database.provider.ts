@@ -4,10 +4,10 @@ import { getDatabaseConfig } from './database.config.js';
 
 export function createDataSource(): DataSource {
   return new DataSource({
-      ...getDatabaseConfig(),
-      synchronize: false,
-      migrationsRun: false,
-      migrations: ['dist/database/migrations/*{.js,.ts}'],
+    ...getDatabaseConfig(),
+    synchronize: false,
+    migrationsRun: false,
+    migrations: ['dist/database/migrations/*{.js,.ts}'],
   });
 }
 

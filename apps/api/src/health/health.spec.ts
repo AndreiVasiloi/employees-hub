@@ -3,9 +3,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { vi } from 'vitest';
 import { DataSource } from 'typeorm';
-import { AppModule } from '../app.module';
-import { HealthController } from './health.controller';
-import { getDatabaseConfig } from '../database/database.config';
+import { AppModule } from '../app.module.js';
+import { HealthController } from './health.controller.js';
+import { getDatabaseConfig } from '../database/database.config.js';
 
 describe('health API', () => {
   let app: INestApplication;
@@ -35,7 +35,9 @@ describe('health API', () => {
       isInitialized: true,
       query: vi.fn().mockResolvedValue([{ '?column?': 1 }]),
     };
-    const controller = new HealthController(dataSource as unknown as DataSource);
+    const controller = new HealthController(
+      dataSource as unknown as DataSource,
+    );
 
     await expect(controller.getReady()).resolves.toEqual({ status: 'ok' });
     expect(dataSource.query).toHaveBeenCalledWith('SELECT 1');
@@ -46,7 +48,9 @@ describe('health API', () => {
       isInitialized: true,
       query: vi.fn().mockRejectedValue(new Error('database unavailable')),
     };
-    const controller = new HealthController(dataSource as unknown as DataSource);
+    const controller = new HealthController(
+      dataSource as unknown as DataSource,
+    );
 
     await expect(controller.getReady()).rejects.toMatchObject({
       status: 503,
@@ -56,11 +60,13 @@ describe('health API', () => {
   it('excludes sensitive configuration from health responses', async () => {
     const dataSource = {
       isInitialized: true,
-      query: vi.fn().mockRejectedValue(
-        new Error(
-          'connect ECONNREFUSED postgres://employee:password@db.internal:5432/employee_hub at driver stack',
+      query: vi
+        .fn()
+        .mockRejectedValue(
+          new Error(
+            'connect ECONNREFUSED postgres://employee:password@db.internal:5432/employee_hub at driver stack',
+          ),
         ),
-      ),
     };
     const moduleFixture = await Test.createTestingModule({
       controllers: [HealthController],
@@ -74,13 +80,17 @@ describe('health API', () => {
       .expect(503);
 
     const body = JSON.stringify(response.body);
-    expect(body).not.toMatch(/postgres|employee|password|db\.internal|5432|driver|stack/i);
+    expect(body).not.toMatch(
+      /postgres|employee|password|db\.internal|5432|driver|stack/i,
+    );
     await failureApp.close();
   });
 
   it('rejects invalid database settings without logging secrets', () => {
     const secret = 'super-secret-password';
-    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const consoleError = vi
+      .spyOn(console, 'error')
+      .mockImplementation(() => undefined);
 
     expect(() =>
       getDatabaseConfig({

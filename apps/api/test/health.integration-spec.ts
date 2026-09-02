@@ -1,7 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
-import { PostgreSqlContainer, StartedPostgreSqlContainer } from '@testcontainers/postgresql';
+import {
+  PostgreSqlContainer,
+  StartedPostgreSqlContainer,
+} from '@testcontainers/postgresql';
 import { DataSource } from 'typeorm';
 import { describe, expect, it } from 'vitest';
 import { HealthController } from '../src/health/health.controller.js';
@@ -30,7 +33,10 @@ describe('health and database integration', () => {
     const app: INestApplication = moduleFixture.createNestApplication();
     await app.init();
 
-    await request(app.getHttpServer()).get('/health/ready').expect(200).expect({ status: 'ok' });
+    await request(app.getHttpServer())
+      .get('/health/ready')
+      .expect(200)
+      .expect({ status: 'ok' });
 
     await app.close();
     await dataSource.destroy();
@@ -43,6 +49,8 @@ describe('health and database integration', () => {
     expect(dataSource.options.synchronize).toBe(false);
     expect(dataSource.options.migrationsRun).toBe(false);
     expect(dataSource.options.entities ?? []).toHaveLength(0);
-    expect(dataSource.options.migrations).toEqual(['dist/database/migrations/*{.js,.ts}']);
+    expect(dataSource.options.migrations).toEqual([
+      'dist/database/migrations/*{.js,.ts}',
+    ]);
   });
 });

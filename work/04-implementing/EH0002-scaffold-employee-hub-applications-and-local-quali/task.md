@@ -58,11 +58,11 @@ Employee Hub has an approved product and architecture direction but no runnable 
 
 ### Acceptance Criteria
 
-- [ ] A clean checkout can install dependencies and start the web and API applications using documented commands.
-- [ ] The local PostgreSQL service can be started through the documented developer setup.
-- [ ] The API exposes safe live and database-readiness outcomes for local verification.
-- [ ] Baseline format, lint, type-check, unit-test, and production-build checks pass locally and in GitHub Actions for pull requests and pushes to `master`.
-- [ ] No real employee data, credentials, runtime environment files, identity-provider integration, business leave functionality, or shared deployment configuration is included.
+- [x] A clean checkout can install dependencies and start the web and API applications using documented commands.
+- [x] The local PostgreSQL service can be started through the documented developer setup.
+- [x] The API exposes safe live and database-readiness outcomes for local verification.
+- [x] Baseline format, lint, type-check, unit-test, and production-build checks pass locally and in GitHub Actions for pull requests and pushes to `master`.
+- [x] No real employee data, credentials, runtime environment files, identity-provider integration, business leave functionality, or shared deployment configuration is included.
 
 ## Non-Goals
 
@@ -99,7 +99,7 @@ Employee Hub has an approved product and architecture direction but no runnable 
 
 ## Notes
 
-Technical implementation details, test inventory, risks, sequencing, and exact decisions are documented in [plan.md](plan.md). Supporting planning evidence is in [working/](working/), and the sizing assessment is in [size.md](size.md).
+Technical implementation details, test inventory, risks, sequencing, and exact decisions are documented in [plan.md](plan.md). Supporting planning evidence is in [working/](working/), the implementation summary is in [summary.md](summary.md), and the sizing assessment is in [size.md](size.md).
 ---
 
 **Implementation Note**: This task definition captures requirements and acceptance criteria only. Technical implementation details belong in `plan.md`, created during the planning phase.

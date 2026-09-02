@@ -9,9 +9,25 @@
     "node": "24.20.0"
   },
   "scripts": {
-    "test:web": "npm --workspace employee-hub-web test -- --watch=false && vitest run scripts",
+    "format": "prettier --write \"apps/api/**/*.{ts,json,md}\" \"apps/web/*.{json,md}\" \"apps/web/src/**/*.{ts,html,scss}\" \"scripts/**/*.{ts,mjs}\" \".github/workflows/**/*.{yml,yaml}\" \"infra/**/*.{yml,yaml}\" \"README.md\" \"*.{json,yml,yaml}\"",
+    "format:check": "prettier --check \"apps/api/**/*.{ts,json,md}\" \"apps/web/*.{json,md}\" \"apps/web/src/**/*.{ts,html,scss}\" \"scripts/**/*.{ts,mjs}\" \".github/workflows/**/*.{yml,yaml}\" \"infra/**/*.{yml,yaml}\" \"README.md\" \"*.{json,yml,yaml}\"",
+    "lint": "npm --workspace employee-hub-api run lint && prettier --ignore-path .gitignore --check \"apps/web/src/**/*.{ts,html,scss}\"",
+    "type-check": "npm --workspace employee-hub-web exec tsc -- -p tsconfig.app.json --noEmit && npm --workspace employee-hub-api exec tsc -- -p tsconfig.json --noEmit",
+    "test:workspace": "vitest run scripts",
+    "test:web": "npm --workspace employee-hub-web test -- --watch=false",
     "test:api": "npm --workspace employee-hub-api test -- --run",
-    "test": "npm run test:web && npm run test:api"
+    "test": "npm run test:web && npm run test:workspace && npm run test:api",
+    "build:web": "npm --workspace employee-hub-web run build",
+    "build:api": "npm --workspace employee-hub-api run build",
+    "build": "npm run build:web && npm run build:api",
+    "rancher:start": "rdctl start",
+    "db:up": "docker compose -f infra/compose.yaml up -d",
+    "db:ps": "docker compose -f infra/compose.yaml ps",
+    "db:logs": "docker compose -f infra/compose.yaml logs -f postgres",
+    "db:down": "docker compose -f infra/compose.yaml down",
+    "web:start": "npm --workspace employee-hub-web start",
+    "api:start": "npm --workspace employee-hub-api run start:dev",
+    "verify": "npm run format:check && npm run lint && npm run type-check && npm run test && npm run build"
   },
   "devDependencies": {
     "@types/jest": "30.0.0",
