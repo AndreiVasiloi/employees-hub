@@ -18,7 +18,7 @@ documents = [
 [links]
 blocks  = []
 related = [
-  "../../05-pending-completion/EH-0001-explore-consistency-check/task.md",
+  "../EH-0001-explore-consistency-check/task.md",
   "../EH0001-form-employee-hub-epics/task.md"
 ]
 parent  = ["../../../explore/epics/EH-E1-secure-workforce-foundation.md"]

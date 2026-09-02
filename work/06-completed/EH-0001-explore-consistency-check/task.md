@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH-0001"
 title   = "Explore Consistency Check"
-status  = "05-pending-completion"
+status  = "06-completed"
 
 [sources]
 documents = [
