@@ -52,8 +52,29 @@ describe('health API', () => {
     });
   });
 
-  it('excludes sensitive configuration from health responses', () => {
-    expect.fail('Test skeleton: safe health responses are not implemented yet');
+  it('excludes sensitive configuration from health responses', async () => {
+    const dataSource = {
+      isInitialized: true,
+      query: vi.fn().mockRejectedValue(
+        new Error(
+          'connect ECONNREFUSED postgres://employee:password@db.internal:5432/employee_hub at driver stack',
+        ),
+      ),
+    };
+    const moduleFixture = await Test.createTestingModule({
+      controllers: [HealthController],
+      providers: [{ provide: DataSource, useValue: dataSource }],
+    }).compile();
+    const failureApp = moduleFixture.createNestApplication();
+    await failureApp.init();
+
+    const response = await request(failureApp.getHttpServer())
+      .get('/health/ready')
+      .expect(503);
+
+    const body = JSON.stringify(response.body);
+    expect(body).not.toMatch(/postgres|employee|password|db\.internal|5432|driver|stack/i);
+    await failureApp.close();
   });
 
   it('rejects invalid database settings without logging secrets', () => {
