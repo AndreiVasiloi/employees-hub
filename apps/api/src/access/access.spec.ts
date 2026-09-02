@@ -8,6 +8,10 @@ import {
   hasPermission,
   type E1Permission,
 } from './permissions.js';
+import {
+  createAuthorizationAuditEvent,
+  createSafeAuthorizationError,
+} from './security-evidence.js';
 
 function pendingSkeleton(name: string): never {
   throw new Error(`Test skeleton - not implemented: ${name}`);
@@ -274,7 +278,41 @@ describe('EH0003 authorization policies', () => {
     // Given a denied authorization outcome
     // When safe error and audit event data are created
     // Then stable, attributable, sanitized evidence is produced
-    pendingSkeleton('safeErrorAndAuditEvent_sanitized');
+    const occurredAt = new Date('2026-09-02T09:00:00.000Z');
+    const error = createSafeAuthorizationError(
+      'ACCESS_DENIED',
+      'correlation-001',
+    );
+    const event = createAuthorizationAuditEvent({
+      actorId: 'account-001',
+      organizationId: 'organization-001',
+      action: 'workforce:read:organization',
+      targetId: 'employee-001',
+      outcome: 'denied',
+      correlationId: 'correlation-001',
+      occurredAt,
+      metadata: {
+        token: 'must-not-be-copied',
+        leaveReason: 'must-not-be-copied',
+      },
+    });
+
+    expect(error).toEqual({
+      code: 'ACCESS_DENIED',
+      status: 403,
+      message: 'The requested action is not permitted.',
+      correlationId: 'correlation-001',
+    });
+    expect(event).toEqual({
+      actorId: 'account-001',
+      organizationId: 'organization-001',
+      action: 'workforce:read:organization',
+      targetId: 'employee-001',
+      outcome: 'denied',
+      correlationId: 'correlation-001',
+      occurredAt,
+    });
+    expect(event).not.toHaveProperty('metadata');
   });
 });
 
