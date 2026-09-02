@@ -17,6 +17,7 @@
 | Sensitive error suppression | PASS | A real HTTP request with a sensitive database error returns only Nest's safe 503 response body. |
 | Database configuration provider | PASS | The real TypeORM provider consumes the validated configuration parser; invalid configuration fails generically without logging values. |
 | Disposable PostgreSQL integration | PASS | Testcontainers started `postgres:18.6-alpine` through Rancher Desktop and the real `/health/ready` endpoint returned 200. |
+| TypeORM migration boundary | PASS | The application DataSource factory uses `synchronize: false`, disables automatic migration execution, and registers no business entities. |
 | API build | PASS | `npm --workspace employee-hub-api run build` completed successfully. |
 
 ## Deferred Integration Points
