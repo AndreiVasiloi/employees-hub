@@ -37,6 +37,13 @@ integrations belong to later TDD loops.
 - [x] Manager scope requires an active same-organization direct-report relation
       and rejects self, unrelated, inactive, and cross-organization targets.
 
+### Security Evidence
+
+- [x] Safe authorization errors have stable codes, status values, messages, and
+      correlation identifiers.
+- [x] Audit-event shaping retains attribution and outcome facts while dropping
+      metadata that could contain tokens or unnecessary leave details.
+
 ### API Producers
 
 - [ ] No API endpoint is wired for this increment yet. The protected access
@@ -54,14 +61,15 @@ integrations belong to later TDD loops.
 
 ## Real Connections Verified
 
-**5/5 current-test connections verified.** The adapter, resolver, fixed-role,
-organization-scope, and Manager reporting boundaries are directly exercised by
-passing Vitest tests. The remaining architecture arrows are not claimed as
-implemented and are tracked by the remaining test inventory.
+**6/6 current-test connections verified.** The adapter, resolver, fixed-role,
+organization-scope, Manager reporting, and security-evidence boundaries are
+directly exercised by passing Vitest tests. The remaining architecture arrows
+are not claimed as implemented and are tracked by the remaining test inventory.
 
 ## Validation
 
-- Targeted Vitest identity, resolver, and policy tests: passed (7 tests).
+- Targeted Vitest identity, resolver, policy, and security-evidence tests:
+  passed (8 tests).
 - API lint: passed.
 - API TypeScript check: passed.
 - API build: passed.
