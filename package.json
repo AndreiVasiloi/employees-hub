@@ -9,7 +9,7 @@
     "node": "24.20.0"
   },
   "scripts": {
-    "test:web": "vitest run apps/web scripts",
+    "test:web": "npm --workspace employee-hub-web test -- --watch=false && vitest run scripts",
     "test:api": "jest --config apps/api/jest.config.cjs",
     "test": "npm run test:web && npm run test:api"
   },
