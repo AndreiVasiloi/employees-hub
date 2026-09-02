@@ -1,10 +1,11 @@
-# Integration Verification: EH0003 — `identityAdapter_validIdentity`
+# Integration Verification: EH0003 Identity Adapter Tests
 
 ## Current Test Boundary
 
-The current green test verifies only the provider-neutral identity adapter
-contract. It intentionally does not resolve a database account, expose an HTTP
-route, or emit an audit event; those integrations belong to later TDD loops.
+The current green tests verify only the provider-neutral identity adapter
+contract and its lifecycle validation. They intentionally do not resolve a
+database account, expose an HTTP route, or emit an audit event; those
+integrations belong to later TDD loops.
 
 ## Integration Status
 
@@ -13,6 +14,8 @@ route, or emit an audit event; those integrations belong to later TDD loops.
 - [x] A real TypeScript adapter implementation exists.
 - [x] The test exercises the adapter directly rather than mocking it.
 - [x] The adapter returns the normalized provider-neutral identity contract.
+- [x] Lifecycle validation uses a deterministic injected clock and rejects
+      empty, malformed, and expired identities with a safe error.
 
 ### API Producers
 
@@ -32,12 +35,12 @@ route, or emit an audit event; those integrations belong to later TDD loops.
 ## Real Connections Verified
 
 **1/1 current-test connections verified.** The adapter is directly exercised by
-the passing Vitest test. The remaining architecture arrows are not claimed as
+the passing Vitest tests. The remaining architecture arrows are not claimed as
 implemented and are tracked by the remaining test inventory.
 
 ## Validation
 
-- Targeted Vitest test: passed.
+- Targeted Vitest identity tests: passed (2 tests).
 - API lint: passed.
 - API TypeScript check: passed.
 - API build: passed.
