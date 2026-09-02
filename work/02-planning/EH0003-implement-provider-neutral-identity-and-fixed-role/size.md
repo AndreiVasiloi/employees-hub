@@ -6,8 +6,8 @@
 
 - **Analysis scope:** 1 NestJS application, shared repository tooling, and
   PostgreSQL migration/test infrastructure.
-- **Estimated file count:** 15–25 implementation, migration, fixture, and test
-  files, depending on the existing EH0002 module layout.
+- **Estimated file count:** 8–15 implementation, migration, fixture, and test
+  files, keeping the increment focused on a small local proof boundary.
 - **Cross-references:** Approximately 10–15 links across the E1 epic, PRD,
   HLD, ADRs, test strategy, task plan, and acceptance evidence.
 - **Integration points:** HTTP identity boundary, TypeORM/PostgreSQL,
@@ -19,19 +19,19 @@
 
 | Axis | Score (0–3) | Rationale |
 |---|---:|---|
-| Scope / Surface Area | 2 | Multiple API, access, persistence, migration, fixture, and test components within one service. |
-| Coupling / Interfaces | 2 | Adds a protected API surface and contracts consumed by future workforce, leave, and audit modules. |
-| Novelty / Uncertainty | 2 | Provider-neutral identity, fixed-role authorization, and reporting-line policy are new patterns in the codebase. |
+| Scope / Surface Area | 1 | A small Access module, one proof API surface, minimum persistence, fixtures, and focused tests within one service. |
+| Coupling / Interfaces | 1 | Adds narrow internal contracts and a minimal protected route; future modules consume the boundary later. |
+| Novelty / Uncertainty | 1 | The provider-neutral adapter and fixed-role policy are new, but decisions and implementation boundaries are already defined. |
 | Dependencies | 1 | EH0002 is an internal prerequisite; real provider and deployment dependencies are intentionally deferred. |
-| Testing & Verification | 2 | Requires new fixtures, real PostgreSQL migrations, HTTP integration tests, and a complete negative authorization matrix. |
-| Risk / Blast Radius / NFR | 3 | This is a core security boundary where an error could expose organization or employee data. |
+| Testing & Verification | 1 | Uses the existing Vitest and disposable PostgreSQL harness with focused positive and negative authorization cases. |
+| Risk / Blast Radius / NFR | 2 | It is a security-sensitive boundary, but the implementation is local, fictional-data-only, and protected by focused negative tests. |
 
-### Total Complexity Score: 12/18
+### Total Complexity Score: 7/18
 
 ### Size Estimate
 
-- **Shirt Size:** L
-- **Time Estimate:** 2–3 weeks of regular development time
+- **Shirt Size:** S
+- **Time Estimate:** 2–3 focused development days
 - **Confidence:** Medium
 
 ## Main Effort Drivers
@@ -57,5 +57,5 @@
 
 Re-size before implementation if the task adds a real identity provider,
 multiple organizations or approvers as production behavior, durable audit
-storage, leave workflows, or deployment integration.
-
+storage, leave workflows, deployment integration, or a broad production-ready
+permission surface.
