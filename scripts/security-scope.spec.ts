@@ -18,11 +18,12 @@ describe("security and scope boundary", () => {
     ).toBe(false);
     expect(
       trackedFiles.some((file) =>
-        /(?:^|\/)(?:docker-compose|compose|Dockerfile)|\.(?:pem|key|p12|pfx|dump|sql)$/i.test(
+        /(?:^|\/)(?:docker-compose(?:\.[^/]*)?|Dockerfile(?:\.[^/]*)?)$|\.(?:pem|key|p12|pfx|dump|sql)$/i.test(
           file,
         ),
       ),
     ).toBe(false);
+    expect(trackedFiles).toContain("infra/compose.yaml");
 
     const sourceFiles = trackedFiles.filter(
       (file) =>
