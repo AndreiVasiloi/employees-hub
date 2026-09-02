@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0002"
 title   = "Scaffold Employee Hub applications and local quality baseline"
-status  = "03-pending-implementation"
+status  = "04-implementing"
 
 [sources]
 epic      = "../../../explore/epics/EH-E1-secure-workforce-foundation.md#L21"
@@ -18,8 +18,8 @@ documents = [
 [links]
 blocks  = []
 related = [
-  "../../../work/05-pending-completion/EH-0001-explore-consistency-check/task.md",
-  "../../../work/05-pending-completion/EH0001-form-employee-hub-epics/task.md"
+  "../../05-pending-completion/EH-0001-explore-consistency-check/task.md",
+  "../../05-pending-completion/EH0001-form-employee-hub-epics/task.md"
 ]
 parent  = ["../../../explore/epics/EH-E1-secure-workforce-foundation.md"]
 child   = []
@@ -27,18 +27,18 @@ child   = []
 [workflow]
 defined = "2026-09-01"
 planned = ""
-implemented = ""
+implemented = "2026-09-02"
 
 [assignments]
 definition     = ""
 planning       = ""
-implementation = ""
+implementation = "andrei_vasiloi@yahoo.com"
 +++
 
 # Task: Scaffold Employee Hub applications and local quality baseline
 
 **Task ID**: EH0002
-**Status**: 03-pending-implementation
+**Status**: 04-implementing
 **Phase**: govern
 **Date**: 2026-09-01
 **Branch**: impl/EH0002-scaffold-employee-hub-applications-and-local-quali
@@ -58,11 +58,11 @@ Employee Hub has an approved product and architecture direction but no runnable 
 
 ### Acceptance Criteria
 
-- [ ] A clean checkout can install dependencies and start the web and API applications using documented commands.
-- [ ] The local PostgreSQL service can be started through the documented developer setup.
-- [ ] The API exposes safe live and database-readiness outcomes for local verification.
-- [ ] Baseline format, lint, type-check, unit-test, and production-build checks pass locally and in GitHub Actions for pull requests and pushes to `master`.
-- [ ] No real employee data, credentials, runtime environment files, identity-provider integration, business leave functionality, or shared deployment configuration is included.
+- [x] A clean checkout can install dependencies and start the web and API applications using documented commands.
+- [x] The local PostgreSQL service can be started through the documented developer setup.
+- [x] The API exposes safe live and database-readiness outcomes for local verification.
+- [x] Baseline format, lint, type-check, unit-test, and production-build checks pass locally and in GitHub Actions for pull requests and pushes to `master`.
+- [x] No real employee data, credentials, runtime environment files, identity-provider integration, business leave functionality, or shared deployment configuration is included.
 
 ## Non-Goals
 
@@ -99,7 +99,11 @@ Employee Hub has an approved product and architecture direction but no runnable 
 
 ## Notes
 
-Technical implementation details, test inventory, risks, sequencing, and exact decisions are documented in [plan.md](plan.md). Supporting planning evidence is in [working/](working/), and the sizing assessment is in [size.md](size.md).
+Technical implementation details, test inventory, risks, sequencing, and exact decisions are documented in [plan.md](plan.md). Supporting planning evidence is in [working/](working/), the implementation summary is in [summary.md](summary.md), and the sizing assessment is in [size.md](size.md).
 ---
 
 **Implementation Note**: This task definition captures requirements and acceptance criteria only. Technical implementation details belong in `plan.md`, created during the planning phase.
+
+## Decision Changes During Implementation
+
+- **2026-09-02 — Backend test runner changed from Jest to Vitest.** NestJS 12 generates an ESM application and its current CLI baseline uses Vitest. The initial Jest/CommonJS attempt failed while loading the ESM `@nestjs/testing` package. Vitest preserves the framework-supported setup with less configuration complexity and no product-scope impact.

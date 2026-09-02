@@ -10,9 +10,42 @@ Employee Hub coordinates discovery and delivery of a focused employee leave-mana
 
 ## Stack & Entry Points
 
-<!-- PROJECT-SPECIFIC: Replace the TODO line with the primary language(s), frameworks, and canonical commands. -->
-<!-- Example: "Go 1.24, Cobra CLI. Run `task test` / `task build`; validate config with `dft config check`." -->
-_TODO: List the stack and the canonical commands for test / build / lint / format._
+Node.js 24.20.0, Angular 22, NestJS 12 with TypeScript, PostgreSQL 18.6,
+TypeORM, npm workspaces, Vitest, and Rancher Desktop.
+
+Run these commands from the repository root:
+
+- `npm ci` — install dependencies.
+- `npm run format` — format supported source and configuration files.
+- `npm run lint` — run API linting and frontend formatting checks.
+- `npm run type-check` — type-check both applications.
+- `npm test` — run web, workspace, API, and PostgreSQL integration tests.
+- `npm run build` — build the Angular and NestJS applications.
+- `npm run verify` — run the complete local quality gate.
+- `npm run rancher:start` — start Rancher Desktop.
+- `npm run db:up` — start PostgreSQL through Rancher Desktop.
+- `npm run db:ps` — inspect PostgreSQL status.
+- `npm run db:logs` — follow PostgreSQL logs.
+- `npm run db:down` — stop PostgreSQL while preserving its local volume.
+- `npm run web:start` — start the Angular development server.
+- `npm run api:start` — start the NestJS development server.
+
+## Local Database with Rancher Desktop
+
+Rancher Desktop provides the local PostgreSQL service through its Docker-compatible
+runtime. Copy `.env.example` to `.env` if you need to override the documented local
+defaults; `.env` is ignored by Git.
+
+```text
+npm run rancher:start
+npm run db:up
+npm run db:ps
+npm run db:logs
+npm run db:down
+```
+
+The web and API applications run as host npm processes. Start them from separate
+terminals with `npm run web:start` and `npm run api:start`.
 
 ## Getting Started
 
@@ -40,6 +73,7 @@ Managed by Turbine (`dft`). See **Tooling** in [AGENTS.md](AGENTS.md) for the fu
 ## License
 
 <!-- Add your license information here.  The below is the default if no other license is available -->
+
 © 2026 Endava (UK) Limited. All rights reserved.
 Endava Confidential and Proprietary. May include Endava trade secrets.
 Internal reference / reusable material.
