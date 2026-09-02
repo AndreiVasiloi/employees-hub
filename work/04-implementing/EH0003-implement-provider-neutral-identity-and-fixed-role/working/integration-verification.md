@@ -17,6 +17,13 @@ integrations belong to later TDD loops.
 - [x] Lifecycle validation uses a deterministic injected clock and rejects
       empty, malformed, and expired identities with a safe error.
 
+### Access Resolver
+
+- [x] A real resolver implementation exists and consumes the typed account
+      repository boundary.
+- [x] The linked-account test exercises subject matching and returns the
+      server-owned organization, role, employee, and manager context.
+
 ### API Producers
 
 - [ ] No API endpoint is wired for this increment yet. The protected access
@@ -34,13 +41,13 @@ integrations belong to later TDD loops.
 
 ## Real Connections Verified
 
-**1/1 current-test connections verified.** The adapter is directly exercised by
-the passing Vitest tests. The remaining architecture arrows are not claimed as
-implemented and are tracked by the remaining test inventory.
+**2/2 current-test connections verified.** The adapter and resolver are directly
+exercised by passing Vitest tests. The remaining architecture arrows are not
+claimed as implemented and are tracked by the remaining test inventory.
 
 ## Validation
 
-- Targeted Vitest identity tests: passed (2 tests).
+- Targeted Vitest identity and resolver tests: passed (3 tests).
 - API lint: passed.
 - API TypeScript check: passed.
 - API build: passed.
