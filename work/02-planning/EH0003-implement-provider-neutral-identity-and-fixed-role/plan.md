@@ -229,7 +229,20 @@ can also proceed in parallel after their contracts exist.
 | Audit evidence is unsafe or incomplete | Typed allow-listed event contract and sanitization tests. |
 | EH0002 workflow state remains inconsistent | Reconcile Dava.Flow state before implementation handoff. |
 
-## 11. Definition of Done
+## 11. Sizing
+
+The accepted sizing is documented in [size.md](size.md):
+
+- **Complexity:** 7/18
+- **Shirt size:** S
+- **Estimate:** 2–3 focused development days
+- **Confidence:** Medium
+
+The estimate assumes EH0002's existing foundation is available, the task stays
+limited to the E1 access proof boundary, and real provider, durable audit,
+leave, UI, and deployment work remain deferred.
+
+## 12. Definition of Done
 
 - All acceptance criteria in [working/10-acceptance-criteria.md](../../../../work/10-acceptance-criteria.md)
   pass.
@@ -241,4 +254,3 @@ can also proceed in parallel after their contracts exist.
 - Documentation links, task metadata, and implementation evidence are updated.
 - No real data, secrets, external provider integration, deployment configuration,
   or out-of-scope leave functionality is committed.
-
