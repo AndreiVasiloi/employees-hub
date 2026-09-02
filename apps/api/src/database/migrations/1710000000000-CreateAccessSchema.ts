@@ -34,6 +34,10 @@ export class CreateAccessSchema1710000000000 implements MigrationInterface {
             name: 'uq_user_accounts_identity_subject',
             columnNames: ['identity_subject'],
           }),
+          new TableUnique({
+            name: 'uq_user_accounts_id_organization',
+            columnNames: ['id', 'organization_id'],
+          }),
         ],
       }),
     );
@@ -97,10 +101,10 @@ export class CreateAccessSchema1710000000000 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'employees',
       new TableForeignKey({
-        name: 'fk_employees_account',
-        columnNames: ['account_id'],
+        name: 'fk_employees_account_organization',
+        columnNames: ['account_id', 'organization_id'],
         referencedTableName: 'user_accounts',
-        referencedColumnNames: ['id'],
+        referencedColumnNames: ['id', 'organization_id'],
       }),
     );
     await queryRunner.createForeignKey(

@@ -323,6 +323,24 @@
 - **Impact**: The six decisions are now binding inputs to implementation planning; tracked caveats remain open.
 - **Status**: Active
 
+### DEC-023: Enforce Organization Scope at the Database Boundary
+
+- **Date**: 2026-09-02
+- **Step**: EH0003 implementation
+- **Driver**: Architect
+- **Decision**: Enforce the employee-to-account organization relationship with
+  a composite foreign key on `(account_id, organization_id)`.
+- **Rationale**: Authorization checks are necessary but insufficient on their
+  own; the relational schema must reject cross-organization account links even
+  if an application caller supplies tampered identifiers.
+- **Alternatives rejected**: A single-column account foreign key with service-
+  only organization validation — rejected because it leaves the invariant
+  unenforced at the persistence boundary.
+- **Evidence level**: [ASSUMPTION]
+- **Impact**: Employee account links are organization-scoped by PostgreSQL;
+  future repository writes must preserve this invariant.
+- **Status**: Active
+
 ## Reversals
 
 No reversals.

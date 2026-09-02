@@ -366,7 +366,50 @@ describe('EH0003 persistence integration', () => {
     // Given valid and cross-organization account/workforce relationships
     // When they are persisted
     // Then only same-organization relationships are accepted
-    pendingSkeleton('relationships_sameOrganization');
+    return new PostgreSqlContainer('postgres:18.6-alpine')
+      .start()
+      .then(async (container) => {
+        const dataSource = new DataSource({
+          type: 'postgres',
+          host: container.getHost(),
+          port: container.getPort(),
+          username: container.getUsername(),
+          password: container.getPassword(),
+          database: container.getDatabase(),
+          synchronize: false,
+          migrations: [CreateAccessSchema1710000000000],
+        });
+
+        try {
+          await dataSource.initialize();
+          await dataSource.runMigrations();
+          await dataSource.query(
+            `INSERT INTO organizations (id, name)
+             VALUES ('organization-001', 'Fictional Organization One'),
+                    ('organization-002', 'Fictional Organization Two')`,
+          );
+          await dataSource.query(
+            `INSERT INTO user_accounts (id, identity_subject, organization_id)
+             VALUES ('account-001', 'fictional-employee-001', 'organization-001')`,
+          );
+
+          await expect(
+            dataSource.query(
+              `INSERT INTO employees (id, organization_id, account_id)
+               VALUES ('employee-001', 'organization-001', 'account-001')`,
+            ),
+          ).resolves.toBeDefined();
+          await expect(
+            dataSource.query(
+              `INSERT INTO employees (id, organization_id, account_id)
+               VALUES ('employee-002', 'organization-002', 'account-001')`,
+            ),
+          ).rejects.toThrow();
+        } finally {
+          await dataSource.destroy();
+          await container.stop();
+        }
+      });
   });
 
   it('relationships_invalidManager', () => {
