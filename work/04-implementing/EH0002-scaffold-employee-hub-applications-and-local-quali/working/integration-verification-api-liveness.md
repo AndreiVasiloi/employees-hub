@@ -15,6 +15,7 @@
 | TypeORM DataSource wiring | PASS | `AppModule` provides a real lazy TypeORM `DataSource`; readiness initializes it before querying. |
 | Readiness failure mapping | PASS | Database query failures are converted to Nest `ServiceUnavailableException` with status 503. |
 | Sensitive error suppression | PASS | A real HTTP request with a sensitive database error returns only Nest's safe 503 response body. |
+| Database configuration provider | PASS | The real TypeORM provider consumes the validated configuration parser; invalid configuration fails generically without logging values. |
 | API build | PASS | `npm --workspace employee-hub-api run build` completed successfully. |
 
 ## Deferred Integration Points
