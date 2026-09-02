@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0003"
 title   = "Implement provider-neutral identity and fixed-role authorization boundary"
-status  = "04-implementing"
+status  = "03-pending-implementation"
 
 [sources]
 epic      = "../../explore/epics/EH-E1-secure-workforce-foundation.md#L21"
@@ -19,7 +19,7 @@ documents = [
 
 [links]
 blocks  = []
-related = ["../EH0002-scaffold-employee-hub-applications-and-local-quali/task.md"]
+related = ["../../04-implementing/EH0002-scaffold-employee-hub-applications-and-local-quali/task.md"]
 parent  = ["../../explore/epics/EH-E1-secure-workforce-foundation.md"]
 child   = []
 
