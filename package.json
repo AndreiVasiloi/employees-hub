@@ -1,0 +1,23 @@
+{
+  "name": "employees-hub",
+  "private": true,
+  "workspaces": [
+    "apps/web",
+    "apps/api"
+  ],
+  "engines": {
+    "node": "24.20.0"
+  },
+  "scripts": {
+    "test:web": "vitest run apps/web scripts",
+    "test:api": "jest --config apps/api/jest.config.cjs",
+    "test": "npm run test:web && npm run test:api"
+  },
+  "devDependencies": {
+    "@types/jest": "30.0.0",
+    "jest": "30.0.5",
+    "ts-jest": "29.4.3",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  }
+}
