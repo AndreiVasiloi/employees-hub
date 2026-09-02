@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { AccessResolver } from './access.resolver.js';
-import type { LinkedAccount } from './access-context.js';
+import type { FixedRole, LinkedAccount } from './access-context.js';
 import { IdentityAdapter } from './identity.adapter.js';
+import { hasPermission, type E1Permission } from './permissions.js';
 
 function pendingSkeleton(name: string): never {
   throw new Error(`Test skeleton - not implemented: ${name}`);
@@ -137,7 +138,33 @@ describe('EH0003 authorization policies', () => {
     // Given Employee, Manager, HR, and Administrator contexts
     // When each E1 permission is evaluated
     // Then allowed and denied matrix entries are explicit
-    pendingSkeleton('permissionPolicy_fixedRoleMatrix');
+    const permissions: E1Permission[] = [
+      'profile:read:self',
+      'workforce:read:direct-reports',
+      'workforce:read:organization',
+      'workforce:manage',
+      'access:manage',
+    ] as const;
+
+    const expected: Record<FixedRole, E1Permission[]> = {
+      Employee: ['profile:read:self'],
+      Manager: ['profile:read:self', 'workforce:read:direct-reports'],
+      HR: [
+        'profile:read:self',
+        'workforce:read:organization',
+        'workforce:manage',
+      ],
+      Administrator: [...permissions],
+    };
+
+    for (const role of Object.keys(expected) as FixedRole[]) {
+      const allowedPermissions = expected[role];
+      for (const permission of permissions) {
+        expect(hasPermission(role, permission)).toBe(
+          allowedPermissions.includes(permission),
+        );
+      }
+    }
   });
 
   it('permissionPolicy_organizationScope', () => {
