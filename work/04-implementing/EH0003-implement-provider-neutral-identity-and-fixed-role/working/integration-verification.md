@@ -3,10 +3,10 @@
 ## Current Test Boundary
 
 The current green tests verify the provider-neutral identity and authorization
-boundaries plus the first real PostgreSQL persistence integration. The access
-schema migration runs against a disposable PostgreSQL 18.6 container with
-TypeORM synchronization disabled. Repository, HTTP, and audit-port
-integrations remain deferred to later TDD loops.
+boundaries plus real PostgreSQL persistence integrations. The access schema
+migration and organization relationship test run against disposable
+PostgreSQL 18.6 containers with TypeORM synchronization disabled. Repository,
+HTTP, and audit-port integrations remain deferred to later TDD loops.
 
 ## Integration Status
 
@@ -58,6 +58,8 @@ integrations remain deferred to later TDD loops.
       employee tables through `information_schema`.
 - [x] Schema synchronization remains disabled; schema changes are migration-
       driven.
+- [x] The composite account/organization foreign key accepts same-organization
+      links and rejects cross-organization employee links.
 - [ ] Repository queries and transaction behavior are deferred to later
       persistence tests.
 
@@ -68,11 +70,12 @@ integrations remain deferred to later TDD loops.
 
 ## Real Connections Verified
 
-**7/7 current-test connections verified.** The adapter, resolver, fixed-role,
-organization-scope, Manager reporting, security-evidence, and migration
-boundaries are directly exercised by passing Vitest tests. The migration uses a
-real disposable PostgreSQL connection. The remaining architecture arrows are
-not claimed as implemented and are tracked by the remaining test inventory.
+**8/8 current-test connections verified.** The adapter, resolver, fixed-role,
+organization-scope, Manager reporting, security-evidence, migration, and
+organization-relationship boundaries are directly exercised by passing Vitest
+tests. The persistence tests use real disposable PostgreSQL connections. The
+remaining architecture arrows are not claimed as implemented and are tracked
+by the remaining test inventory.
 
 ## Validation
 
@@ -80,6 +83,8 @@ not claimed as implemented and are tracked by the remaining test inventory.
   passed (8 tests).
 - Targeted PostgreSQL migration test with Rancher Desktop container runtime:
   passed (1 test).
+- Targeted PostgreSQL organization-relationship test with Rancher Desktop
+  container runtime: passed (1 test).
 - API lint: passed.
 - API TypeScript check: passed.
 - API build: passed.
