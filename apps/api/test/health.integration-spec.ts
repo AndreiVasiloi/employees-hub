@@ -5,6 +5,7 @@ import { PostgreSqlContainer, StartedPostgreSqlContainer } from '@testcontainers
 import { DataSource } from 'typeorm';
 import { describe, expect, it } from 'vitest';
 import { HealthController } from '../src/health/health.controller.js';
+import { createDataSource } from '../src/database/database.provider.js';
 
 describe('health and database integration', () => {
   it('reaches disposable PostgreSQL for readiness', async () => {
@@ -37,6 +38,11 @@ describe('health and database integration', () => {
   }, 60_000);
 
   it('keeps TypeORM synchronization disabled without business schema', () => {
-    expect.fail('Test skeleton: migration configuration is not implemented yet');
+    const dataSource = createDataSource();
+
+    expect(dataSource.options.synchronize).toBe(false);
+    expect(dataSource.options.migrationsRun).toBe(false);
+    expect(dataSource.options.entities ?? []).toHaveLength(0);
+    expect(dataSource.options.migrations).toEqual(['dist/database/migrations/*{.js,.ts}']);
   });
 });
