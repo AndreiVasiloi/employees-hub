@@ -2,7 +2,7 @@
 
 ## Current Increment
 
-`GET /health/live` is implemented in the NestJS application and is verified without a database connection.
+`GET /health/live` and `GET /health/ready` are implemented in the NestJS application. Liveness is verified without a database connection, while readiness uses the real TypeORM `DataSource`.
 
 ## Verification
 
@@ -12,14 +12,15 @@
 | REST route exposure | PASS | `AppController` exposes `GET /health/live`. |
 | HTTP response contract | PASS | Supertest against a real Nest application returns HTTP 200 and `{ "status": "ok" }`. |
 | Database independence | PASS | The liveness test starts the Nest application without PostgreSQL or TypeORM. |
+| TypeORM DataSource wiring | PASS | `AppModule` provides a real lazy TypeORM `DataSource`; readiness initializes it before querying. |
 | API build | PASS | `npm --workspace employee-hub-api run build` completed successfully. |
 
 ## Deferred Integration Points
 
-- PostgreSQL connectivity and readiness query.
 - TypeORM migration configuration.
 - Rancher Desktop Compose.
 - Configuration validation and secret-safe failure handling.
 
-These are separate inventory items and are intentionally not represented as completed by the liveness endpoint.
+PostgreSQL connectivity remains a separate integration-test item; the current unit test uses a controlled successful query result.
 
+These are separate inventory items and are intentionally not represented as completed by the liveness endpoint.

@@ -30,7 +30,10 @@ describe('health API', () => {
   });
 
   it('returns 200 for ready when the database query succeeds', async () => {
-    const dataSource = { query: vi.fn().mockResolvedValue([{ '?column?': 1 }]) };
+    const dataSource = {
+      isInitialized: true,
+      query: vi.fn().mockResolvedValue([{ '?column?': 1 }]),
+    };
     const controller = new HealthController(dataSource as unknown as DataSource);
 
     await expect(controller.getReady()).resolves.toEqual({ status: 'ok' });
