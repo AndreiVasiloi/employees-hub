@@ -13,6 +13,7 @@
 | HTTP response contract | PASS | Supertest against a real Nest application returns HTTP 200 and `{ "status": "ok" }`. |
 | Database independence | PASS | The liveness test starts the Nest application without PostgreSQL or TypeORM. |
 | TypeORM DataSource wiring | PASS | `AppModule` provides a real lazy TypeORM `DataSource`; readiness initializes it before querying. |
+| Readiness failure mapping | PASS | Database query failures are converted to Nest `ServiceUnavailableException` with status 503. |
 | API build | PASS | `npm --workspace employee-hub-api run build` completed successfully. |
 
 ## Deferred Integration Points
@@ -21,6 +22,6 @@
 - Rancher Desktop Compose.
 - Configuration validation and secret-safe failure handling.
 
-PostgreSQL connectivity remains a separate integration-test item; the current unit test uses a controlled successful query result.
+PostgreSQL connectivity remains a separate integration-test item; the current unit tests use controlled successful and failing query results.
 
 These are separate inventory items and are intentionally not represented as completed by the liveness endpoint.
