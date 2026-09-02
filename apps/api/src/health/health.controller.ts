@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, ServiceUnavailableException } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 
@@ -8,11 +8,15 @@ export class HealthController {
 
   @Get('ready')
   async getReady(): Promise<{ status: 'ok' }> {
-    if (!this.dataSource.isInitialized) {
-      await this.dataSource.initialize();
-    }
+    try {
+      if (!this.dataSource.isInitialized) {
+        await this.dataSource.initialize();
+      }
 
-    await this.dataSource.query('SELECT 1');
-    return { status: 'ok' };
+      await this.dataSource.query('SELECT 1');
+      return { status: 'ok' };
+    } catch {
+      throw new ServiceUnavailableException();
+    }
   }
 }

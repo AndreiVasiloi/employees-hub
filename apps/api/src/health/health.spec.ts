@@ -40,8 +40,16 @@ describe('health API', () => {
     expect(dataSource.query).toHaveBeenCalledWith('SELECT 1');
   });
 
-  it('returns 503 for ready when the database query fails', () => {
-    expect.fail('Test skeleton: ready failure is not implemented yet');
+  it('returns 503 for ready when the database query fails', async () => {
+    const dataSource = {
+      isInitialized: true,
+      query: vi.fn().mockRejectedValue(new Error('database unavailable')),
+    };
+    const controller = new HealthController(dataSource as unknown as DataSource);
+
+    await expect(controller.getReady()).rejects.toMatchObject({
+      status: 503,
+    });
   });
 
   it('excludes sensitive configuration from health responses', () => {
