@@ -69,11 +69,11 @@
 
 ## Acceptance-Criteria Coverage
 
-| Criteria | Evidence |
-|---|---|
-| AC1–AC4 | Identity, resolver, and valid API tests. |
-| AC5–AC8 | Rejected-input, safe-error, isolation, and audit tests. |
-| AC9–AC12 | Manager, Administrator, relationship, and production-guard tests. |
+| Criteria  | Evidence                                                           |
+| --------- | ------------------------------------------------------------------ |
+| AC1–AC4   | Identity, resolver, and valid API tests.                           |
+| AC5–AC8   | Rejected-input, safe-error, isolation, and audit tests.            |
+| AC9–AC12  | Manager, Administrator, relationship, and production-guard tests.  |
 | AC13–AC16 | Migration, PostgreSQL, audit-port, API, and client-boundary tests. |
 
 ## Implementation Strategy
@@ -99,4 +99,3 @@
 - Use non-production configuration to enable the fictional identity override;
   fail closed in production.
 - Keep Angular unchanged for this task.
-
