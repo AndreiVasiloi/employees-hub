@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0003"
 title   = "Implement provider-neutral identity and fixed-role authorization boundary"
-status  = "03-pending-implementation"
+status  = "04-implementing"
 
 [sources]
 epic      = "../../explore/epics/EH-E1-secure-workforce-foundation.md#L21"
@@ -26,7 +26,7 @@ child   = []
 [workflow]
 defined = "2026-09-02"
 planned = "2026-09-02"
-implemented = "2026-09-02"
+implemented = ""
 
 [assignments]
 definition     = ""
@@ -37,10 +37,10 @@ implementation = "andrei_vasiloi@yahoo.com"
 # Task: Implement provider-neutral identity and fixed-role authorization boundary
 
 **Task ID**: EH0003
-**Status**: 02-planning
+**Status**: 04-implementing
 **Phase**: govern
 **Date**: 2026-09-02
-**Branch**: plan/EH0003-implement-provider-neutral-identity-and-fixed-role
+**Branch**: impl/EH0003-identity-authorization
 
 ## Problem Statement
 
