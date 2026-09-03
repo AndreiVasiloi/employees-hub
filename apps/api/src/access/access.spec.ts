@@ -1070,7 +1070,29 @@ describe('EH0003 security evidence', () => {
     // Given an identity or authorization failure
     // When response and event payloads are inspected
     // Then secrets, tokens, stacks, and unnecessary personal data are absent
-    pendingSkeleton('auditAndErrorPayloads_excludeSensitiveData');
+    const error = createSafeAuthorizationError(
+      'INVALID_IDENTITY',
+      'correlation-security-002',
+    );
+    const event = createAuthorizationAuditEvent({
+      actorId: null,
+      organizationId: null,
+      action: 'access:resolve',
+      targetId: null,
+      outcome: 'denied',
+      correlationId: 'correlation-security-002',
+      occurredAt: new Date('2026-09-03T09:00:00.000Z'),
+      metadata: {
+        token: 'must-not-appear',
+        stack: 'must-not-appear',
+        employeeName: 'must-not-appear',
+      },
+    });
+    const serialized = JSON.stringify({ error, event });
+
+    expect(serialized).not.toContain('must-not-appear');
+    expect(error).not.toHaveProperty('stack');
+    expect(event).not.toHaveProperty('metadata');
   });
 
   it('localIdentityOverride_unavailableInProduction', () => {
