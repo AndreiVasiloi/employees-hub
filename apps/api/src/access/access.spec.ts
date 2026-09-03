@@ -937,7 +937,32 @@ describe('EH0003 protected API', () => {
     // Given credentials for an unlinked identity
     // When GET /api/v1/access/me is requested
     // Then account existence is not disclosed
-    pendingSkeleton('GET /api/v1/access/me_unlinkedIdentity');
+    return Test.createTestingModule({
+      controllers: [AccessController],
+    })
+      .compile()
+      .then(async (module) => {
+        const app: INestApplication = module.createNestApplication();
+        await app.init();
+
+        try {
+          await request(app.getHttpServer())
+            .get('/api/v1/access/me')
+            .set('x-identity-subject', 'fictional-unlinked-001')
+            .set('x-identity-issued-at', '2026-09-03T00:00:00.000Z')
+            .set('x-identity-expires-at', '2026-09-03T23:59:59.000Z')
+            .set('x-correlation-id', 'correlation-api-unlinked')
+            .expect(401)
+            .expect({
+              code: 'INVALID_IDENTITY',
+              status: 401,
+              message: 'The request identity could not be verified.',
+              correlationId: 'correlation-api-unlinked',
+            });
+        } finally {
+          await app.close();
+        }
+      });
   });
 
   it('GET /api/v1/access/policy-fixture_allowedCapability', () => {
