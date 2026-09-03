@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0002"
 title   = "Scaffold Employee Hub applications and local quality baseline"
-status  = "04-implementing"
+status  = "06-completed"
 
 [sources]
 epic      = "../../../explore/epics/EH-E1-secure-workforce-foundation.md#L21"
