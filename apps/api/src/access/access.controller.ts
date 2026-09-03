@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Get,
-  Headers,
-  HttpException,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Headers, HttpException, Query } from '@nestjs/common';
 import type {
   AccessContext,
   AccountRepository,
@@ -96,7 +90,10 @@ export class AccessController {
           permission as E1Permission,
         )
       ) {
-        throw new HttpException(this.error('ACCESS_DENIED', correlationId), 403);
+        throw new HttpException(
+          this.error('ACCESS_DENIED', correlationId),
+          403,
+        );
       }
 
       return {
@@ -124,7 +121,10 @@ export class AccessController {
     correlationId: string,
   ): Promise<AccessContext> {
     if (!subject || !issuedAt || !expiresAt) {
-      throw new HttpException(this.error('INVALID_IDENTITY', correlationId), 401);
+      throw new HttpException(
+        this.error('INVALID_IDENTITY', correlationId),
+        401,
+      );
     }
 
     const identity = this.identityAdapter.resolve({

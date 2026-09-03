@@ -1,7 +1,4 @@
-import type {
-  AccessContext,
-  AccountRepository,
-} from './access-context.js';
+import type { AccessContext, AccountRepository } from './access-context.js';
 import type { ResolvedIdentity } from './identity.adapter.js';
 
 export class AccessResolver {

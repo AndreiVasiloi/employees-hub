@@ -8,10 +8,7 @@ import { AccessResolver } from './access.resolver.js';
 import type { FixedRole, LinkedAccount } from './access-context.js';
 import { EmployeeRelationshipRepository } from './employee-relationship.repository.js';
 import { PostgresAccountRepository } from './postgres-account.repository.js';
-import {
-  createIdentityAdapter,
-  IdentityAdapter,
-} from './identity.adapter.js';
+import { createIdentityAdapter, IdentityAdapter } from './identity.adapter.js';
 import {
   canAccessDirectReport,
   canAccessOrganization,
@@ -59,9 +56,9 @@ describe('EH0003 identity adapter', () => {
       expiresAt: new Date('2026-09-02T16:00:00.000Z'),
     };
 
-    expect(() =>
-      adapter.resolve({ ...baseIdentity, subject: '' }),
-    ).toThrow('Invalid identity');
+    expect(() => adapter.resolve({ ...baseIdentity, subject: '' })).toThrow(
+      'Invalid identity',
+    );
     expect(() =>
       adapter.resolve({
         ...baseIdentity,
@@ -207,25 +204,13 @@ describe('EH0003 authorization policies', () => {
     };
 
     expect(
-      canAccessOrganization(
-        context,
-        'organization-001',
-        'profile:read:self',
-      ),
+      canAccessOrganization(context, 'organization-001', 'profile:read:self'),
     ).toBe(true);
     expect(
-      canAccessOrganization(
-        context,
-        'organization-002',
-        'profile:read:self',
-      ),
+      canAccessOrganization(context, 'organization-002', 'profile:read:self'),
     ).toBe(false);
     expect(
-      canAccessOrganization(
-        context,
-        'organization-001',
-        'workforce:manage',
-      ),
+      canAccessOrganization(context, 'organization-001', 'workforce:manage'),
     ).toBe(false);
   });
 
@@ -610,9 +595,9 @@ describe('EH0003 persistence integration', () => {
               }),
             ),
           ).rejects.toThrow('Invalid identity');
-          expect(await repository.findByIdentitySubject('fictional-unlinked-001')).toBe(
-            undefined,
-          );
+          expect(
+            await repository.findByIdentitySubject('fictional-unlinked-001'),
+          ).toBe(undefined);
         } finally {
           await dataSource.destroy();
           await container.stop();
@@ -754,9 +739,9 @@ describe('EH0003 persistence integration', () => {
             }),
           );
 
-          expect(hasPermission(managerContext.role, 'workforce:read:direct-reports')).toBe(
-            true,
-          );
+          expect(
+            hasPermission(managerContext.role, 'workforce:read:direct-reports'),
+          ).toBe(true);
           expect(
             canAccessDirectReport(managerContext, {
               employeeId: 'employee-report',
@@ -765,7 +750,9 @@ describe('EH0003 persistence integration', () => {
               active: true,
             }),
           ).toBe(true);
-          expect(hasPermission(employeeContext.role, 'workforce:manage')).toBe(false);
+          expect(hasPermission(employeeContext.role, 'workforce:manage')).toBe(
+            false,
+          );
           expect(
             canAccessDirectReport(managerContext, {
               employeeId: 'employee-report',

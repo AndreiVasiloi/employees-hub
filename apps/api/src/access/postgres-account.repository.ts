@@ -1,12 +1,11 @@
 import type { DataSource } from 'typeorm';
-import type { AccountRepository, FixedRole, LinkedAccount } from './access-context.js';
+import type {
+  AccountRepository,
+  FixedRole,
+  LinkedAccount,
+} from './access-context.js';
 
-const fixedRoles: FixedRole[] = [
-  'Employee',
-  'Manager',
-  'HR',
-  'Administrator',
-];
+const fixedRoles: FixedRole[] = ['Employee', 'Manager', 'HR', 'Administrator'];
 
 interface AccountRow {
   account_id: string;

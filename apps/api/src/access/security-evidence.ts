@@ -1,6 +1,4 @@
-export type AuthorizationErrorCode =
-  | 'INVALID_IDENTITY'
-  | 'ACCESS_DENIED';
+export type AuthorizationErrorCode = 'INVALID_IDENTITY' | 'ACCESS_DENIED';
 
 export interface SafeAuthorizationError {
   code: AuthorizationErrorCode;
