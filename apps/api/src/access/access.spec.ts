@@ -537,8 +537,84 @@ describe('EH0003 persistence integration', () => {
     // Given absent, invalid, expired, unlinked, and inactive identities
     // When the API resolves them
     // Then no protected data or mutation is produced
-    pendingSkeleton('identityResolution_rejectedInputs');
-  });
+    return new PostgreSqlContainer('postgres:18.6-alpine')
+      .start()
+      .then(async (container) => {
+        const dataSource = new DataSource({
+          type: 'postgres',
+          host: container.getHost(),
+          port: container.getPort(),
+          username: container.getUsername(),
+          password: container.getPassword(),
+          database: container.getDatabase(),
+          synchronize: false,
+          migrations: [CreateAccessSchema1710000000000],
+        });
+
+        try {
+          await dataSource.initialize();
+          await dataSource.runMigrations();
+          await dataSource.query(
+            `INSERT INTO organizations (id, name)
+             VALUES ('organization-001', 'Fictional Organization One')`,
+          );
+          await dataSource.query(
+            `INSERT INTO user_accounts (id, identity_subject, organization_id, active)
+             VALUES ('account-active', 'fictional-active-001', 'organization-001', true),
+                    ('account-inactive', 'fictional-inactive-001', 'organization-001', false)`,
+          );
+          await dataSource.query(
+            `INSERT INTO role_assignments (id, account_id, role)
+             VALUES ('role-active', 'account-active', 'Employee'),
+                    ('role-inactive', 'account-inactive', 'Employee')`,
+          );
+
+          const adapter = new IdentityAdapter(
+            () => new Date('2026-09-03T09:00:00.000Z'),
+          );
+          const repository = new PostgresAccountRepository(dataSource);
+          const resolver = new AccessResolver(repository);
+          const validIdentity = {
+            subject: 'fictional-active-001',
+            issuer: 'local-development',
+            issuedAt: new Date('2026-09-03T08:00:00.000Z'),
+            expiresAt: new Date('2026-09-03T16:00:00.000Z'),
+          };
+
+          expect(() =>
+            adapter.resolve({ ...validIdentity, subject: '' }),
+          ).toThrow('Invalid identity');
+          expect(() =>
+            adapter.resolve({
+              ...validIdentity,
+              expiresAt: new Date('2026-09-03T08:59:59.000Z'),
+            }),
+          ).toThrow('Invalid identity');
+          await expect(
+            resolver.resolve(
+              adapter.resolve({
+                ...validIdentity,
+                subject: 'fictional-unlinked-001',
+              }),
+            ),
+          ).rejects.toThrow('Invalid identity');
+          await expect(
+            resolver.resolve(
+              adapter.resolve({
+                ...validIdentity,
+                subject: 'fictional-inactive-001',
+              }),
+            ),
+          ).rejects.toThrow('Invalid identity');
+          expect(await repository.findByIdentitySubject('fictional-unlinked-001')).toBe(
+            undefined,
+          );
+        } finally {
+          await dataSource.destroy();
+          await container.stop();
+        }
+      });
+  }, 60_000);
 
   it('authorization_isolation', () => {
     // Given equivalent fictional records in two organizations
