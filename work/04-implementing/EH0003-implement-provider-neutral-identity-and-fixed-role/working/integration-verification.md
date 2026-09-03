@@ -47,8 +47,11 @@ HTTP, and audit-port integrations remain deferred to later TDD loops.
 
 ### API Producers
 
-- [ ] No API endpoint is wired for this increment yet. The protected access
-      route is intentionally deferred to the API test loop.
+- [x] `AccessController` exposes the protected `/api/v1/access/me` and
+      `/api/v1/access/policy-fixture` routes.
+- [x] `AccessController` is registered in the real NestJS `AppModule`.
+- [x] HTTP tests verify valid, missing, invalid/expired, unlinked, allowed, and
+      denied requests with stable safe responses.
 
 ### Data Persistence
 
@@ -76,19 +79,19 @@ HTTP, and audit-port integrations remain deferred to later TDD loops.
 
 ### Audit Events
 
-- [ ] No audit port is touched by this increment. Event integration is deferred
-      until authorization outcomes are implemented.
+- [x] The typed audit port accepts allowed and denied authorization events.
+- [x] The port stores only sanitized event fields and preserves correlation IDs.
 
 ## Real Connections Verified
 
-**11/11 current-test connections verified.** The adapter, resolver, fixed-role,
+**25/25 task-test connections verified.** The adapter, resolver, fixed-role,
 organization-scope, Manager reporting, security-evidence, migration,
 organization-relationship, manager-relationship, PostgreSQL identity-
-resolution, and rejected-input boundaries are directly exercised by passing
-Vitest tests. The
-persistence tests use real disposable PostgreSQL connections and the manager
-assignment uses a real transaction. The remaining architecture arrows are not
-claimed as implemented and are tracked by the remaining test inventory.
+resolution, rejected-input, protected HTTP, and security-evidence boundaries
+are directly exercised by passing Vitest tests. The persistence tests use real
+disposable PostgreSQL connections and the manager assignment uses a real
+transaction. All EH0003 inventory tests are implemented; remaining work is
+final task completion and review evidence.
 
 ## Validation
 
@@ -104,8 +107,14 @@ claimed as implemented and are tracked by the remaining test inventory.
   runtime: passed (1 test).
 - Targeted rejected-identity test with Rancher Desktop container runtime:
   passed (1 test).
+- Protected API tests for valid, missing, invalid/expired, unlinked, allowed,
+  and denied requests: passed (6 tests).
+- Security evidence tests for correlation, sanitization, and production guard:
+  passed (3 tests).
 - API lint: passed.
 - API TypeScript check: passed.
 - API build: passed.
-- Full suite: intentionally not green because 24 approved skeletons remain;
-  full PostgreSQL integration requires the Rancher Desktop container runtime.
+- Full API suite: passed (33 tests).
+- Workspace quality tests: passed (4 tests).
+- Repository-wide format check: still reports baseline formatting debt in
+  existing files; no broad formatting rewrite was introduced by EH0003.

@@ -26,10 +26,6 @@ import { InMemoryAuditPort } from './audit.port.js';
 import { AccessController } from './access.controller.js';
 import { CreateAccessSchema1710000000000 } from '../database/migrations/1710000000000-CreateAccessSchema.js';
 
-function pendingSkeleton(name: string): never {
-  throw new Error(`Test skeleton - not implemented: ${name}`);
-}
-
 describe('EH0003 identity adapter', () => {
   it('identityAdapter_validIdentity', () => {
     // Given a valid signed-token-shaped fictional identity
