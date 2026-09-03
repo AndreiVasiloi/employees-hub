@@ -691,8 +691,91 @@ describe('EH0003 persistence integration', () => {
     // Given persisted fixed-role and reporting-line fixtures
     // When the complete policy matrix is exercised
     // Then role and direct-report boundaries are enforced
-    pendingSkeleton('authorization_roleAndManagerScope');
-  });
+    return new PostgreSqlContainer('postgres:18.6-alpine')
+      .start()
+      .then(async (container) => {
+        const dataSource = new DataSource({
+          type: 'postgres',
+          host: container.getHost(),
+          port: container.getPort(),
+          username: container.getUsername(),
+          password: container.getPassword(),
+          database: container.getDatabase(),
+          synchronize: false,
+          migrations: [CreateAccessSchema1710000000000],
+        });
+
+        try {
+          await dataSource.initialize();
+          await dataSource.runMigrations();
+          await dataSource.query(
+            `INSERT INTO organizations (id, name)
+             VALUES ('organization-001', 'Fictional Organization One'),
+                    ('organization-002', 'Fictional Organization Two')`,
+          );
+          await dataSource.query(
+            `INSERT INTO user_accounts (id, identity_subject, organization_id)
+             VALUES ('account-manager', 'fictional-manager-001', 'organization-001'),
+                    ('account-employee', 'fictional-employee-001', 'organization-001')`,
+          );
+          await dataSource.query(
+            `INSERT INTO role_assignments (id, account_id, role)
+             VALUES ('role-manager', 'account-manager', 'Manager'),
+                    ('role-employee', 'account-employee', 'Employee')`,
+          );
+          await dataSource.query(
+            `INSERT INTO employees (id, organization_id, account_id, manager_employee_id)
+             VALUES ('employee-manager', 'organization-001', 'account-manager', NULL),
+                    ('employee-report', 'organization-001', 'account-employee', 'employee-manager')`,
+          );
+
+          const adapter = new IdentityAdapter(
+            () => new Date('2026-09-03T09:00:00.000Z'),
+          );
+          const repository = new PostgresAccountRepository(dataSource);
+          const managerContext = await new AccessResolver(repository).resolve(
+            adapter.resolve({
+              subject: 'fictional-manager-001',
+              issuer: 'local-development',
+              issuedAt: new Date('2026-09-03T08:00:00.000Z'),
+              expiresAt: new Date('2026-09-03T16:00:00.000Z'),
+            }),
+          );
+          const employeeContext = await new AccessResolver(repository).resolve(
+            adapter.resolve({
+              subject: 'fictional-employee-001',
+              issuer: 'local-development',
+              issuedAt: new Date('2026-09-03T08:00:00.000Z'),
+              expiresAt: new Date('2026-09-03T16:00:00.000Z'),
+            }),
+          );
+
+          expect(hasPermission(managerContext.role, 'workforce:read:direct-reports')).toBe(
+            true,
+          );
+          expect(
+            canAccessDirectReport(managerContext, {
+              employeeId: 'employee-report',
+              organizationId: 'organization-001',
+              managerEmployeeId: 'employee-manager',
+              active: true,
+            }),
+          ).toBe(true);
+          expect(hasPermission(employeeContext.role, 'workforce:manage')).toBe(false);
+          expect(
+            canAccessDirectReport(managerContext, {
+              employeeId: 'employee-report',
+              organizationId: 'organization-002',
+              managerEmployeeId: 'employee-manager',
+              active: true,
+            }),
+          ).toBe(false);
+        } finally {
+          await dataSource.destroy();
+          await container.stop();
+        }
+      });
+  }, 60_000);
 
   it('auditPort_authorizationOutcomes', () => {
     // Given allowed and denied authorization outcomes
