@@ -620,8 +620,72 @@ describe('EH0003 persistence integration', () => {
     // Given equivalent fictional records in two organizations
     // When one identity requests the other organization's subject
     // Then access is denied without existence leakage
-    pendingSkeleton('authorization_isolation');
-  });
+    return new PostgreSqlContainer('postgres:18.6-alpine')
+      .start()
+      .then(async (container) => {
+        const dataSource = new DataSource({
+          type: 'postgres',
+          host: container.getHost(),
+          port: container.getPort(),
+          username: container.getUsername(),
+          password: container.getPassword(),
+          database: container.getDatabase(),
+          synchronize: false,
+          migrations: [CreateAccessSchema1710000000000],
+        });
+
+        try {
+          await dataSource.initialize();
+          await dataSource.runMigrations();
+          await dataSource.query(
+            `INSERT INTO organizations (id, name)
+             VALUES ('organization-001', 'Fictional Organization One'),
+                    ('organization-002', 'Fictional Organization Two')`,
+          );
+          await dataSource.query(
+            `INSERT INTO user_accounts (id, identity_subject, organization_id)
+             VALUES ('account-001', 'fictional-employee-001', 'organization-001'),
+                    ('account-002', 'fictional-employee-002', 'organization-002')`,
+          );
+          await dataSource.query(
+            `INSERT INTO role_assignments (id, account_id, role)
+             VALUES ('role-001', 'account-001', 'Employee'),
+                    ('role-002', 'account-002', 'Employee')`,
+          );
+
+          const identity = new IdentityAdapter(
+            () => new Date('2026-09-03T09:00:00.000Z'),
+          ).resolve({
+            subject: 'fictional-employee-001',
+            issuer: 'local-development',
+            issuedAt: new Date('2026-09-03T08:00:00.000Z'),
+            expiresAt: new Date('2026-09-03T16:00:00.000Z'),
+          });
+          const context = await new AccessResolver(
+            new PostgresAccountRepository(dataSource),
+          ).resolve(identity);
+
+          expect(
+            canAccessOrganization(
+              context,
+              'organization-001',
+              'profile:read:self',
+            ),
+          ).toBe(true);
+          expect(
+            canAccessOrganization(
+              context,
+              'organization-002',
+              'profile:read:self',
+            ),
+          ).toBe(false);
+          expect(context).not.toHaveProperty('account-002');
+        } finally {
+          await dataSource.destroy();
+          await container.stop();
+        }
+      });
+  }, 60_000);
 
   it('authorization_roleAndManagerScope', () => {
     // Given persisted fixed-role and reporting-line fixtures
