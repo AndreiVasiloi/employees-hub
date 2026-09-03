@@ -19,7 +19,7 @@ documents = [
 
 [links]
 blocks  = []
-related = ["../../04-implementing/EH0002-scaffold-employee-hub-applications-and-local-quali/task.md"]
+related = ["../EH0002-scaffold-employee-hub-applications-and-local-quali/task.md"]
 parent  = ["../../explore/epics/EH-E1-secure-workforce-foundation.md"]
 child   = []
 

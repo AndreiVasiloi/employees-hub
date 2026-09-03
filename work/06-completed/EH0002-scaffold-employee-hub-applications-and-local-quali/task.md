@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0002"
 title   = "Scaffold Employee Hub applications and local quality baseline"
-status  = "04-implementing"
+status  = "06-completed"
 
 [sources]
 epic      = "../../../explore/epics/EH-E1-secure-workforce-foundation.md#L21"
@@ -19,7 +19,7 @@ documents = [
 blocks  = []
 related = [
   "../../05-pending-completion/EH-0001-explore-consistency-check/task.md",
-  "../../05-pending-completion/EH0001-form-employee-hub-epics/task.md"
+  "../EH0001-form-employee-hub-epics/task.md"
 ]
 parent  = ["../../../explore/epics/EH-E1-secure-workforce-foundation.md"]
 child   = []
