@@ -60,8 +60,14 @@ HTTP, and audit-port integrations remain deferred to later TDD loops.
       driven.
 - [x] The composite account/organization foreign key accepts same-organization
       links and rejects cross-organization employee links.
+- [x] `EmployeeRelationshipRepository` uses a real TypeORM query runner and
+      transaction to validate and persist manager assignments.
+- [x] Employee and manager rows are locked with `FOR UPDATE` while checking
+      active state, duplicate links, and manager-chain cycles.
+- [x] The integration test verifies valid assignment and rejects duplicate,
+      self, inactive, and cyclic manager relationships.
 - [ ] Repository queries and transaction behavior are deferred to later
-      persistence tests.
+      identity and authorization persistence tests.
 
 ### Audit Events
 
@@ -70,12 +76,13 @@ HTTP, and audit-port integrations remain deferred to later TDD loops.
 
 ## Real Connections Verified
 
-**8/8 current-test connections verified.** The adapter, resolver, fixed-role,
-organization-scope, Manager reporting, security-evidence, migration, and
-organization-relationship boundaries are directly exercised by passing Vitest
-tests. The persistence tests use real disposable PostgreSQL connections. The
-remaining architecture arrows are not claimed as implemented and are tracked
-by the remaining test inventory.
+**9/9 current-test connections verified.** The adapter, resolver, fixed-role,
+organization-scope, Manager reporting, security-evidence, migration,
+organization-relationship, and manager-relationship boundaries are directly
+exercised by passing Vitest tests. The persistence tests use real disposable
+PostgreSQL connections and the manager assignment uses a real transaction.
+The remaining architecture arrows are not claimed as implemented and are
+tracked by the remaining test inventory.
 
 ## Validation
 
@@ -85,6 +92,8 @@ by the remaining test inventory.
   passed (1 test).
 - Targeted PostgreSQL organization-relationship test with Rancher Desktop
   container runtime: passed (1 test).
+- Targeted PostgreSQL manager-relationship test with Rancher Desktop container
+  runtime: passed (1 test).
 - API lint: passed.
 - API TypeScript check: passed.
 - API build: passed.
