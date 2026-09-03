@@ -8,7 +8,10 @@ import { AccessResolver } from './access.resolver.js';
 import type { FixedRole, LinkedAccount } from './access-context.js';
 import { EmployeeRelationshipRepository } from './employee-relationship.repository.js';
 import { PostgresAccountRepository } from './postgres-account.repository.js';
-import { IdentityAdapter } from './identity.adapter.js';
+import {
+  createIdentityAdapter,
+  IdentityAdapter,
+} from './identity.adapter.js';
 import {
   canAccessDirectReport,
   canAccessOrganization,
@@ -1099,6 +1102,9 @@ describe('EH0003 security evidence', () => {
     // Given production configuration
     // When the identity adapter is initialized
     // Then the local/test override cannot be enabled
-    pendingSkeleton('localIdentityOverride_unavailableInProduction');
+    expect(() => createIdentityAdapter('production', true)).toThrow(
+      'Local identity override is unavailable in production',
+    );
+    expect(() => createIdentityAdapter('test', true)).not.toThrow();
   });
 });

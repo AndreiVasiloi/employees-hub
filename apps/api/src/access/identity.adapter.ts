@@ -12,6 +12,17 @@ export interface ResolvedIdentity {
   expiresAt: Date;
 }
 
+export function createIdentityAdapter(
+  environment: string,
+  allowLocalOverride = false,
+  now: () => Date = () => new Date(),
+): IdentityAdapter {
+  if (environment === 'production' && allowLocalOverride) {
+    throw new Error('Local identity override is unavailable in production');
+  }
+  return new IdentityAdapter(now);
+}
+
 export class IdentityAdapter {
   constructor(private readonly now: () => Date = () => new Date()) {}
 
