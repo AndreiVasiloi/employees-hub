@@ -66,8 +66,10 @@ HTTP, and audit-port integrations remain deferred to later TDD loops.
       active state, duplicate links, and manager-chain cycles.
 - [x] The integration test verifies valid assignment and rejects duplicate,
       self, inactive, and cyclic manager relationships.
-- [ ] Repository queries and transaction behavior are deferred to later
-      identity and authorization persistence tests.
+- [x] `PostgresAccountRepository` joins account, role, and employee records
+      from PostgreSQL and returns server-owned access context.
+- [x] Inactive accounts, roles, and linked employees, as well as unknown roles,
+      fail closed at the repository boundary.
 
 ### Audit Events
 
@@ -76,13 +78,13 @@ HTTP, and audit-port integrations remain deferred to later TDD loops.
 
 ## Real Connections Verified
 
-**9/9 current-test connections verified.** The adapter, resolver, fixed-role,
+**10/10 current-test connections verified.** The adapter, resolver, fixed-role,
 organization-scope, Manager reporting, security-evidence, migration,
-organization-relationship, and manager-relationship boundaries are directly
-exercised by passing Vitest tests. The persistence tests use real disposable
-PostgreSQL connections and the manager assignment uses a real transaction.
-The remaining architecture arrows are not claimed as implemented and are
-tracked by the remaining test inventory.
+organization-relationship, manager-relationship, and PostgreSQL identity-
+resolution boundaries are directly exercised by passing Vitest tests. The
+persistence tests use real disposable PostgreSQL connections and the manager
+assignment uses a real transaction. The remaining architecture arrows are not
+claimed as implemented and are tracked by the remaining test inventory.
 
 ## Validation
 
@@ -93,6 +95,8 @@ tracked by the remaining test inventory.
 - Targeted PostgreSQL organization-relationship test with Rancher Desktop
   container runtime: passed (1 test).
 - Targeted PostgreSQL manager-relationship test with Rancher Desktop container
+  runtime: passed (1 test).
+- Targeted PostgreSQL identity-resolution test with Rancher Desktop container
   runtime: passed (1 test).
 - API lint: passed.
 - API TypeScript check: passed.
