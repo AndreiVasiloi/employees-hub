@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0003"
 title   = "Implement provider-neutral identity and fixed-role authorization boundary"
-status  = "04-implementing"
+status  = "05-pending-completion"
 
 [sources]
 epic      = "../../explore/epics/EH-E1-secure-workforce-foundation.md#L21"
