@@ -1007,7 +1007,44 @@ describe('EH0003 protected API', () => {
     // Given a tampered, cross-organization, or role-inappropriate request
     // When the policy fixture route is requested
     // Then access is denied safely
-    pendingSkeleton('GET /api/v1/access/policy-fixture_deniedScopeOrRole');
+    return Test.createTestingModule({
+      controllers: [AccessController],
+    })
+      .compile()
+      .then(async (module) => {
+        const app: INestApplication = module.createNestApplication();
+        await app.init();
+
+        try {
+          for (const query of [
+            {
+              permission: 'profile:read:self',
+              organizationId: 'organization-002',
+            },
+            {
+              permission: 'workforce:manage',
+              organizationId: 'organization-001',
+            },
+          ]) {
+            await request(app.getHttpServer())
+              .get('/api/v1/access/policy-fixture')
+              .query({ ...query, targetId: 'employee-002' })
+              .set('x-identity-subject', 'fictional-employee-001')
+              .set('x-identity-issued-at', '2026-09-03T00:00:00.000Z')
+              .set('x-identity-expires-at', '2026-09-03T23:59:59.000Z')
+              .set('x-correlation-id', 'correlation-api-policy-denied')
+              .expect(403)
+              .expect({
+                code: 'ACCESS_DENIED',
+                status: 403,
+                message: 'The requested action is not permitted.',
+                correlationId: 'correlation-api-policy-denied',
+              });
+          }
+        } finally {
+          await app.close();
+        }
+      });
   });
 });
 
