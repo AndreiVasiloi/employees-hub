@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0001"
 title   = "Form Employee Hub epics"
-status  = "05-pending-completion"
+status  = "06-completed"
 
 [sources]
 epic      = ""
@@ -70,7 +70,7 @@ The approved Employee Hub PRD proposes six delivery capabilities, but no epic ar
 ### Source Material
 
 - [PRD](../../../explore/prds/employee-hub-prd.md) — approved requirements, NFRs, proposed E1-E6 roadmap, risks.
-- [HLD](../../../explore/hlds/employee-hub-hld.md) and [ADRs](../../../explore/decisions/) — module boundaries and accepted technical decisions.
+- [HLD](../../../explore/hlds/employee-hub-hld.md) and [ADRs](../../../explore/decisions) — module boundaries and accepted technical decisions.
 - [Test strategy](../../../explore/explore-employee-hub/test-strategy.md) and [DevOps strategy](../../../explore/explore-employee-hub/devops-strategy.md) — quality and operational constraints.
 - [Glossary](../../../explore/glossary.md) and [accessibility specification](../../../explore/design/accessibility-employee-hub.md) — canonical language and experience constraints.
 
