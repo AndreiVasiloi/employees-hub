@@ -876,7 +876,29 @@ describe('EH0003 protected API', () => {
     // Given no identity credentials
     // When GET /api/v1/access/me is requested
     // Then a stable safe 401 is returned
-    pendingSkeleton('GET /api/v1/access/me_missingIdentity');
+    return Test.createTestingModule({
+      controllers: [AccessController],
+    })
+      .compile()
+      .then(async (module) => {
+        const app: INestApplication = module.createNestApplication();
+        await app.init();
+
+        try {
+          await request(app.getHttpServer())
+            .get('/api/v1/access/me')
+            .set('x-correlation-id', 'correlation-api-missing')
+            .expect(401)
+            .expect({
+              code: 'INVALID_IDENTITY',
+              status: 401,
+              message: 'The request identity could not be verified.',
+              correlationId: 'correlation-api-missing',
+            });
+        } finally {
+          await app.close();
+        }
+      });
   });
 
   it('GET /api/v1/access/me_invalidOrExpiredIdentity', () => {
