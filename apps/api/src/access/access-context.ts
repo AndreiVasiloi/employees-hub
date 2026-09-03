@@ -22,5 +22,7 @@ export interface AccessContext {
 }
 
 export interface AccountRepository {
-  findByIdentitySubject(subject: string): LinkedAccount | undefined;
+  findByIdentitySubject(
+    subject: string,
+  ): LinkedAccount | undefined | Promise<LinkedAccount | undefined>;
 }

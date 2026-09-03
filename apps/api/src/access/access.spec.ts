@@ -4,6 +4,7 @@ import { DataSource } from 'typeorm';
 import { AccessResolver } from './access.resolver.js';
 import type { FixedRole, LinkedAccount } from './access-context.js';
 import { EmployeeRelationshipRepository } from './employee-relationship.repository.js';
+import { PostgresAccountRepository } from './postgres-account.repository.js';
 import { IdentityAdapter } from './identity.adapter.js';
 import {
   canAccessDirectReport,
@@ -71,7 +72,7 @@ describe('EH0003 identity adapter', () => {
     ).toThrow('Invalid identity');
   });
 
-  it('accessResolver_linkedActiveAccount', () => {
+  it('accessResolver_linkedActiveAccount', async () => {
     // Given a subject linked to one active account
     // When access context is resolved
     // Then organization, role, employee, and manager context are authoritative
@@ -94,7 +95,7 @@ describe('EH0003 identity adapter', () => {
     };
 
     expect(
-      new AccessResolver({
+      await new AccessResolver({
         findByIdentitySubject: (subject) =>
           subject === account.identitySubject ? account : undefined,
       }).resolve(identity),
@@ -108,7 +109,7 @@ describe('EH0003 identity adapter', () => {
     });
   });
 
-  it('accessResolver_unlinkedOrInactiveAccount', () => {
+  it('accessResolver_unlinkedOrInactiveAccount', async () => {
     // Given an unlinked or inactive server-owned account
     // When access context is resolved
     // Then access is rejected safely
@@ -130,19 +131,19 @@ describe('EH0003 identity adapter', () => {
       active: false,
     };
 
-    expect(() =>
+    await expect(
       new AccessResolver({
         findByIdentitySubject: (subject) =>
           subject === inactiveAccount.identitySubject
             ? inactiveAccount
             : undefined,
       }).resolve(identity),
-    ).toThrow('Invalid identity');
-    expect(() =>
+    ).rejects.toThrow('Invalid identity');
+    await expect(
       new AccessResolver({
         findByIdentitySubject: () => undefined,
       }).resolve(identity),
-    ).toThrow('Invalid identity');
+    ).rejects.toThrow('Invalid identity');
   });
 });
 
@@ -471,8 +472,66 @@ describe('EH0003 persistence integration', () => {
     // Given fictional linked identity records in PostgreSQL
     // When the access resolver queries them
     // Then it returns the authoritative access context
-    pendingSkeleton('identityResolution_postgres');
-  });
+    return new PostgreSqlContainer('postgres:18.6-alpine')
+      .start()
+      .then(async (container) => {
+        const dataSource = new DataSource({
+          type: 'postgres',
+          host: container.getHost(),
+          port: container.getPort(),
+          username: container.getUsername(),
+          password: container.getPassword(),
+          database: container.getDatabase(),
+          synchronize: false,
+          migrations: [CreateAccessSchema1710000000000],
+        });
+
+        try {
+          await dataSource.initialize();
+          await dataSource.runMigrations();
+          await dataSource.query(
+            `INSERT INTO organizations (id, name)
+             VALUES ('organization-001', 'Fictional Organization One')`,
+          );
+          await dataSource.query(
+            `INSERT INTO user_accounts (id, identity_subject, organization_id)
+             VALUES ('account-001', 'fictional-employee-001', 'organization-001')`,
+          );
+          await dataSource.query(
+            `INSERT INTO role_assignments (id, account_id, role)
+             VALUES ('role-assignment-001', 'account-001', 'Manager')`,
+          );
+          await dataSource.query(
+            `INSERT INTO employees (id, organization_id, account_id, manager_employee_id)
+             VALUES ('employee-001', 'organization-001', 'account-001', NULL),
+                    ('employee-002', 'organization-001', NULL, 'employee-001')`,
+          );
+
+          const identity = new IdentityAdapter(
+            () => new Date('2026-09-03T09:00:00.000Z'),
+          ).resolve({
+            subject: 'fictional-employee-001',
+            issuer: 'local-development',
+            issuedAt: new Date('2026-09-03T08:00:00.000Z'),
+            expiresAt: new Date('2026-09-03T16:00:00.000Z'),
+          });
+          await expect(
+            new AccessResolver(
+              new PostgresAccountRepository(dataSource),
+            ).resolve(identity),
+          ).resolves.toMatchObject({
+            accountId: 'account-001',
+            organizationId: 'organization-001',
+            role: 'Manager',
+            employeeId: 'employee-001',
+            managerEmployeeId: null,
+          });
+        } finally {
+          await dataSource.destroy();
+          await container.stop();
+        }
+      });
+  }, 60_000);
 
   it('identityResolution_rejectedInputs', () => {
     // Given absent, invalid, expired, unlinked, and inactive identities

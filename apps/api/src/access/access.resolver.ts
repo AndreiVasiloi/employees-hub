@@ -7,8 +7,8 @@ import type { ResolvedIdentity } from './identity.adapter.js';
 export class AccessResolver {
   constructor(private readonly accounts: AccountRepository) {}
 
-  resolve(identity: ResolvedIdentity): AccessContext {
-    const account = this.accounts.findByIdentitySubject(identity.subject);
+  async resolve(identity: ResolvedIdentity): Promise<AccessContext> {
+    const account = await this.accounts.findByIdentitySubject(identity.subject);
 
     if (!account || !account.active) {
       throw new Error('Invalid identity');
