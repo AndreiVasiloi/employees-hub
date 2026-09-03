@@ -16,6 +16,7 @@ import {
   createAuthorizationAuditEvent,
   createSafeAuthorizationError,
 } from './security-evidence.js';
+import { InMemoryAuditPort } from './audit.port.js';
 import { CreateAccessSchema1710000000000 } from '../database/migrations/1710000000000-CreateAccessSchema.js';
 
 function pendingSkeleton(name: string): never {
@@ -781,7 +782,54 @@ describe('EH0003 persistence integration', () => {
     // Given allowed and denied authorization outcomes
     // When the audit port receives them
     // Then events contain sanitized actor, target, outcome, and correlation data
-    pendingSkeleton('auditPort_authorizationOutcomes');
+    const port = new InMemoryAuditPort();
+    const occurredAt = new Date('2026-09-03T09:00:00.000Z');
+
+    port.emit(
+      createAuthorizationAuditEvent({
+        actorId: 'account-001',
+        organizationId: 'organization-001',
+        action: 'profile:read:self',
+        targetId: 'employee-001',
+        outcome: 'allowed',
+        correlationId: 'correlation-allowed',
+        occurredAt,
+        metadata: { token: 'must-not-be-stored' },
+      }),
+    );
+    port.emit(
+      createAuthorizationAuditEvent({
+        actorId: null,
+        organizationId: null,
+        action: 'workforce:read:organization',
+        targetId: 'employee-002',
+        outcome: 'denied',
+        correlationId: 'correlation-denied',
+        occurredAt,
+        metadata: { leaveReason: 'must-not-be-stored' },
+      }),
+    );
+
+    expect(port.events()).toEqual([
+      {
+        actorId: 'account-001',
+        organizationId: 'organization-001',
+        action: 'profile:read:self',
+        targetId: 'employee-001',
+        outcome: 'allowed',
+        correlationId: 'correlation-allowed',
+        occurredAt,
+      },
+      {
+        actorId: null,
+        organizationId: null,
+        action: 'workforce:read:organization',
+        targetId: 'employee-002',
+        outcome: 'denied',
+        correlationId: 'correlation-denied',
+        occurredAt,
+      },
+    ]);
   });
 });
 
