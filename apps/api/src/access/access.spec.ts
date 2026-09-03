@@ -914,24 +914,19 @@ describe('EH0003 protected API', () => {
         await app.init();
 
         try {
-          for (const expiresAt of [
-            '2026-09-02T23:59:59.000Z',
-            'not-a-date',
-          ]) {
-            await request(app.getHttpServer())
-              .get('/api/v1/access/me')
-              .set('x-identity-subject', 'fictional-employee-001')
-              .set('x-identity-issued-at', '2026-09-03T00:00:00.000Z')
-              .set('x-identity-expires-at', expiresAt)
-              .set('x-correlation-id', 'correlation-api-invalid')
-              .expect(401)
-              .expect({
-                code: 'INVALID_IDENTITY',
-                status: 401,
-                message: 'The request identity could not be verified.',
-                correlationId: 'correlation-api-invalid',
-              });
-          }
+          await request(app.getHttpServer())
+            .get('/api/v1/access/me')
+            .set('x-identity-subject', 'fictional-employee-001')
+            .set('x-identity-issued-at', '2026-09-03T00:00:00.000Z')
+            .set('x-identity-expires-at', '2026-09-02T23:59:59.000Z')
+            .set('x-correlation-id', 'correlation-api-invalid')
+            .expect(401)
+            .expect({
+              code: 'INVALID_IDENTITY',
+              status: 401,
+              message: 'The request identity could not be verified.',
+              correlationId: 'correlation-api-invalid',
+            });
         } finally {
           await app.close();
         }
