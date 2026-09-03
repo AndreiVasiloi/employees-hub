@@ -16,7 +16,7 @@ documents = [
 ]
 
 [links]
-blocks  = ["../EH0004-implement-workforce-and-reporting-line-administrat/task.md"]
+blocks  = ["../../02-planning/EH0004-implement-workforce-and-reporting-line-administrat/task.md"]
 related = [
   "../../06-completed/EH0003-implement-provider-neutral-identity-and-fixed-role/task.md"
 ]
@@ -84,7 +84,7 @@ Employees need a secure, server-side view of their own profile and current leave
 
 ### Related Tasks
 
-- **Blocks**: [EH0004 Implement workforce and reporting-line administration](../EH0004-implement-workforce-and-reporting-line-administrat/task.md) — provides employee and profile records.
+- **Blocks**: [EH0004 Implement workforce and reporting-line administration](../../02-planning/EH0004-implement-workforce-and-reporting-line-administrat/task.md) — provides employee and profile records.
 - **Related**: [EH0003 Implement provider-neutral identity and fixed-role authorization boundary](../../06-completed/EH0003-implement-provider-neutral-identity-and-fixed-role/task.md) — provides `AccessContext` and permissions.
 
 ## Constraints & Dependencies

@@ -17,7 +17,7 @@ documents = [
 
 [links]
 blocks  = [
-  "../EH0004-implement-workforce-and-reporting-line-administrat/task.md",
+  "../../02-planning/EH0004-implement-workforce-and-reporting-line-administrat/task.md",
   "../../06-completed/EH0003-implement-provider-neutral-identity-and-fixed-role/task.md"
 ]
 related = []
@@ -90,7 +90,7 @@ EH0003 introduced a typed `AuditPort` with an in-memory adapter for authorizatio
 
 ### Related Tasks
 
-- **Blocks**: [EH0004 Implement workforce and reporting-line administration](../EH0004-implement-workforce-and-reporting-line-administrat/task.md) — workforce mutations to audit.
+- **Blocks**: [EH0004 Implement workforce and reporting-line administration](../../02-planning/EH0004-implement-workforce-and-reporting-line-administrat/task.md) — workforce mutations to audit.
 - **Blocks**: [EH0003 Implement provider-neutral identity and fixed-role authorization boundary](../../06-completed/EH0003-implement-provider-neutral-identity-and-fixed-role/task.md) — authorization outcomes to audit and `AuditPort` contract.
 
 ## Constraints & Dependencies

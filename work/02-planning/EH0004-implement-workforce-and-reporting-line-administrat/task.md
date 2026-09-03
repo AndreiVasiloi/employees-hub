@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0004"
 title   = "Implement workforce and reporting-line administration"
-status  = "01-pending-planning"
+status  = "02-planning"
 kind    = "story"
 
 [sources]
@@ -27,12 +27,12 @@ child   = []
 
 [workflow]
 defined = "2026-09-03"
-planned = ""
+planned = "2026-09-03"
 implemented = ""
 
 [assignments]
 definition     = ""
-planning       = ""
+planning       = "andrei_vasiloi@yahoo.com"
 implementation = ""
 +++
 
