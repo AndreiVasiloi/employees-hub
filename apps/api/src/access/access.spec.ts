@@ -969,7 +969,38 @@ describe('EH0003 protected API', () => {
     // Given an identity with an allowed E1 permission
     // When the policy fixture route is requested
     // Then the capability succeeds with safe fields
-    pendingSkeleton('GET /api/v1/access/policy-fixture_allowedCapability');
+    return Test.createTestingModule({
+      controllers: [AccessController],
+    })
+      .compile()
+      .then(async (module) => {
+        const app: INestApplication = module.createNestApplication();
+        await app.init();
+
+        try {
+          await request(app.getHttpServer())
+            .get('/api/v1/access/policy-fixture')
+            .query({
+              permission: 'profile:read:self',
+              organizationId: 'organization-001',
+              targetId: 'employee-001',
+            })
+            .set('x-identity-subject', 'fictional-employee-001')
+            .set('x-identity-issued-at', '2026-09-03T00:00:00.000Z')
+            .set('x-identity-expires-at', '2026-09-03T23:59:59.000Z')
+            .set('x-correlation-id', 'correlation-api-policy-allowed')
+            .expect(200)
+            .expect({
+              allowed: true,
+              permission: 'profile:read:self',
+              organizationId: 'organization-001',
+              targetId: 'employee-001',
+              correlationId: 'correlation-api-policy-allowed',
+            });
+        } finally {
+          await app.close();
+        }
+      });
   });
 
   it('GET /api/v1/access/policy-fixture_deniedScopeOrRole', () => {
