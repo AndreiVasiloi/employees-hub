@@ -1053,7 +1053,17 @@ describe('EH0003 security evidence', () => {
     // Given a request with a correlation identifier
     // When an authorization event is emitted
     // Then the identifier is preserved
-    pendingSkeleton('correlationId_requestToAuditEvent');
+    const event = createAuthorizationAuditEvent({
+      actorId: 'account-001',
+      organizationId: 'organization-001',
+      action: 'profile:read:self',
+      targetId: 'employee-001',
+      outcome: 'allowed',
+      correlationId: 'correlation-security-001',
+      occurredAt: new Date('2026-09-03T09:00:00.000Z'),
+    });
+
+    expect(event.correlationId).toBe('correlation-security-001');
   });
 
   it('auditAndErrorPayloads_excludeSensitiveData', () => {
