@@ -70,6 +70,9 @@ HTTP, and audit-port integrations remain deferred to later TDD loops.
       from PostgreSQL and returns server-owned access context.
 - [x] Inactive accounts, roles, and linked employees, as well as unknown roles,
       fail closed at the repository boundary.
+- [x] The rejected-input integration test confirms malformed and expired
+      identities are rejected before lookup, while unlinked and inactive
+      database identities resolve to no access context.
 
 ### Audit Events
 
@@ -78,10 +81,11 @@ HTTP, and audit-port integrations remain deferred to later TDD loops.
 
 ## Real Connections Verified
 
-**10/10 current-test connections verified.** The adapter, resolver, fixed-role,
+**11/11 current-test connections verified.** The adapter, resolver, fixed-role,
 organization-scope, Manager reporting, security-evidence, migration,
-organization-relationship, manager-relationship, and PostgreSQL identity-
-resolution boundaries are directly exercised by passing Vitest tests. The
+organization-relationship, manager-relationship, PostgreSQL identity-
+resolution, and rejected-input boundaries are directly exercised by passing
+Vitest tests. The
 persistence tests use real disposable PostgreSQL connections and the manager
 assignment uses a real transaction. The remaining architecture arrows are not
 claimed as implemented and are tracked by the remaining test inventory.
@@ -98,6 +102,8 @@ claimed as implemented and are tracked by the remaining test inventory.
   runtime: passed (1 test).
 - Targeted PostgreSQL identity-resolution test with Rancher Desktop container
   runtime: passed (1 test).
+- Targeted rejected-identity test with Rancher Desktop container runtime:
+  passed (1 test).
 - API lint: passed.
 - API TypeScript check: passed.
 - API build: passed.
