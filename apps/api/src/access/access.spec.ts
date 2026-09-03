@@ -1,4 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import { Test } from '@nestjs/testing';
+import type { INestApplication } from '@nestjs/common';
+import request from 'supertest';
 import { PostgreSqlContainer } from '@testcontainers/postgresql';
 import { DataSource } from 'typeorm';
 import { AccessResolver } from './access.resolver.js';
@@ -17,6 +20,7 @@ import {
   createSafeAuthorizationError,
 } from './security-evidence.js';
 import { InMemoryAuditPort } from './audit.port.js';
+import { AccessController } from './access.controller.js';
 import { CreateAccessSchema1710000000000 } from '../database/migrations/1710000000000-CreateAccessSchema.js';
 
 function pendingSkeleton(name: string): never {
@@ -838,7 +842,34 @@ describe('EH0003 protected API', () => {
     // Given a valid fictional identity
     // When GET /api/v1/access/me is requested
     // Then the safe resolved context is returned
-    pendingSkeleton('GET /api/v1/access/me_validIdentity');
+    return Test.createTestingModule({
+      controllers: [AccessController],
+    })
+      .compile()
+      .then(async (module) => {
+        const app: INestApplication = module.createNestApplication();
+        await app.init();
+
+        try {
+          await request(app.getHttpServer())
+            .get('/api/v1/access/me')
+            .set('x-identity-subject', 'fictional-employee-001')
+            .set('x-identity-issued-at', '2026-09-03T00:00:00.000Z')
+            .set('x-identity-expires-at', '2026-09-03T23:59:59.000Z')
+            .set('x-correlation-id', 'correlation-api-001')
+            .expect(200)
+            .expect({
+              accountId: 'account-001',
+              organizationId: 'organization-001',
+              role: 'Employee',
+              employeeId: 'employee-001',
+              managerEmployeeId: 'employee-002',
+              correlationId: 'correlation-api-001',
+            });
+        } finally {
+          await app.close();
+        }
+      });
   });
 
   it('GET /api/v1/access/me_missingIdentity', () => {
