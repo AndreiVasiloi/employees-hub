@@ -3,6 +3,7 @@ import { PostgreSqlContainer } from '@testcontainers/postgresql';
 import { DataSource } from 'typeorm';
 import { AccessResolver } from './access.resolver.js';
 import type { FixedRole, LinkedAccount } from './access-context.js';
+import { EmployeeRelationshipRepository } from './employee-relationship.repository.js';
 import { IdentityAdapter } from './identity.adapter.js';
 import {
   canAccessDirectReport,
@@ -416,8 +417,55 @@ describe('EH0003 persistence integration', () => {
     // Given self, cyclic, duplicate, or inactive manager relationships
     // When they are persisted
     // Then invalid relationships are rejected
-    pendingSkeleton('relationships_invalidManager');
-  });
+    return new PostgreSqlContainer('postgres:18.6-alpine')
+      .start()
+      .then(async (container) => {
+        const dataSource = new DataSource({
+          type: 'postgres',
+          host: container.getHost(),
+          port: container.getPort(),
+          username: container.getUsername(),
+          password: container.getPassword(),
+          database: container.getDatabase(),
+          synchronize: false,
+          migrations: [CreateAccessSchema1710000000000],
+        });
+
+        try {
+          await dataSource.initialize();
+          await dataSource.runMigrations();
+          await dataSource.query(
+            `INSERT INTO organizations (id, name)
+             VALUES ('organization-001', 'Fictional Organization One')`,
+          );
+          await dataSource.query(
+            `INSERT INTO employees (id, organization_id, active)
+             VALUES ('employee-001', 'organization-001', true),
+                    ('employee-002', 'organization-001', true),
+                    ('employee-003', 'organization-001', false)`,
+          );
+
+          const repository = new EmployeeRelationshipRepository(dataSource);
+          await repository.assignManager('employee-002', 'employee-001');
+
+          await expect(
+            repository.assignManager('employee-002', 'employee-001'),
+          ).rejects.toThrow('Manager relationship already exists');
+          await expect(
+            repository.assignManager('employee-001', 'employee-001'),
+          ).rejects.toThrow('Employee cannot manage itself');
+          await expect(
+            repository.assignManager('employee-002', 'employee-003'),
+          ).rejects.toThrow('Manager must be active');
+          await expect(
+            repository.assignManager('employee-001', 'employee-002'),
+          ).rejects.toThrow('Manager relationship would create a cycle');
+        } finally {
+          await dataSource.destroy();
+          await container.stop();
+        }
+      });
+  }, 60_000);
 
   it('identityResolution_postgres', () => {
     // Given fictional linked identity records in PostgreSQL
