@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0004"
 title   = "Implement workforce and reporting-line administration"
-status  = "02-planning"
+status  = "03-pending-implementation"
 kind    = "story"
 
 [sources]
@@ -11,9 +11,13 @@ documents = [
   "../../../explore/epics/EH-E1-secure-workforce-foundation.md#L25-L33",
   "../../../explore/epics/EH-E1-secure-workforce-foundation.md#L37-L43",
   "../../../explore/prds/employee-hub-prd.md#L146",
+  "../../../explore/prds/employee-hub-prd.md#L384",
   "../../../explore/hlds/employee-hub-hld.md#L45-L51",
-  "../../../explore/decisions/employee-hub-adr-006-explicit-fixed-role-permission-matrix.md#L9",
-  "../../../explore/decisions/employee-hub-adr-001-typeorm-postgresql-migrations.md#L9"
+  "../../../explore/hlds/employee-hub-boundary-map.md#L27",
+  "../../../explore/domain/flows-employee-hub.md#L183-L206",
+  "../../../explore/decisions/employee-hub-adr-001-typeorm-postgresql-migrations.md#L9",
+  "../../../explore/decisions/employee-hub-adr-003-provider-neutral-identity-adapter.md#L9",
+  "../../../explore/decisions/employee-hub-adr-006-explicit-fixed-role-permission-matrix.md#L9"
 ]
 
 [links]
@@ -23,7 +27,10 @@ related = [
   "../../06-completed/EH0003-implement-provider-neutral-identity-and-fixed-role/task.md"
 ]
 parent  = ["../../../explore/epics/EH-E1-secure-workforce-foundation.md"]
-child   = []
+child   = [
+  "../../01-pending-planning/EH0005-implement-employee-profile-and-leave-summary/task.md",
+  "../../01-pending-planning/EH0006-implement-durable-audit-storage/task.md"
+]
 
 [workflow]
 defined = "2026-09-03"
@@ -39,7 +46,7 @@ implementation = ""
 # Task: Implement workforce and reporting-line administration
 
 **Task ID**: EH0004
-**Status**: 01-pending-planning
+**Status**: 02-planning
 **Phase**: govern
 **Date**: 2026-09-03
 **Branch**: 
@@ -85,14 +92,20 @@ EH-E1 has a working identity and fixed-role authorization boundary from EH0003, 
 - [EH-E1 Scope & Boundaries and Key Behaviors](../../../explore/epics/EH-E1-secure-workforce-foundation.md#L25-L33) — in-scope workforce/profile capabilities and safe-error behavior.
 - [EH-E1 Acceptance Criteria](../../../explore/epics/EH-E1-secure-workforce-foundation.md#L37-L43) — R-001, R-009, R-011, and R-017 pass with fictional data.
 - [R-011 Workforce and reporting-line administration](../../../explore/prds/employee-hub-prd.md#L146) — requirement for HR employee/team/manager management.
+- [PRD data model](../../../explore/prds/employee-hub-prd.md#L384) — Employee belongs to one Team and may reference one Manager.
 - [HLD Component Breakdown](../../../explore/hlds/employee-hub-hld.md#L45-L51) — Workforce component owns employee, team, manager, and schedule.
-- [ADR-006 Explicit fixed-role permission matrix](../../../explore/decisions/employee-hub-adr-006-explicit-fixed-role-permission-matrix.md) — role/permission boundary.
+- [HLD Boundary Map](../../../explore/hlds/employee-hub-boundary-map.md#L27) — Workforce Directory context boundaries.
+- [HR Employee edit flow](../../../explore/domain/flows-employee-hub.md#L183-L206) — validation of Team, Manager, Account, and organization relationships.
 - [ADR-001 TypeORM PostgreSQL migrations](../../../explore/decisions/employee-hub-adr-001-typeorm-postgresql-migrations.md) — explicit migration strategy and `synchronize: false`.
+- [ADR-003 Provider-neutral identity adapter](../../../explore/decisions/employee-hub-adr-003-provider-neutral-identity-adapter.md) — contract EH0004 consumes unchanged.
+- [ADR-006 Explicit fixed-role permission matrix](../../../explore/decisions/employee-hub-adr-006-explicit-fixed-role-permission-matrix.md) — role/permission boundary.
 
 ### Related Tasks
 
 - **Related**: [EH0002 Scaffold Employee Hub applications and local quality baseline](../../06-completed/EH0002-scaffold-employee-hub-applications-and-local-quali/task.md) — provides the NestJS/TypeORM scaffold.
 - **Related**: [EH0003 Implement provider-neutral identity and fixed-role authorization boundary](../../06-completed/EH0003-implement-provider-neutral-identity-and-fixed-role/task.md) — provides `AccessContext`, permissions, and `AuditPort`.
+- **Child**: [EH0005 Implement employee profile and leave summary](../../01-pending-planning/EH0005-implement-employee-profile-and-leave-summary/task.md) — consumes Employee/profile records created by EH0004.
+- **Child**: [EH0006 Implement durable audit storage](../../01-pending-planning/EH0006-implement-durable-audit-storage/task.md) — will persist the `AuditPort` events EH0004 emits.
 
 ## Constraints & Dependencies
 
