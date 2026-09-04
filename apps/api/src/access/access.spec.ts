@@ -841,7 +841,7 @@ describe('EH0003 protected API', () => {
             .get('/api/v1/access/me')
             .set('x-identity-subject', 'fictional-employee-001')
             .set('x-identity-issued-at', '2026-09-03T00:00:00.000Z')
-            .set('x-identity-expires-at', '2026-09-03T23:59:59.000Z')
+            .set('x-identity-expires-at', '2099-12-31T23:59:59.000Z')
             .set('x-correlation-id', 'correlation-api-001')
             .expect(200)
             .expect({
@@ -936,7 +936,7 @@ describe('EH0003 protected API', () => {
             .get('/api/v1/access/me')
             .set('x-identity-subject', 'fictional-unlinked-001')
             .set('x-identity-issued-at', '2026-09-03T00:00:00.000Z')
-            .set('x-identity-expires-at', '2026-09-03T23:59:59.000Z')
+            .set('x-identity-expires-at', '2099-12-31T23:59:59.000Z')
             .set('x-correlation-id', 'correlation-api-unlinked')
             .expect(401)
             .expect({
@@ -973,7 +973,7 @@ describe('EH0003 protected API', () => {
             })
             .set('x-identity-subject', 'fictional-employee-001')
             .set('x-identity-issued-at', '2026-09-03T00:00:00.000Z')
-            .set('x-identity-expires-at', '2026-09-03T23:59:59.000Z')
+            .set('x-identity-expires-at', '2099-12-31T23:59:59.000Z')
             .set('x-correlation-id', 'correlation-api-policy-allowed')
             .expect(200)
             .expect({
@@ -1017,7 +1017,7 @@ describe('EH0003 protected API', () => {
               .query({ ...query, targetId: 'employee-002' })
               .set('x-identity-subject', 'fictional-employee-001')
               .set('x-identity-issued-at', '2026-09-03T00:00:00.000Z')
-              .set('x-identity-expires-at', '2026-09-03T23:59:59.000Z')
+              .set('x-identity-expires-at', '2099-12-31T23:59:59.000Z')
               .set('x-correlation-id', 'correlation-api-policy-denied')
               .expect(403)
               .expect({
