@@ -113,4 +113,27 @@ describe('EmployeesService', () => {
       }),
     ]);
   });
+
+  it('does not emit audit evidence when manager assignment is rejected', async () => {
+    const service = new EmployeesService({} as DataSource);
+    const relationship = {
+      assignManager: vi
+        .fn()
+        .mockRejectedValue(new Error('Employee cannot manage itself')),
+    };
+    Object.assign(service as object, { relationships: relationship });
+
+    await expect(
+      service.assignManager(
+        context,
+        'employee-001',
+        'employee-001',
+        'correlation-001',
+      ),
+    ).rejects.toThrow('Employee cannot manage itself');
+
+    const audit = (service as unknown as { audit: { events(): unknown[] } })
+      .audit;
+    expect(audit.events()).toEqual([]);
+  });
 });
