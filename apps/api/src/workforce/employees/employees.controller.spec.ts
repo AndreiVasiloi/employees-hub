@@ -52,4 +52,37 @@ describe('EmployeesController', () => {
       'correlation-001',
     );
   });
+
+  it('creates employees from HR context without accepting organization input', async () => {
+    const createEmployee = vi.fn().mockResolvedValue({ id: 'employee-001' });
+    await controller({ createEmployee }).createEmployee(
+      { accountId: 'account-001', teamId: 'team-001', displayName: 'Jane Doe' },
+      headers(),
+    );
+    expect(createEmployee).toHaveBeenCalledWith(
+      expect.objectContaining({ organizationId: 'organization-001' }),
+      { accountId: 'account-001', teamId: 'team-001', displayName: 'Jane Doe' },
+      'correlation-001',
+    );
+  });
+
+  it('returns employees only from the resolved organization', async () => {
+    const getEmployee = vi.fn().mockResolvedValue({ id: 'employee-001' });
+    await controller({ getEmployee }).getEmployee('employee-001', headers());
+    expect(getEmployee).toHaveBeenCalledWith(
+      expect.objectContaining({ organizationId: 'organization-001' }),
+      'employee-001',
+    );
+  });
+
+  it('denies employee mutations to a non-HR identity', async () => {
+    const createEmployee = vi.fn();
+    await expect(
+      controller({ createEmployee }).createEmployee(
+        { accountId: 'account-001', displayName: 'Jane Doe' },
+        { ...headers(), 'x-identity-subject': 'fictional-employee-001' },
+      ),
+    ).rejects.toMatchObject({ status: 403 });
+    expect(createEmployee).not.toHaveBeenCalled();
+  });
 });
