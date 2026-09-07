@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0004"
 title   = "Implement workforce and reporting-line administration"
-status  = "05-pending-completion"
+status  = "04-implementing"
 kind    = "story"
 
 [sources]
@@ -35,12 +35,12 @@ child   = [
 [workflow]
 defined = "2026-09-03"
 planned = "2026-09-03"
-implemented = ""
+implemented = "2026-09-07"
 
 [assignments]
 definition     = ""
 planning       = "andrei_vasiloi@yahoo.com"
-implementation = ""
+implementation = "andrei_vasiloi@yahoo.com"
 +++
 
 # Task: Implement workforce and reporting-line administration
