@@ -481,6 +481,11 @@ describe('Workforce repositories', () => {
   });
 });
 
+/*
+ * Retired test-plan scaffolds. Their executable replacements live in the
+ * feature-level controller/service specs and access integration tests. The
+ * task inventory records the active coverage; keep this historical outline
+ * out of Vitest discovery so the suite does not report placeholder skips.
 describe.skip('TeamsController legacy scaffold (replaced by teams.controller.spec.ts)', () => {
   it('POST /api/v1/workforce/teams creates a team for HR/Administrator', () => {
     // Given an HR identity with workforce:manage
@@ -698,6 +703,7 @@ describe.skip('Workforce authorization legacy scaffold (replaced by feature-leve
     expect(true, 'Test skeleton - not implemented').toBe(false);
   });
 });
+*/
 
 describe('Migrations', () => {
   it('applies access and workforce schemas sequentially on a clean database', () => {

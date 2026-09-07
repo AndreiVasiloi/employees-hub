@@ -1,5 +1,14 @@
 # Test Inventory: EH0004
 
+## Completion Note
+
+The original controller/service scaffolds were replaced with executable tests
+in `apps/api/src/workforce/teams/`, `apps/api/src/workforce/employees/`, and
+`apps/api/src/access/`. Reporting-line rejection scenarios are exercised by
+the PostgreSQL-backed `access.spec.ts` integration suite. The retained lists
+below describe the intended behavior; active tests, rather than skipped
+scaffolds, are the completion evidence.
+
 ## Unit Tests
 
 ### `PostgresWorkforceRepository`
