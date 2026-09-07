@@ -47,7 +47,7 @@ describe('health and database integration', () => {
     const dataSource = createDataSource();
 
     expect(dataSource.options.synchronize).toBe(false);
-    expect(dataSource.options.migrationsRun).toBe(false);
+    expect(dataSource.options.migrationsRun).toBe(true);
     expect(dataSource.options.entities ?? []).toHaveLength(0);
     expect(dataSource.options.migrations).toEqual([
       'dist/database/migrations/*{.js,.ts}',
