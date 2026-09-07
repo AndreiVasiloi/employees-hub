@@ -6,7 +6,7 @@ export function createDataSource(): DataSource {
   return new DataSource({
     ...getDatabaseConfig(),
     synchronize: false,
-    migrationsRun: false,
+    migrationsRun: true,
     migrations: ['dist/database/migrations/*{.js,.ts}'],
   });
 }
