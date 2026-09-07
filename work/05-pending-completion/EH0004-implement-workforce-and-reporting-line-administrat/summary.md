@@ -63,16 +63,13 @@ Access domain, while optimistic-lock handling is a neutral shared concern.
 - Controller tests cover HR authorization, safe 404s, capped pagination, 409
   mapping, and manager delegation.
 - Testcontainers verifies access and workforce migrations against PostgreSQL.
-- Latest API verification: **57 passed, 35 legacy scenarios skipped**.
+- Final API verification: **76 passed, 0 skipped**.
 
 ## Known Limitations
 
 1. Authorization currently uses fictional local accounts in the request
    executor; it is not yet backed by a production identity provider.
 2. Audit events are in memory and are not durable until EH0006.
-3. Thirty-five legacy scaffold scenarios remain skipped; focused tests cover
-   implemented behavior, but the scaffolds should be replaced with E2E API
-   cases in follow-up work.
 
 ## Configuration & Database Notes
 
