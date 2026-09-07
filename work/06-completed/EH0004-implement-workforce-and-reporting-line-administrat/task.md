@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0004"
 title   = "Implement workforce and reporting-line administration"
-status  = "05-pending-completion"
+status  = "06-completed"
 kind    = "story"
 
 [sources]
@@ -23,8 +23,8 @@ documents = [
 [links]
 blocks  = []
 related = [
-  "../../06-completed/EH0002-scaffold-employee-hub-applications-and-local-quali/task.md",
-  "../../06-completed/EH0003-implement-provider-neutral-identity-and-fixed-role/task.md"
+  "../EH0002-scaffold-employee-hub-applications-and-local-quali/task.md",
+  "../EH0003-implement-provider-neutral-identity-and-fixed-role/task.md"
 ]
 parent  = ["../../../explore/epics/EH-E1-secure-workforce-foundation.md"]
 child   = [
@@ -102,8 +102,8 @@ EH-E1 has a working identity and fixed-role authorization boundary from EH0003, 
 
 ### Related Tasks
 
-- **Related**: [EH0002 Scaffold Employee Hub applications and local quality baseline](../../06-completed/EH0002-scaffold-employee-hub-applications-and-local-quali/task.md) — provides the NestJS/TypeORM scaffold.
-- **Related**: [EH0003 Implement provider-neutral identity and fixed-role authorization boundary](../../06-completed/EH0003-implement-provider-neutral-identity-and-fixed-role/task.md) — provides `AccessContext`, permissions, and `AuditPort`.
+- **Related**: [EH0002 Scaffold Employee Hub applications and local quality baseline](../EH0002-scaffold-employee-hub-applications-and-local-quali/task.md) — provides the NestJS/TypeORM scaffold.
+- **Related**: [EH0003 Implement provider-neutral identity and fixed-role authorization boundary](../EH0003-implement-provider-neutral-identity-and-fixed-role/task.md) — provides `AccessContext`, permissions, and `AuditPort`.
 - **Child**: [EH0005 Implement employee profile and leave summary](../../01-pending-planning/EH0005-implement-employee-profile-and-leave-summary/task.md) — consumes Employee/profile records created by EH0004.
 - **Child**: [EH0006 Implement durable audit storage](../../01-pending-planning/EH0006-implement-durable-audit-storage/task.md) — will persist the `AuditPort` events EH0004 emits.
 
