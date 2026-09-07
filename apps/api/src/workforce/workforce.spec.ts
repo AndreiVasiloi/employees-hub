@@ -4,7 +4,6 @@ import { DataSource } from 'typeorm';
 import { CreateAccessSchema1710000000000 } from '../database/migrations/1710000000000-CreateAccessSchema.js';
 import { CreateWorkforceSchema1710000000001 } from '../database/migrations/1710000000001-CreateWorkforceSchema.js';
 import { PostgresEmployeeRepository } from './employees/employees.repository.js';
-import { EmployeesService } from './employees/employees.service.js';
 import { PostgresTeamRepository } from './teams/teams.repository.js';
 import { OptimisticLockError } from '../common/optimistic-lock.error.js';
 
@@ -479,101 +478,6 @@ describe('Workforce repositories', () => {
 
     // Then it throws a conflict error
     await expect(update).rejects.toEqual(new OptimisticLockError());
-  });
-});
-
-describe.skip('WorkforceService legacy scaffold (replaced by feature-level specs)', () => {
-  it('createEmployee_emitsAuditEvent', async () => {
-    // Given a valid create employee command
-    const service = new EmployeesService({
-      query: vi.fn().mockResolvedValue([
-        {
-          id: 'employee-001',
-          organization_id: 'organization-001',
-          account_id: 'account-001',
-          team_id: null,
-          display_name: 'Jane Doe',
-          manager_employee_id: null,
-          active: true,
-          version: 0,
-        },
-      ]),
-    } as unknown as DataSource);
-
-    // When createEmployee succeeds
-    await service.createEmployee(
-      { accountId: 'actor-001', organizationId: 'organization-001' } as never,
-      { accountId: 'account-001', displayName: 'Jane Doe' },
-      'correlation-001',
-    );
-
-    // Then an AuditPort event is emitted with actor, organization, target, and action
-    const audit = (service as unknown as { audit: { events(): unknown[] } })
-      .audit;
-    expect(audit.events()).toEqual([
-      expect.objectContaining({
-        actorId: 'actor-001',
-        organizationId: 'organization-001',
-        targetId: 'employee-001',
-        action: 'workforce.employee.create',
-        correlationId: 'correlation-001',
-      }),
-    ]);
-  });
-
-  it('createEmployee_mapsRepositoryResultToResponse', async () => {
-    // Given a valid create employee command
-    const service = new EmployeesService({
-      query: vi.fn().mockResolvedValue([
-        {
-          id: 'employee-001',
-          organization_id: 'organization-001',
-          account_id: 'account-001',
-          team_id: 'team-001',
-          display_name: 'Jane Doe',
-          manager_employee_id: null,
-          active: true,
-          version: 0,
-        },
-      ]),
-    } as unknown as DataSource);
-
-    // When createEmployee succeeds
-    const employee = await service.createEmployee(
-      { accountId: 'actor-001', organizationId: 'organization-001' } as never,
-      { accountId: 'account-001', teamId: 'team-001', displayName: 'Jane Doe' },
-      'correlation-001',
-    );
-
-    // Then the response DTO matches the repository result
-    expect(employee).toMatchObject({
-      id: 'employee-001',
-      accountId: 'account-001',
-      teamId: 'team-001',
-      displayName: 'Jane Doe',
-      version: 0,
-    });
-  });
-
-  it('updateTeam_emitsAuditEvent', () => {
-    // Given a valid update team command
-    // When updateTeam succeeds
-    // Then an AuditPort event is emitted
-    expect(true, 'Test skeleton - not implemented').toBe(false);
-  });
-
-  it('assignManager_callsEmployeeRelationshipRepository', () => {
-    // Given a valid employee and manager id
-    // When assignManager is called
-    // Then EmployeeRelationshipRepository.assignManager is invoked
-    expect(true, 'Test skeleton - not implemented').toBe(false);
-  });
-
-  it('assignManager_emitsAuditEvent', () => {
-    // Given a valid manager assignment
-    // When assignManager succeeds
-    // Then an AuditPort event is emitted
-    expect(true, 'Test skeleton - not implemented').toBe(false);
   });
 });
 
