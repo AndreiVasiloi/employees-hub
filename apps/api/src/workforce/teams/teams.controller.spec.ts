@@ -48,6 +48,17 @@ describe('TeamsController', () => {
     ).rejects.toMatchObject({ status: 404 });
   });
 
+  it('returns a team from the resolved organization', async () => {
+    const getTeam = vi.fn().mockResolvedValue({ id: 'team-001' });
+    await expect(
+      controller({ getTeam }).getTeam('team-001', headers()),
+    ).resolves.toEqual({ id: 'team-001' });
+    expect(getTeam).toHaveBeenCalledWith(
+      expect.objectContaining({ organizationId: 'organization-001' }),
+      'team-001',
+    );
+  });
+
   it('lists teams using server-scoped capped pagination', async () => {
     const listTeams = vi.fn().mockResolvedValue([]);
     await controller({ listTeams }).listTeams('99', '3', headers());
@@ -80,5 +91,20 @@ describe('TeamsController', () => {
         updateTeam: vi.fn().mockRejectedValue(new OptimisticLockError()),
       }).updateTeam('team-001', { expectedVersion: 0 }, headers()),
     ).rejects.toMatchObject({ status: 409 });
+  });
+
+  it('passes team deactivation to the service without altering employee state', async () => {
+    const updateTeam = vi.fn().mockResolvedValue({ active: false });
+    await controller({ updateTeam }).updateTeam(
+      'team-001',
+      { active: false, expectedVersion: 0 },
+      headers(),
+    );
+    expect(updateTeam).toHaveBeenCalledWith(
+      expect.anything(),
+      'team-001',
+      { active: false, expectedVersion: 0 },
+      'correlation-001',
+    );
   });
 });

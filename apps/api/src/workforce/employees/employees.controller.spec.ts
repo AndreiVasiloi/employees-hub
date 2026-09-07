@@ -75,6 +75,29 @@ describe('EmployeesController', () => {
     );
   });
 
+  it('returns a safe 404 for an employee outside the resolved organization', async () => {
+    await expect(
+      controller({
+        getEmployee: vi.fn().mockResolvedValue(undefined),
+      }).getEmployee('employee-other', headers()),
+    ).rejects.toMatchObject({ status: 404 });
+  });
+
+  it('updates employee activation and team through the protected boundary', async () => {
+    const updateEmployee = vi.fn().mockResolvedValue({ version: 1 });
+    await controller({ updateEmployee }).updateEmployee(
+      'employee-001',
+      { teamId: 'team-002', active: false, expectedVersion: 0 },
+      headers(),
+    );
+    expect(updateEmployee).toHaveBeenCalledWith(
+      expect.objectContaining({ organizationId: 'organization-001' }),
+      'employee-001',
+      { teamId: 'team-002', active: false, expectedVersion: 0 },
+      'correlation-001',
+    );
+  });
+
   it('denies employee mutations to a non-HR identity', async () => {
     const createEmployee = vi.fn();
     await expect(
