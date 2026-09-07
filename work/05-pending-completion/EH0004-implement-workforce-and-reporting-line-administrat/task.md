@@ -2,7 +2,7 @@
 [metadata]
 task_id = "EH0004"
 title   = "Implement workforce and reporting-line administration"
-status  = "04-implementing"
+status  = "05-pending-completion"
 kind    = "story"
 
 [sources]
